@@ -1,6 +1,6 @@
-kubectl create namespace towerdefence
+kubectl create namespace emortalmc
 helm repo add agones https://agones.dev/chart/stable
-helm repo update
+helm repo update agones
 helm install agones agones/agones --set "gameservers.namespaces={emortalmc}" \
   --set "agones.allocator.service.http.enabled=false" \
   --set "agones.allocator.service.grpc.enabled=false" \
