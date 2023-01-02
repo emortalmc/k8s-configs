@@ -1,0 +1,25 @@
+certResolvers:
+  cloudflare:
+    # for challenge options cf. https://doc.traefik.io/traefik/https/acme/
+    email: certs@emortal.dev
+    dnsChallenge:
+      # also add the provider's required configuration under env
+      # or expand then from secrets/configmaps with envfrom
+      # cf. https://doc.traefik.io/traefik/https/acme/#providers
+      provider: cloudflare
+      # add futher options for the dns challenge as needed
+      # cf. https://doc.traefik.io/traefik/https/acme/#dnschallenge
+      delayBeforeCheck: 30
+      resolvers:
+        - 1.1.1.1
+        - 8.8.8.8
+    # It has to match the path with a persistent volume
+    storage: /data/certs.json
+
+persistence:
+  enabled: true
+  name: traefik
+
+envFrom:
+  - secretRef:
+      name: cloudflare-api-key

@@ -1,0 +1,46 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+
+metadata:
+  name: web-ingress
+  namespace: linkerd-viz
+
+spec:
+  entryPoints:
+    - websecure
+
+  routes:
+    - kind: Rule
+      match: Host(`linkerd.emortal.dev`)
+      services:
+        - name: web
+          port: 8084
+      middlewares:
+        - name: l5d-header
+        - name: kani-linkerd
+
+  tls:
+    certResolver: cloudflare
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: l5d-header
+  namespace: linkerd-viz
+spec:
+  headers:
+    customRequestHeaders:
+      Host: "web.linkerd-viz.svc.cluster.local:8084"
+      Origin: ""
+---
+#apiVersion: traefik.containo.us/v1alpha1
+#kind: Middleware
+#metadata:
+#  name: kani-linkerd
+#  namespace: linkerd-viz
+#spec:
+#  forwardAuth:
+#    address: http://kani.default.svc.cluster.local/<audienceId>
+#
+#    authResponseHeaders:
+#      - "X-Auth-User"

@@ -1,0 +1,34 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+
+metadata:
+  name: web-ingress
+  namespace: monitoring
+
+spec:
+  entryPoints:
+    - websecure
+
+  routes:
+    - kind: Rule
+      match: Host(`metrics.emortal.dev`)
+      services:
+        - name: prom-stack-grafana
+          port: 80
+      middlewares:
+        - name: kani-grafana
+
+  tls:
+    certResolver: letsencrypt
+---
+#apiVersion: traefik.containo.us/v1alpha1
+#kind: Middleware
+#metadata:
+#  name: kani-grafana
+#  namespace: monitoring
+#spec:
+#  forwardAuth:
+#    address: http://kani.default.svc.cluster.local/<audienceId>
+#
+#    authResponseHeaders:
+#      - "X-Auth-User"
