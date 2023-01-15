@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: friend-manager
+  namespace: emortalmc
+  labels:
+    app: friend-manager
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: friend-manager
+
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+      labels:
+        app: friend-manager
+    spec:
+      containers:
+        - name: player-tracker
+          image: ghcr.io/towerdefence-cc/friend-manager-service:91662c9bb1df6ac836ffeb504e28e891ea633561
+          ports:
+            - containerPort: 9090
+
+          env:
+            - name: "SPRING_PROFILES_ACTIVE"
+              value: "production"
+            - name: "SPRING_DATA_MONGODB_URI"
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-connection-string
+                  key: connectionString.standard
+
+      serviceAccountName: friend-manager
+      automountServiceAccountToken: true
+---
+
+apiVersion: v1
+kind: Service
+
+metadata:
+  namespace: emortalmc
+  name: friend-manager
+
+spec:
+  type: ClusterIP
+  ports:
+    - name: grpc
+      port: 9090
+      targetPort: 9090
+
+  selector:
+    app: friend-manager

@@ -1,0 +1,82 @@
+apiVersion: agones.dev/v1
+kind: Fleet
+
+metadata:
+  name: parkourtag
+  namespace: emortalmc
+
+spec:
+  replicas: 2
+  scheduling: Distributed
+
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+
+  template:
+    spec:
+      ports:
+        - name: default
+          portPolicy: Dynamic
+          containerPort: 25565
+          protocol: TCP
+
+      health:
+        initialDelaySeconds: 5
+        periodSeconds: 15
+        failureThreshold: 2
+
+      template:
+        spec:
+          containers:
+            - name: parkourtag
+              image: ghcr.io/emortalmc/parkourtag:8d04ffb73556a959b3d9521db17d6eab6f508764
+              resources:
+                requests:
+                  cpu: 500m
+                  memory: 512Mi
+                limits:
+                  cpu: "1"
+                  memory: 512Mi
+              env:
+                - name: minestom.velocity-forwarding-secret
+                  valueFrom:
+                    secretKeyRef:
+                      name: velocity-forwarding-token
+                      key: forwarding.secret
+                      optional: false
+                - name: RABBITMQ_HOST
+                  valueFrom:
+                    secretKeyRef:
+                      name: rabbitmq-credentials
+                      key: host
+                      optional: false
+                - name: RABBITMQ_USERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: rabbitmq-credentials
+                      key: username
+                      optional: false
+                - name: RABBITMQ_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: rabbitmq-credentials
+                      key: password
+                      optional: false
+---
+apiVersion: autoscaling.agones.dev/v1
+kind: FleetAutoscaler
+metadata:
+  name: parkourtag
+  namespace: emortalmc
+
+spec:
+  fleetName: parkourtag
+  policy:
+    type: Buffer
+    buffer:
+      bufferSize: 1
+      maxReplicas: 4

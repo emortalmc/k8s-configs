@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: player-tracker
+  namespace: emortalmc
+  labels:
+    app: player-tracker
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: player-tracker
+
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+      labels:
+        app: player-tracker
+    spec:
+      containers:
+        - name: player-tracker
+          image: ghcr.io/emortalmc/player-tracker-go:eda36b6e04534a5b11ba6e8c30b95418930de6a2
+          ports:
+            - containerPort: 9090
+
+          env:
+            - name: MONGO_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-connection-string
+                  key: connectionString.standard
+            - name: RABBITMQ_ADDRESS
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-credentials
+                  key: host
+                  optional: false
+            - name: RABBITMQ_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-credentials
+                  key: username
+                  optional: false
+            - name: RABBITMQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-credentials
+                  key: password
+                  optional: false
+---
+
+apiVersion: v1
+kind: Service
+
+metadata:
+  namespace: emortalmc
+  name: player-tracker
+
+spec:
+  type: ClusterIP
+  ports:
+    - name: grpc
+      port: 9090
+      targetPort: 9090
+
+  selector:
+    app: player-tracker
+

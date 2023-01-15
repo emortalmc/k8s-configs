@@ -1,0 +1,1 @@
+helm install rabbitmq bitnami/rabbitmq-cluster-operator -n rabbitmq-system --create-namespace

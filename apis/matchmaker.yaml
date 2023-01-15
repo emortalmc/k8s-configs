@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: matchmaker
+  namespace: emortalmc
+  labels:
+    app: matchmaker
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: matchmaker
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+      labels:
+        app: matchmaker
+    spec:
+      containers:
+        - name: matchmaker
+          image: ghcr.io/emortalmc/kurushimi:dev-1.0.0
+          ports:
+            - containerPort: 9090
+
+          env:
+            - name: TRACKER_ENABLED
+              value: "true"
+            - name: KURUSHIMI_REDIS_HOST # Well this is horrible but Viper says we have to use a `.` to separate nested keys
+              value: "redis-master"
+            - name: KURUSHIMI_NAMESPACE
+              value: "emortalmc"
+
+      serviceAccountName: matchmaker
+      automountServiceAccountToken: true
+---
+
+apiVersion: v1
+kind: Service
+
+metadata:
+  namespace: emortalmc
+  name: matchmaker
+
+spec:
+  type: ClusterIP
+  ports:
+    - name: grpc
+      port: 9090
+      targetPort: 9090
+
+  selector:
+    app: matchmaker

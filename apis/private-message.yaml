@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: private-message
+  namespace: emortalmc
+  labels:
+    app: private-message
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: private-message
+
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+      labels:
+        app: private-message
+    spec:
+      containers:
+        - name: player-tracker
+          image: ghcr.io/towerdefence-cc/private-message-service:bbf8f0f759dfb35b6b5da15ecf6e8c25a53cc83c
+          ports:
+            - containerPort: 9090
+
+          env:
+            - name: "SPRING_PROFILES_ACTIVE"
+              value: "production"
+            - name: "SPRING_DATA_MONGODB_URI"
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-connection-string
+                  key: connectionString.standard
+
+      serviceAccountName: private-message
+      automountServiceAccountToken: true
+---
+
+apiVersion: v1
+kind: Service
+
+metadata:
+  namespace: emortalmc
+  name: private-message
+
+spec:
+  type: ClusterIP
+  ports:
+    - name: grpc
+      port: 9090
+      targetPort: 9090
+
+  selector:
+    app: private-message
+

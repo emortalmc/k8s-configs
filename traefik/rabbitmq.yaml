@@ -1,0 +1,20 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+
+metadata:
+  name: web-ingress
+  namespace: emortalmc
+
+spec:
+  entryPoints:
+    - websecure
+
+  routes:
+    - kind: Rule
+      match: Host(`rabbitmq.emortal.dev`)
+      services:
+        - name: rabbitmq
+          port: 15672
+
+  tls:
+    certResolver: letsencrypt

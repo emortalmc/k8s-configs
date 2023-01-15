@@ -1,0 +1,84 @@
+apiVersion: agones.dev/v1
+kind: Fleet
+
+metadata:
+  name: lobby
+  namespace: emortalmc
+  annotations:
+    prometheus.io/scrape: "true"
+
+spec:
+  replicas: 2
+  scheduling: Distributed
+
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+
+  template:
+    spec:
+      ports:
+        - name: default
+          portPolicy: Dynamic
+          containerPort: 25565
+          protocol: TCP
+
+      health:
+        initialDelaySeconds: 5
+        periodSeconds: 15
+        failureThreshold: 2
+
+      template:
+        spec:
+          containers:
+            - name: lobby
+              image: ghcr.io/emortalmc/lobby:15c6a7c5456ee975bc6486f90865dc1331c81483
+              resources:
+                requests:
+                  cpu: 500m
+                  memory: 512Mi
+                limits:
+                  cpu: 500m
+                  memory: 512Mi
+              env:
+                - name: minestom.velocity-forwarding-secret
+                  valueFrom:
+                    secretKeyRef:
+                      name: velocity-forwarding-token
+                      key: forwarding.secret
+                      optional: false
+                - name: RABBITMQ_HOST
+                  valueFrom:
+                    secretKeyRef:
+                      name: rabbitmq-credentials
+                      key: host
+                      optional: false
+                - name: RABBITMQ_USERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: rabbitmq-credentials
+                      key: username
+                      optional: false
+                - name: RABBITMQ_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: rabbitmq-credentials
+                      key: password
+                      optional: false
+---
+apiVersion: autoscaling.agones.dev/v1
+kind: FleetAutoscaler
+metadata:
+    name: lobby
+    namespace: emortalmc
+
+spec:
+  fleetName: lobby
+  policy:
+    type: Buffer
+    buffer:
+      bufferSize: 1
+      maxReplicas: 4
