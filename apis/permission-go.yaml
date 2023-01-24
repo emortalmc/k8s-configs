@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: permission
-          image: ghcr.io/towerdefence-cc/permission-service-go:6f6673d329c141956bf6969d9b5785e63d97594c
+          image: ghcr.io/emortalmc/permission-service-go:dev-1
           ports:
             - containerPort: 9090
 

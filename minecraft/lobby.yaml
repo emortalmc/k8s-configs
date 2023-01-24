@@ -4,13 +4,9 @@ kind: Fleet
 metadata:
   name: lobby
   namespace: emortalmc
-  annotations:
-    prometheus.io/scrape: "true"
 
 spec:
-  replicas: 2
   scheduling: Distributed
-
 
   strategy:
     type: RollingUpdate
@@ -32,17 +28,27 @@ spec:
         failureThreshold: 2
 
       template:
+        metadata:
+          labels:
+            emortal.dev/gs-type: lobby
         spec:
           containers:
             - name: lobby
-              image: ghcr.io/emortalmc/lobby:15c6a7c5456ee975bc6486f90865dc1331c81483
+              image: ghcr.io/emortalmc/lobby:1a36cfcaeefeabc32f7a953e9bcca1b27771be84
+
               resources:
                 requests:
                   cpu: 500m
-                  memory: 512Mi
+                  memory: 896Mi
                 limits:
                   cpu: 500m
-                  memory: 512Mi
+                  memory: 896Mi
+
+              ports:
+                - containerPort: 8081
+                  name: metrics
+                  protocol: TCP
+
               env:
                 - name: minestom.velocity-forwarding-secret
                   valueFrom:
@@ -72,13 +78,27 @@ spec:
 apiVersion: autoscaling.agones.dev/v1
 kind: FleetAutoscaler
 metadata:
-    name: lobby
-    namespace: emortalmc
+  name: lobby
+  namespace: emortalmc
 
 spec:
   fleetName: lobby
   policy:
     type: Buffer
     buffer:
+      minReplicas: 2
       bufferSize: 1
-      maxReplicas: 4
+      maxReplicas: 50
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: gs-lobby
+  namespace: emortalmc
+spec:
+  selector:
+    matchLabels:
+      emortal.dev/gs-type: "lobby"
+  podMetricsEndpoints:
+    - port: metrics
+      path: /metrics

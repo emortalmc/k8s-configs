@@ -20,9 +20,10 @@ spec:
     spec:
       containers:
         - name: matchmaker
-          image: ghcr.io/emortalmc/kurushimi:dev-1.0.0
+          image: ghcr.io/emortalmc/kurushimi:dev-1.0.10
           ports:
             - containerPort: 9090
+          imagePullPolicy: Always
 
           env:
             - name: TRACKER_ENABLED
@@ -31,6 +32,21 @@ spec:
               value: "redis-master"
             - name: KURUSHIMI_NAMESPACE
               value: "emortalmc"
+            - name: KURUSHIMI_RABBITMQ_HOST
+              value: "rabbitmq"
+            - name: KURUSHIMI_RABBITMQ_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-credentials
+                  key: username
+                  optional: false
+            - name: KURUSHIMI_RABBITMQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-credentials
+                  key: password
+                  optional: false
+
 
       serviceAccountName: matchmaker
       automountServiceAccountToken: true
