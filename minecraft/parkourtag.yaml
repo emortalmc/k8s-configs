@@ -33,7 +33,7 @@ spec:
         spec:
           containers:
             - name: parkourtag
-              image: ghcr.io/emortalmc/parkourtag:dev-5
+              image: ghcr.io/emortalmc/parkourtag:1.0-snapshot.10
               resources:
                 requests:
                   cpu: 500m
@@ -78,6 +78,6 @@ spec:
   policy:
     type: Buffer
     buffer:
-      bufferSize: 5
-      minReplicas: 10
-      maxReplicas: 50
+      bufferSize: 1
+      minReplicas: 1
+      maxReplicas: 5
