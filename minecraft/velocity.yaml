@@ -16,6 +16,9 @@ spec:
 
   template:
     spec:
+      players:
+        initialCapacity: 250
+
       ports:
         - name: default
           portPolicy: Static
@@ -32,7 +35,7 @@ spec:
         spec:
           containers:
             - name: velocity
-              image: ghcr.io/emortalmc/velocity-core:1.0.1
+              image: ghcr.io/emortalmc/velocity-core:1.0.6
               imagePullPolicy: IfNotPresent
 
               ports:
