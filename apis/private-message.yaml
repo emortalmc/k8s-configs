@@ -20,22 +20,44 @@ spec:
         app: private-message
     spec:
       containers:
-        - name: player-tracker
-          image: ghcr.io/towerdefence-cc/private-message-service:bbf8f0f759dfb35b6b5da15ecf6e8c25a53cc83c
+        - name: private-message
+          image: ghcr.io/emortalmc/private-message-service:2d5e385d7f282f90b432132f6e2b79dea28acf28
           ports:
-            - containerPort: 9090
+            - name: grpc
+              containerPort: 9010
 
           env:
-            - name: "SPRING_PROFILES_ACTIVE"
-              value: "production"
-            - name: "SPRING_DATA_MONGODB_URI"
+            - name: "DEVELOPMENT"
+              value: "false"
+
+            - name: RABBITMQ_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-credentials
+                  key: host
+                  optional: false
+            - name: RABBITMQ_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-credentials
+                  key: username
+                  optional: false
+            - name: RABBITMQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-credentials
+                  key: password
+                  optional: false
+            - name: MONGODB_URI
               valueFrom:
                 secretKeyRef:
                   name: mongo-connection-string
                   key: connectionString.standard
 
-      serviceAccountName: private-message
-      automountServiceAccountToken: true
+            - name: RELATIONSHIPSERVICE_HOST
+              value: "relationship-manager:9010"
+            - name: PORT
+              value: "9010"
 ---
 
 apiVersion: v1
@@ -49,9 +71,8 @@ spec:
   type: ClusterIP
   ports:
     - name: grpc
-      port: 9090
-      targetPort: 9090
+      port: 9010
+      targetPort: 9010
 
   selector:
     app: private-message
-

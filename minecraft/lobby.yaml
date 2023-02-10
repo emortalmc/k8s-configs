@@ -34,7 +34,8 @@ spec:
         spec:
           containers:
             - name: lobby
-              image: ghcr.io/emortalmc/lobby:1a36cfcaeefeabc32f7a953e9bcca1b27771be84
+              image: ghcr.io/emortalmc/lobby:5df201261f43d4cec99629b352d98c29381e8e43
+              command: [ "/bin/sh", "-c", "java -Xms512M -Xmx512M -jar /app/lobby.jar" ]
 
               resources:
                 requests:
@@ -45,7 +46,7 @@ spec:
                   memory: 896Mi
 
               ports:
-                - containerPort: 8081
+                - containerPort: 9090
                   name: metrics
                   protocol: TCP
 

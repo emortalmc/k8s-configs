@@ -1,59 +1,60 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: matchmaker
+  name: relationship-manager
   namespace: emortalmc
   labels:
-    app: matchmaker
+    app: relationship-manager
 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: matchmaker
+      app: relationship-manager
+
   template:
     metadata:
       annotations:
         linkerd.io/inject: enabled
       labels:
-        app: matchmaker
+        app: relationship-manager
     spec:
       containers:
-        - name: matchmaker
-          image: ghcr.io/emortalmc/kurushimi:dev-1.0.11
+        - name: relationship-manager
+          image: ghcr.io/emortalmc/relationship-manager-service:6768bdd41818f46d5499a9d793618875ef8df85d
           ports:
-            - containerPort: 9090
-          imagePullPolicy: IfNotPresent
+            - name: grpc
+              containerPort: 9010
 
           env:
-            - name: TRACKER_ENABLED
-              value: "true"
-            - name: KURUSHIMI_REDIS_HOST # Well this is horrible but Viper says we have to use a `.` to separate nested keys
-              value: "redis-master"
-            - name: KURUSHIMI_NAMESPACE
-              value: "emortalmc"
-            - name: KURUSHIMI_RABBITMQ_HOST
+            - name: "DEVELOPMENT"
+              value: "false"
+
+            - name: RABBITMQ_HOST
               valueFrom:
                 secretKeyRef:
                   name: rabbitmq-credentials
                   key: host
                   optional: false
-            - name: KURUSHIMI_RABBITMQ_USERNAME
+            - name: RABBITMQ_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: rabbitmq-credentials
                   key: username
                   optional: false
-            - name: KURUSHIMI_RABBITMQ_PASSWORD
+            - name: RABBITMQ_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: rabbitmq-credentials
                   key: password
                   optional: false
-
-
-      serviceAccountName: matchmaker
-      automountServiceAccountToken: true
+            - name: MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-connection-string
+                  key: connectionString.standard
+            - name: PORT
+              value: "9010"
 ---
 
 apiVersion: v1
@@ -61,14 +62,14 @@ kind: Service
 
 metadata:
   namespace: emortalmc
-  name: matchmaker
+  name: relationship-manager
 
 spec:
   type: ClusterIP
   ports:
     - name: grpc
-      port: 9090
-      targetPort: 9090
+      port: 9010
+      targetPort: 9010
 
   selector:
-    app: matchmaker
+    app: relationship-manager

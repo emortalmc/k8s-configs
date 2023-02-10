@@ -21,17 +21,16 @@ spec:
     spec:
       containers:
         - name: player-tracker
-          image: ghcr.io/emortalmc/player-tracker-go:eda36b6e04534a5b11ba6e8c30b95418930de6a2
+          image: ghcr.io/emortalmc/player-tracker:66a9186a7ace646413cf89b326a0661d1d3bc3ed
           ports:
-            - containerPort: 9090
+            - name: grpc
+              containerPort: 9010
 
           env:
-            - name: MONGO_URI
-              valueFrom:
-                secretKeyRef:
-                  name: mongo-connection-string
-                  key: connectionString.standard
-            - name: RABBITMQ_ADDRESS
+            - name: "DEVELOPMENT"
+              value: "false"
+
+            - name: RABBITMQ_HOST
               valueFrom:
                 secretKeyRef:
                   name: rabbitmq-credentials
@@ -49,6 +48,13 @@ spec:
                   name: rabbitmq-credentials
                   key: password
                   optional: false
+            - name: MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-connection-string
+                  key: connectionString.standard
+            - name: PORT
+              value: "9010"
 ---
 
 apiVersion: v1
@@ -62,9 +68,8 @@ spec:
   type: ClusterIP
   ports:
     - name: grpc
-      port: 9090
-      targetPort: 9090
+      port: 9010
+      targetPort: 9010
 
   selector:
     app: player-tracker
-
