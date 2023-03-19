@@ -33,7 +33,7 @@ spec:
         spec:
           containers:
             - name: block-sumo
-              image: ghcr.io/emortalmc/blocksumo:1.0-snapshot.10
+              image: ghcr.io/emortalmc/blocksumo:1.0.5
               resources:
                 requests:
                   cpu: 500m

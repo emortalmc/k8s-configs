@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mc-player
+  name: party-manager
   namespace: emortalmc
   labels:
-    app: mc-player
+    app: party-manager
 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mc-player
+      app: party-manager
 
   template:
     metadata:
       annotations:
         linkerd.io/inject: enabled
       labels:
-        app: mc-player
+        app: party-manager
     spec:
       containers:
-        - name: mc-player
-          image: ghcr.io/emortalmc/mc-player-service:dev-2
+        - name: party-manager
+          image: ghcr.io/emortalmc/party-manager:320bea513b28ef31bf4575d48d70b53286e903be
           ports:
             - name: grpc
               containerPort: 9010
@@ -48,6 +48,10 @@ spec:
                   name: rabbitmq-credentials
                   key: password
                   optional: false
+            - name: KAFKA_HOST
+              value: default-kafka-bootstrap
+            - name: KAFKA_PORT
+              value: "9092"
             - name: MONGODB_URI
               valueFrom:
                 secretKeyRef:
@@ -62,7 +66,7 @@ kind: Service
 
 metadata:
   namespace: emortalmc
-  name: mc-player
+  name: party-manager
 
 spec:
   type: ClusterIP
@@ -72,4 +76,4 @@ spec:
       targetPort: 9010
 
   selector:
-    app: mc-player
+    app: party-manager

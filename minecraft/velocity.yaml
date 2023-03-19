@@ -35,7 +35,7 @@ spec:
         spec:
           containers:
             - name: velocity
-              image: ghcr.io/emortalmc/velocity-core:1.0.9
+              image: ghcr.io/emortalmc/velocity-core:1.0.40
               imagePullPolicy: IfNotPresent
 
               lifecycle:
@@ -70,6 +70,10 @@ spec:
                       name: rabbitmq-credentials
                       key: password
                       optional: false
+                - name: KAFKA_HOST
+                  value: default-kafka-bootstrap
+                - name: KAFKA_PORT
+                  value: "9092"
 
               resources:
                 limits:

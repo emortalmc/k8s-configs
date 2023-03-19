@@ -9,3 +9,13 @@ grafana:
 prometheus-node-exporter:
   prometheusSpec:
     scrapeInterval: 10s
+
+# Allow PodMonitors and ServiceMonitors to be created in any namespace.
+prometheus:
+  prometheusSpec:
+    podMonitorNamespaceSelector:
+      matchLabels: {}
+    podMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorNamespaceSelector:
+      matchLabels: {}
+    serviceMonitorSelectorNilUsesHelmValues: false
