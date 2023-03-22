@@ -8,7 +8,8 @@
 id: string
 enabled: bool
 fleetName: string
-protocolVersion: int32
+
+priority: int32 # Lower is higher priority
 
 friendlyName: string
 activityNoun: string
@@ -16,11 +17,12 @@ activityNoun: string
 minPlayers: int32
 maxPlayers: int32
 
+# Optional
 displayItem: Item
+# Optional
 displayNpc: NPC
 
 partyRestrictions:
-  allowParties: bool
   minSize: int32
   maxSize: int32 # Optional
 
@@ -28,6 +30,7 @@ teamInfo: # Optional
   teamSize: int32
   teamCount: int32
   
+# Optional
 maps: [string]Map # A map of map IDs to Map objects
 
 matchmakerInfo:
@@ -35,7 +38,7 @@ matchmakerInfo:
   selectMethod: string # enum: PLAYER_COUNT, AVAILABLE
   rate: Duration # duration: nanoseconds
   
-  backfill: bool
+  backfill: bool # default: false
 ```
 
 ### Duration
@@ -46,7 +49,6 @@ A duration must use nanoseconds and be a positive integer.
 
 ```yaml
 material: string
-slot: int32
 name: string
 lore: []string # Optional
 ```
@@ -58,11 +60,9 @@ id: string
 enabled: bool
 
 friendlyName: string
+priority: int32 # Lower is higher priority
 
 displayItem: Item
-
-matchmakerInfo:
-  chance: float32
 ```
 
 ### NPC
