@@ -49,6 +49,7 @@ A duration must use nanoseconds and be a positive integer.
 
 ```yaml
 material: string
+slot: int32 # inventory slot (0-??)
 name: string
 lore: []string # Optional
 ```

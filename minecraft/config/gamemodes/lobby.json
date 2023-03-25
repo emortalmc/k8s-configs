@@ -1,0 +1,18 @@
+{
+  "id": "lobby",
+  "enabled": true,
+  "fleetName": "lobby",
+  "friendlyName": "Lobby",
+  "activityNoun": "in the",
+  "minPlayers": 1,
+  "maxPlayers": 100,
+  "partyRestrictions": {
+    "allowParties": true,
+    "minSize": 1
+  },
+  "matchmakerInfo": {
+    "matchMethod": "INSTANT",
+    "selectMethod": "PLAYER_COUNT",
+    "rate": 500000000
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "id": "minesweeper",
+  "enabled": true,
+  "fleetName": "minesweeper",
+
+  "priority": 110,
+
+  "friendlyName": "Minesweeper",
+  "activityNoun": "solving",
+
+  "minPlayers": 1,
+  "maxPlayers": 10,
+
+  "displayItem": {
+    "material": "minecraft:tnt",
+    "slot": 34,
+    "name": "<green><bold>Minesweeper</bold></green>",
+    "lore": [
+      "<gray>Try not to anger your friends",
+      "<gray>while sabotaging 90% of your games,",
+      "<gray>while also trying to clear the minefield"
+    ]
+  },
+
+  "displayNpc": {
+    "entityType": "PLAYER",
+    "titles": [
+      "<green><bold>Minesweeper</bold></green>"
+    ],
+    "skin": {
+      "texture": "ewogICJ0aW1lc3RhbXAiIDogMTY0Mjk3NzYxNjg4NCwKICAicHJvZmlsZUlkIiA6ICIwYTUzMDU0MTM4YWI0YjIyOTVhMGNlZmJiMGU4MmFkYiIsCiAgInByb2ZpbGVOYW1lIiA6ICJQX0hpc2lybyIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS84NzhjODZlYTMyYmFiZTAxOGY3MzFlNTNjMDE4MmQ0YzVlNWU3Y2MwOWQ5MzMxOTJkYmY1ZWE1YWRlZTNlZDAiLAogICAgICAibWV0YWRhdGEiIDogewogICAgICAgICJtb2RlbCIgOiAic2xpbSIKICAgICAgfQogICAgfQogIH0KfQ==",
+      "signature": "U3/TuEu6d7noBtYaQr98/1nI2HqfqNRrymbvVtVZz1dn/Cx4Qr4qiDwbs2buYrPJK1Opv3Cw4/zq5nYE0xc/VYtyGYHUIlE5dbqtYCPfbGYNbBivQXfFhrCndsQjKZbzzjGKVNJPQrvigBKIVV8TP/ylak8eQUtUncTTPOU8K7EjhIbqpwN/qZUgq7aDWvUUZnWV8I6cYwDSETdBZ+UxhoTMzO8+Vnhlo2OzmHtoICLQuZI3qE8ZGPdw35r14oNddPtLdUQ1NGvt7i7dHoeIPDQt68vUq6z6sejqORoXpWgAlIyCvgO5L5yHX58DfqEq7FwECB4q+fXyXVyZLmiiVSDH+wkczyzoUgE2f1hW6ONJ9QiH8n1+PU5Sx37EByTZxOQvOvS+Pj++zYtZHCRzCjcRg6j6u1RnKDteuccywN+bUulCZ7pJavtqMS6XCHd3mQecVUcT8F/jcPmsh2ta27VyueUGQS3ICcM0jiTEaM31ttrVUDszxNqmkmfX1W6MPd2nHXBSaUAWSaXjfdcyKxBOKwV6IxO8Kwjq9SIw5P5KuLdZ2s0m8SgFWIP+sZQI7IsIz0pfxNq9JlHykslQMhux9MOwQNDS29wfI6fGlLCiL1U9xueZAZn4DBp+rIgoXXz4PNxsSkHG7Bvlb5R3v2hK3UZdFDcTkRcU0Io6i2w="
+    }
+  },
+
+  "partyRestrictions": {
+    "minSize": 1,
+    "maxSize": 100
+  },
+
+  "matchmakerInfo": {
+    "matchMethod": "INSTANT",
+    "selectMethod": "AVAILABLE",
+    "rate": 500000000
+  }
+}
