@@ -2,11 +2,13 @@ apiVersion: agones.dev/v1
 kind: Fleet
 
 metadata:
-  name: lobby
+  name: towerdefence
   namespace: emortalmc
 
 spec:
+  replicas: 2
   scheduling: Distributed
+
 
   strategy:
     type: RollingUpdate
@@ -16,8 +18,6 @@ spec:
 
   template:
     spec:
-      players:
-        initialCapacity: 30
       ports:
         - name: default
           portPolicy: Dynamic
@@ -30,38 +30,17 @@ spec:
         failureThreshold: 2
 
       template:
-        metadata:
-          labels:
-            emortal.dev/gs-type: lobby
         spec:
-          volumes:
-            - name: gamemodes
-              configMap:
-                name: gamemodes
-                optional: false
-
           containers:
-            - name: lobby
-              image: ghcr.io/emortalmc/lobby:dev-16
-              command: [ "/bin/sh", "-c", "java -Xms512M -Xmx512M -jar /app/lobby.jar" ]
-
+            - name: towerdefence
+              image: ghcr.io/emortalmc/towerdefence:dev-4
               resources:
                 requests:
                   cpu: 500m
-                  memory: 896Mi
+                  memory: 768Mi
                 limits:
-                  cpu: 500m
-                  memory: 896Mi
-
-              ports:
-                - containerPort: 9090
-                  name: metrics
-                  protocol: TCP
-
-              volumeMounts:
-                - name: gamemodes
-                  mountPath: /app/config/gamemodes
-
+                  cpu: "1"
+                  memory: 768Mi
               env:
                 - name: minestom.velocity-forwarding-secret
                   valueFrom:
@@ -69,8 +48,6 @@ spec:
                       name: velocity-forwarding-token
                       key: forwarding.secret
                       optional: false
-                - name: minestom.tps
-                  value: "20"
                 - name: RABBITMQ_HOST
                   valueFrom:
                     secretKeyRef:
@@ -97,27 +74,14 @@ spec:
 apiVersion: autoscaling.agones.dev/v1
 kind: FleetAutoscaler
 metadata:
-  name: lobby
+  name: towerdefence
   namespace: emortalmc
 
 spec:
-  fleetName: lobby
+  fleetName: towerdefence
   policy:
     type: Buffer
     buffer:
-      minReplicas: 2
       bufferSize: 1
-      maxReplicas: 50
----
-apiVersion: monitoring.coreos.com/v1
-kind: PodMonitor
-metadata:
-  name: gs-lobby
-  namespace: emortalmc
-spec:
-  selector:
-    matchLabels:
-      emortal.dev/gs-type: "lobby"
-  podMetricsEndpoints:
-    - port: metrics
-      path: /metrics
+      minReplicas: 1
+      maxReplicas: 5

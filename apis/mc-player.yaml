@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: mc-player
-          image: ghcr.io/emortalmc/mc-player-service:dev-2
+          image: ghcr.io/emortalmc/mc-player-service:dev-8
           ports:
             - name: grpc
               containerPort: 9010
@@ -30,24 +30,10 @@ spec:
             - name: "DEVELOPMENT"
               value: "false"
 
-            - name: RABBITMQ_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: rabbitmq-credentials
-                  key: host
-                  optional: false
-            - name: RABBITMQ_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: rabbitmq-credentials
-                  key: username
-                  optional: false
-            - name: RABBITMQ_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: rabbitmq-credentials
-                  key: password
-                  optional: false
+            - name: KAFKA_HOST
+              value: default-kafka-bootstrap
+            - name: KAFKA_PORT
+              value: "9092"
             - name: MONGODB_URI
               valueFrom:
                 secretKeyRef:
@@ -63,6 +49,25 @@ kind: Service
 metadata:
   namespace: emortalmc
   name: mc-player
+
+spec:
+  type: ClusterIP
+  ports:
+    - name: grpc
+      port: 9010
+      targetPort: 9010
+
+  selector:
+    app: mc-player
+
+---
+
+apiVersion: v1
+kind: Service
+
+metadata:
+  namespace: emortalmc
+  name: badge-manager
 
 spec:
   type: ClusterIP

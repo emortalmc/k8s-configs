@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: permission
+  name: message-handler
   namespace: emortalmc
   labels:
-    app: permission
+    app: message-handler
 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: permission
+      app: message-handler
 
   template:
     metadata:
       annotations:
         linkerd.io/inject: enabled
       labels:
-        app: permission
+        app: message-handler
     spec:
       containers:
-        - name: permission
-          image: ghcr.io/emortalmc/permission-service-go:dev-2
+        - name: message-handler
+          image: ghcr.io/emortalmc/message-handler:dev-2
           ports:
             - name: grpc
               containerPort: 9010
@@ -35,11 +35,21 @@ spec:
             - name: KAFKA_PORT
               value: "9092"
 
-            - name: MONGODB_URI
-              valueFrom:
-                secretKeyRef:
-                  name: mongo-connection-string
-                  key: connectionString.standard
+            - name: RELATIONSHIPSERVICE_HOST
+              value: "relationship-manager"
+            - name: RELATIONSHIPSERVICE_PORT
+              value: "9010"
+
+            - name: BADGESERVICE_HOST
+              value: "badge-manager"
+            - name: BADGESERVICE_PORT
+              value: "9010"
+
+            - name: PERMISSIONSERVICE_HOST
+              value: "permission"
+            - name: PERMISSIONSERVICE_PORT
+              value: "9010"
+
             - name: PORT
               value: "9010"
 ---
@@ -49,7 +59,7 @@ kind: Service
 
 metadata:
   namespace: emortalmc
-  name: permission
+  name: message-handler
 
 spec:
   type: ClusterIP
@@ -59,4 +69,4 @@ spec:
       targetPort: 9010
 
   selector:
-    app: permission
+    app: message-handler

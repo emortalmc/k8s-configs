@@ -18,39 +18,57 @@ spec:
       labels:
         app: matchmaker
     spec:
+      volumes:
+        - name: gamemodes
+          configMap:
+            name: gamemodes
+            optional: false
+
       containers:
         - name: matchmaker
-          image: ghcr.io/emortalmc/kurushimi:dev-1.0.11
-          ports:
-            - containerPort: 9090
+          image: ghcr.io/emortalmc/kurushimi:dev-1.0.27
           imagePullPolicy: IfNotPresent
 
-          env:
-            - name: TRACKER_ENABLED
-              value: "true"
-            - name: KURUSHIMI_REDIS_HOST # Well this is horrible but Viper says we have to use a `.` to separate nested keys
-              value: "redis-master"
-            - name: KURUSHIMI_NAMESPACE
-              value: "emortalmc"
-            - name: KURUSHIMI_RABBITMQ_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: rabbitmq-credentials
-                  key: host
-                  optional: false
-            - name: KURUSHIMI_RABBITMQ_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: rabbitmq-credentials
-                  key: username
-                  optional: false
-            - name: KURUSHIMI_RABBITMQ_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: rabbitmq-credentials
-                  key: password
-                  optional: false
+          resources:
+            limits:
+              cpu: 500m
+              memory: 128Mi
+            requests:
+              cpu: 50m
+              memory: 16Mi
 
+          ports:
+            - name: grpc
+              containerPort: 9010
+
+          volumeMounts:
+            - name: gamemodes
+              mountPath: /app/config/gamemodes
+
+          env:
+            - name: MM_MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-connection-string
+                  key: connectionString.standard
+            - name: MM_NAMESPACE
+              value: "emortalmc"
+            - name: MM_PORT
+              value: "9010"
+            - name: MM_KAFKA_HOST
+              value: "default-kafka-bootstrap"
+            - name: MM_KAFKA_PORT
+              value: "9092"
+            - name: MM_PARTYSERVICE_SERVICEHOST
+              value: "party-manager"
+            - name: MM_PARTYSERVICE_SERVICEPORT
+              value: "9010"
+            - name: MM_PARTYSERVICE_SETTINGSSERVICEHOST
+              value: "party-manager"
+            - name: MM_PARTYSERVICE_SETTINGSSERVICEPORT
+              value: "9010"
+            - name: MM_DEVELOPMENT
+              value: "false"
 
       serviceAccountName: matchmaker
       automountServiceAccountToken: true
@@ -67,8 +85,8 @@ spec:
   type: ClusterIP
   ports:
     - name: grpc
-      port: 9090
-      targetPort: 9090
+      port: 9010
+      targetPort: 9010
 
   selector:
     app: matchmaker

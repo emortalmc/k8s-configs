@@ -25,10 +25,6 @@ displayNpc: NPC
 partyRestrictions:
   minSize: int32
   maxSize: int32 # Optional
-
-teamInfo: # Optional
-  teamSize: int32
-  teamCount: int32
   
 # Optional
 maps: [string]Map # A map of map IDs to Map objects

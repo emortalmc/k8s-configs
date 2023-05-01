@@ -33,7 +33,7 @@ spec:
         spec:
           containers:
             - name: block-sumo
-              image: ghcr.io/emortalmc/blocksumo:1.0.5
+              image: ghcr.io/emortalmc/blocksumo:1.0.7
               resources:
                 requests:
                   cpu: 500m
@@ -66,6 +66,10 @@ spec:
                       name: rabbitmq-credentials
                       key: password
                       optional: false
+                - name: KAFKA_HOST
+                  value: default-kafka-bootstrap
+                - name: KAFKA_PORT
+                  value: "9092"
 ---
 apiVersion: autoscaling.agones.dev/v1
 kind: FleetAutoscaler

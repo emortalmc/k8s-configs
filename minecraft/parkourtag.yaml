@@ -33,7 +33,7 @@ spec:
         spec:
           containers:
             - name: parkourtag
-              image: ghcr.io/emortalmc/parkourtag:snapshot-6
+              image: ghcr.io/emortalmc/parkourtag:dev-13
               resources:
                 requests:
                   cpu: 500m
@@ -66,6 +66,10 @@ spec:
                       name: rabbitmq-credentials
                       key: password
                       optional: false
+                - name: KAFKA_HOST
+                  value: default-kafka-bootstrap
+                - name: KAFKA_PORT
+                  value: "9092"
 ---
 apiVersion: autoscaling.agones.dev/v1
 kind: FleetAutoscaler

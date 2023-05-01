@@ -40,6 +40,6 @@
   "matchmakerInfo": {
     "matchMethod": "COUNTDOWN",
     "selectMethod": "AVAILABLE",
-    "rate": 2000000000
+    "rate": 750000000
   }
 }
