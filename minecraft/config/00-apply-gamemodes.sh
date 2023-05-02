@@ -1,1 +1,0 @@
-kubectl create configmap gamemodes -n emortalmc --from-file=./gamemodes

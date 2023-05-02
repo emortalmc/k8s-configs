@@ -11,8 +11,14 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 25%
+      maxSurge: 75%
       maxUnavailable: 25%
+
+  # TODO: Note: AllocationOverflow is not support as of Agones 1.31.0. It should be supported soon.
+  # There is already support in the matchmaker for it though :O
+  allocationOverflow:
+    labels:
+      emortal.dev/outdated: "true"
 
   template:
     spec:
@@ -34,15 +40,12 @@ spec:
           labels:
             emortal.dev/gs-type: lobby
         spec:
-          volumes:
-            - name: gamemodes
-              configMap:
-                name: gamemodes
-                optional: false
+          serviceAccountName: default-gameserver
+          automountServiceAccountToken: true
 
           containers:
             - name: lobby
-              image: ghcr.io/emortalmc/lobby:dev-16
+              image: ghcr.io/emortalmc/lobby:dev-28
               command: [ "/bin/sh", "-c", "java -Xms512M -Xmx512M -jar /app/lobby.jar" ]
 
               resources:
@@ -57,10 +60,6 @@ spec:
                 - containerPort: 9090
                   name: metrics
                   protocol: TCP
-
-              volumeMounts:
-                - name: gamemodes
-                  mountPath: /app/config/gamemodes
 
               env:
                 - name: minestom.velocity-forwarding-secret
@@ -93,6 +92,10 @@ spec:
                   value: default-kafka-bootstrap
                 - name: KAFKA_PORT
                   value: "9092"
+                - name: NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
 ---
 apiVersion: autoscaling.agones.dev/v1
 kind: FleetAutoscaler

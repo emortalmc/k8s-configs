@@ -7,7 +7,7 @@ helm install agones agones/agones --set "gameservers.namespaces={emortalmc}" \
   --set "agones.metrics.prometheusServiceDiscovery=true" \
   --set "agones.metrics.serviceMonitor.enabled=true" \
   --set "agones.allocator.serviceMetrics.http.portName=metrics" \
-  --set "agones.featureGates=PlayerTracking=true&PlayerAllocationFilter=true" \
+  --set "agones.featureGates=PlayerTracking=true&PlayerAllocationFilter=true&FleetAllocationOverflow=true" \
   --set "agones.controller.allocationBatchWaitTime=50ms" \
   -n agones-system --create-namespace
 
