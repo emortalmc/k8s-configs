@@ -11,5 +11,5 @@ helm install agones agones/agones --set "gameservers.namespaces={emortalmc}" \
   --set "agones.controller.allocationBatchWaitTime=50ms" \
   -n agones-system --create-namespace
 
-FORWARDING_TOKEN=$(cat /dev/urandom | fold -w 128 | head -n 1)
+FORWARDING_TOKEN=$(head -c 1000 /dev/urandom | tr -dc 'a-zA-Z0-9~!@#$%^&*_-' | fold -w 128 | head -n 1)
 kubectl create secret generic velocity-forwarding-token --from-literal=forwarding.secret="$FORWARDING_TOKEN" -n emortalmc
