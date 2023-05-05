@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: player-tracker
-          image: ghcr.io/emortalmc/player-tracker:66a9186a7ace646413cf89b326a0661d1d3bc3ed
+          image: ghcr.io/emortalmc/player-tracker:bb083605a0bd3dccd1f09abe0af63a79ff958c31
           ports:
             - name: grpc
               containerPort: 9010
@@ -30,24 +30,10 @@ spec:
             - name: "DEVELOPMENT"
               value: "false"
 
-            - name: RABBITMQ_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: rabbitmq-credentials
-                  key: host
-                  optional: false
-            - name: RABBITMQ_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: rabbitmq-credentials
-                  key: username
-                  optional: false
-            - name: RABBITMQ_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: rabbitmq-credentials
-                  key: password
-                  optional: false
+            - name: KAFKA_HOST
+              value: default-kafka-bootstrap
+            - name: KAFKA_PORT
+              value: "9092"
             - name: MONGODB_URI
               valueFrom:
                 secretKeyRef:

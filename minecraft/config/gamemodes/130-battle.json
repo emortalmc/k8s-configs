@@ -1,0 +1,63 @@
+{
+  "id": "battle",
+  "enabled": true,
+  "fleetName": "battle",
+
+  "priority": 130,
+
+  "friendlyName": "Battle",
+  "activityNoun": "playing",
+
+  "minPlayers": 2,
+  "maxPlayers": 12,
+
+  "displayItem": {
+    "material": "minecraft:iron_sword",
+    "slot": 24,
+    "name": "<gradient:#ffc34d:#ffaa00><bold>Battle</bold></gradient>",
+    "lore": [
+      "<gray>The console survival games experience.</gray>",
+      "<gray>Find loot, find player, kill player,</gray>",
+      "<gray>find another player, kill other player,</gray>",
+      "<gray>repeat until win</gray>"
+    ]
+  },
+
+  "displayNpc": {
+    "entityType": "PLAYER",
+    "titles": [
+      "<gradient:#ffc34d:#ffaa00><bold>Battle</bold></gradient>"
+    ],
+    "skin": {
+      "texture": "ewogICJ0aW1lc3RhbXAiIDogMTYxOTQzOTEzMjA4MiwKICAicHJvZmlsZUlkIiA6ICI5MThhMDI5NTU5ZGQ0Y2U2YjE2ZjdhNWQ1M2VmYjQxMiIsCiAgInByb2ZpbGVOYW1lIiA6ICJCZWV2ZWxvcGVyIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzgzYmVkNGJiZDc5NmE5MWEyZjE5ZjE2ZTljMDIxMWRiMTFhM2Y4MDk0M2UwZTljODJlNjMxM2I1OWVkZDgxOTEiCiAgICB9CiAgfQp9",
+      "signature": "SFO9i3hwfOOfhNapOWUJ/QiQ8orq47Ld6nCV2xPXNZH9WtOkw+FNJZrDIrxdp0SPA4VaN+7BQL1mq5uHTgGov55KHsJxoeQGvvWKDWeG+V+DsYzkf+34LY6BYWhKdnGNP2EDt/snT3wca9ju8McUsxiqHXkX6UTU68Zj7xFk1HVtusQIjyakva4ST6WB4BdYy6BlLl6ckKo+kGF+aSMhhok8znhwypkO7gGBtK4fYgpuW7I8C2lBn+myGASndikw/CBpuYaUTj1xECdTb0O6Tys937EBkHeELoxoflgkxTBe37DHDCxoQKTnXV28yV+uXOIoNp7botUSho5x5GELqg4T6ma97hjF5Cp1x+3ekZcxx3u0Io2/ifb79p+DBfBkfs50oixWIBXJV4DaZaTgE1MQtRGQBe/baHap5+aeC9LAcCPVBzwMuM7kUqQ0RGv72FaPEojhYU1PvVUC0E+BfQvtg6M19zYJL27OB1Ik9rHAC7U18ilGiGOwUgLoetYIy2JYFGO57cE0MhLe9ERr2kjNFCbwO8l1cWhBpRzMfrr6PQAKFQjt/APPouYH7PNO7eu/vOSy8BcJw3g2tDg79NryUNLO0vkgTVz4+Fr5wkRD3QmieM0Gtv26h+vev9ZKIrSylvpEQkyeSTXrvHov4gtI+m4yfHb8pwdFlZDJSlY="
+    }
+  },
+
+  "partyRestrictions": {
+    "minSize": 2,
+    "maxSize": 8
+  },
+
+  "maps": {
+    "cove": {
+      "id": "cove",
+      "enabled": true,
+
+      "friendlyName": "Cove",
+      "priority": 100,
+
+      "displayItem": {
+        "slot": 0,
+        "material": "minecraft:barrier",
+        "name": "<green><bold>Cove</bold></green>"
+      }
+    }
+  },
+
+  "matchmakerInfo": {
+    "matchMethod": "COUNTDOWN",
+    "selectMethod": "AVAILABLE",
+    "rate": 750000000
+  }
+}

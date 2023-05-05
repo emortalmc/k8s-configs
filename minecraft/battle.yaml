@@ -1,12 +1,13 @@
 apiVersion: agones.dev/v1
 kind: Fleet
+
 metadata:
-  name: velocity
+  name: battle
   namespace: emortalmc
 
 spec:
-  replicas: 1
-  scheduling: Packed
+  replicas: 2
+  scheduling: Distributed
 
   strategy:
     type: RollingUpdate
@@ -16,46 +17,34 @@ spec:
 
   template:
     spec:
-      players:
-        initialCapacity: 250
-
       ports:
         - name: default
-          portPolicy: Static
-          hostPort: 25565
+          portPolicy: Dynamic
           containerPort: 25565
           protocol: TCP
 
       health:
-        initialDelaySeconds: 10
-        periodSeconds: 6
+        initialDelaySeconds: 5
+        periodSeconds: 15
         failureThreshold: 2
 
       template:
         spec:
-          volumes:
-            - name: gamemodes
-              configMap:
-                name: gamemodes
+          serviceAccountName: default-gameserver
+          automountServiceAccountToken: true
 
           containers:
-            - name: velocity
-              image: ghcr.io/emortalmc/velocity-core:1.0.60
-              imagePullPolicy: IfNotPresent
-
-              lifecycle:
-                postStart:
-                  exec:
-                    command: [ "/bin/sh", "-c", "echo $VELOCITY_FORWARDING_SECRET > /app/forwarding.secret" ]
-
-              volumeMounts:
-                - name: gamemodes
-                  mountPath: /app/config/gamemodes
-
+            - name: battle
+              image: ghcr.io/emortalmc/battle:77ce1be2c9db835a00f624e294b6a30ca0c471fb
+              resources:
+                requests:
+                  cpu: 500m
+                  memory: 768Mi
+                limits:
+                  cpu: "1"
+                  memory: 768Mi
               env:
-                - name: JAVA_OPTS
-                  value: "-Xms512M -Xmx512M"
-                - name: VELOCITY_FORWARDING_SECRET
+                - name: minestom.velocity-forwarding-secret
                   valueFrom:
                     secretKeyRef:
                       name: velocity-forwarding-token
@@ -83,11 +72,22 @@ spec:
                   value: default-kafka-bootstrap
                 - name: KAFKA_PORT
                   value: "9092"
+                - name: NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+---
+apiVersion: autoscaling.agones.dev/v1
+kind: FleetAutoscaler
+metadata:
+  name: battle
+  namespace: emortalmc
 
-              resources:
-                limits:
-                  memory: "512Mi"
-                  cpu: "1"
-                requests:
-                  memory: "512Mi"
-                  cpu: "250m"
+spec:
+  fleetName: battle
+  policy:
+    type: Buffer
+    buffer:
+      bufferSize: 1
+      minReplicas: 1
+      maxReplicas: 5

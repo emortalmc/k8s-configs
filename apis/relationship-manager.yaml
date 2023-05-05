@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: relationship-manager
-          image: ghcr.io/emortalmc/relationship-manager-service:6354ad77da48ad6614d83b1d82bf5510d25669f3
+          image: ghcr.io/emortalmc/relationship-manager-service:dev-2
           ports:
             - name: grpc
               containerPort: 9010
@@ -30,24 +30,10 @@ spec:
             - name: "DEVELOPMENT"
               value: "false"
 
-            - name: RABBITMQ_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: rabbitmq-credentials
-                  key: host
-                  optional: false
-            - name: RABBITMQ_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: rabbitmq-credentials
-                  key: username
-                  optional: false
-            - name: RABBITMQ_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: rabbitmq-credentials
-                  key: password
-                  optional: false
+            - name: KAFKA_HOST
+              value: default-kafka-bootstrap
+            - name: KAFKA_PORT
+              value: "9092"
             - name: MONGODB_URI
               valueFrom:
                 secretKeyRef:

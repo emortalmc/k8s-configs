@@ -31,9 +31,12 @@ spec:
 
       template:
         spec:
+          serviceAccountName: default-gameserver
+          automountServiceAccountToken: true
+
           containers:
             - name: towerdefence
-              image: ghcr.io/emortalmc/towerdefence:dev-4
+              image: ghcr.io/emortalmc/towerdefence:dev-5
               resources:
                 requests:
                   cpu: 500m
@@ -48,28 +51,14 @@ spec:
                       name: velocity-forwarding-token
                       key: forwarding.secret
                       optional: false
-                - name: RABBITMQ_HOST
-                  valueFrom:
-                    secretKeyRef:
-                      name: rabbitmq-credentials
-                      key: host
-                      optional: false
-                - name: RABBITMQ_USERNAME
-                  valueFrom:
-                    secretKeyRef:
-                      name: rabbitmq-credentials
-                      key: username
-                      optional: false
-                - name: RABBITMQ_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: rabbitmq-credentials
-                      key: password
-                      optional: false
                 - name: KAFKA_HOST
                   value: default-kafka-bootstrap
                 - name: KAFKA_PORT
                   value: "9092"
+                - name: NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
 ---
 apiVersion: autoscaling.agones.dev/v1
 kind: FleetAutoscaler
@@ -83,5 +72,5 @@ spec:
     type: Buffer
     buffer:
       bufferSize: 1
-      minReplicas: 1
-      maxReplicas: 5
+      minReplicas: 2
+      maxReplicas: 10

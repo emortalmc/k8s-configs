@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: party-manager
-          image: ghcr.io/emortalmc/party-manager:f6f35dcffc425fb176c943821a663a49b12c36fa
+          image: ghcr.io/emortalmc/party-manager:c579fa881912ed2f39ce47a49c8c80c10aa0ab6f
           ports:
             - name: grpc
               containerPort: 9010
@@ -30,24 +30,6 @@ spec:
             - name: "DEVELOPMENT"
               value: "false"
 
-            - name: RABBITMQ_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: rabbitmq-credentials
-                  key: host
-                  optional: false
-            - name: RABBITMQ_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: rabbitmq-credentials
-                  key: username
-                  optional: false
-            - name: RABBITMQ_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: rabbitmq-credentials
-                  key: password
-                  optional: false
             - name: KAFKA_HOST
               value: default-kafka-bootstrap
             - name: KAFKA_PORT

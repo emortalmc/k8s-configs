@@ -50,10 +50,10 @@ spec:
 
               resources:
                 requests:
-                  cpu: 500m
+                  cpu: 502m
                   memory: 896Mi
                 limits:
-                  cpu: 500m
+                  cpu: 502m
                   memory: 896Mi
 
               ports:
