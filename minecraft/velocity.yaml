@@ -40,7 +40,7 @@ spec:
 
           containers:
             - name: velocity
-              image: ghcr.io/emortalmc/velocity-core:1.0.60
+              image: ghcr.io/emortalmc/velocity-core:1.0.61
               imagePullPolicy: IfNotPresent
 
               lifecycle:

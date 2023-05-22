@@ -33,7 +33,7 @@ spec:
         spec:
           containers:
             - name: parkourtag
-              image: ghcr.io/emortalmc/parkourtag:dev-13
+              image: ghcr.io/emortalmc/parkourtag:357d4fefa633c95d6b5381d27100607377f8600e
               resources:
                 requests:
                   cpu: 500m
