@@ -40,8 +40,8 @@ spec:
 
           containers:
             - name: velocity
-              image: ghcr.io/emortalmc/velocity-core:1.0.61
-              imagePullPolicy: IfNotPresent
+              image: ghcr.io/emortalmc/velocity-core:1.0.70
+              command: [ "/bin/sh", "-c", "java -Dvelocity.packet-decode-logging=true -jar /app/velocity.jar" ]
 
               lifecycle:
                 postStart:
@@ -54,30 +54,12 @@ spec:
 
               env:
                 - name: JAVA_OPTS
-                  value: "-Xms512M -Xmx512M"
+                  value: "-Xms2G -Xmx2G"
                 - name: VELOCITY_FORWARDING_SECRET
                   valueFrom:
                     secretKeyRef:
                       name: velocity-forwarding-token
                       key: forwarding.secret
-                      optional: false
-                - name: RABBITMQ_HOST
-                  valueFrom:
-                    secretKeyRef:
-                      name: rabbitmq-credentials
-                      key: host
-                      optional: false
-                - name: RABBITMQ_USERNAME
-                  valueFrom:
-                    secretKeyRef:
-                      name: rabbitmq-credentials
-                      key: username
-                      optional: false
-                - name: RABBITMQ_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: rabbitmq-credentials
-                      key: password
                       optional: false
                 - name: KAFKA_HOST
                   value: default-kafka-bootstrap
@@ -86,8 +68,8 @@ spec:
 
               resources:
                 limits:
-                  memory: "512Mi"
-                  cpu: "1"
+                  memory: "3Gi"
+                  cpu: "2"
                 requests:
-                  memory: "512Mi"
-                  cpu: "250m"
+                  memory: "3Gi"
+                  cpu: "500m"

@@ -35,7 +35,7 @@ spec:
 
           containers:
             - name: battle
-              image: ghcr.io/emortalmc/battle:154b72203301c99466f1c1695baacd8c354cc7f3
+              image: ghcr.io/emortalmc/battle:dev-2
               resources:
                 requests:
                   cpu: 500m
@@ -49,24 +49,6 @@ spec:
                     secretKeyRef:
                       name: velocity-forwarding-token
                       key: forwarding.secret
-                      optional: false
-                - name: RABBITMQ_HOST
-                  valueFrom:
-                    secretKeyRef:
-                      name: rabbitmq-credentials
-                      key: host
-                      optional: false
-                - name: RABBITMQ_USERNAME
-                  valueFrom:
-                    secretKeyRef:
-                      name: rabbitmq-credentials
-                      key: username
-                      optional: false
-                - name: RABBITMQ_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: rabbitmq-credentials
-                      key: password
                       optional: false
                 - name: KAFKA_HOST
                   value: default-kafka-bootstrap

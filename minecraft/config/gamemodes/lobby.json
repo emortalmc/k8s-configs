@@ -1,6 +1,6 @@
 {
   "id": "lobby",
-  "enabled": false,
+  "enabled": true,
   "fleetName": "lobby",
   "friendlyName": "Lobby",
   "activityNoun": "in the",
