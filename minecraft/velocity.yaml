@@ -17,7 +17,7 @@ spec:
   template:
     spec:
       players:
-        initialCapacity: 250
+        initialCapacity: 1500
 
       ports:
         - name: default
@@ -40,8 +40,8 @@ spec:
 
           containers:
             - name: velocity
-              image: ghcr.io/emortalmc/velocity-core:1.0.70
-              command: [ "/bin/sh", "-c", "java -Dvelocity.packet-decode-logging=true -jar /app/velocity.jar" ]
+              image: ghcr.io/emortalmc/velocity-core:1.0.72
+              command: [ "/bin/sh", "-c", "java -XX:+UseZGC -jar /app/velocity.jar" ]
 
               lifecycle:
                 postStart:
@@ -54,7 +54,7 @@ spec:
 
               env:
                 - name: JAVA_OPTS
-                  value: "-Xms2G -Xmx2G"
+                  value: "-Xms4G -Xmx4G"
                 - name: VELOCITY_FORWARDING_SECRET
                   valueFrom:
                     secretKeyRef:
@@ -68,8 +68,8 @@ spec:
 
               resources:
                 limits:
-                  memory: "3Gi"
-                  cpu: "2"
+                  memory: "8Gi"
+                  cpu: "3"
                 requests:
-                  memory: "3Gi"
+                  memory: "8Gi"
                   cpu: "500m"

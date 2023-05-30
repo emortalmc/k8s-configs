@@ -48,24 +48,6 @@ spec:
                       name: velocity-forwarding-token
                       key: forwarding.secret
                       optional: false
-                - name: RABBITMQ_HOST
-                  valueFrom:
-                    secretKeyRef:
-                      name: rabbitmq-credentials
-                      key: host
-                      optional: false
-                - name: RABBITMQ_USERNAME
-                  valueFrom:
-                    secretKeyRef:
-                      name: rabbitmq-credentials
-                      key: username
-                      optional: false
-                - name: RABBITMQ_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: rabbitmq-credentials
-                      key: password
-                      optional: false
                 - name: KAFKA_HOST
                   value: default-kafka-bootstrap
                 - name: KAFKA_PORT

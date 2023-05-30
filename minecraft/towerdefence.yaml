@@ -36,7 +36,7 @@ spec:
 
           containers:
             - name: towerdefence
-              image: ghcr.io/emortalmc/towerdefence:dev-8
+              image: ghcr.io/emortalmc/towerdefence:dev-10
               command: [ "/bin/sh", "-c", "java -XX:+UseZGC -Xms256M -Xmx256M -jar /app/tower_defence.jar" ]
 
               resources:
@@ -46,6 +46,12 @@ spec:
                 limits:
                   cpu: "1"
                   memory: 512Mi
+
+              ports:
+                - containerPort: 9090
+                  name: metrics
+                  protocol: TCP
+
               env:
                 - name: minestom.velocity-forwarding-secret
                   valueFrom:

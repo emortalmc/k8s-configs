@@ -23,7 +23,7 @@ spec:
   template:
     spec:
       players:
-        initialCapacity: 30
+        initialCapacity: 50
       ports:
         - name: default
           portPolicy: Dynamic
@@ -39,25 +39,26 @@ spec:
         metadata:
           labels:
             emortal.dev/gs-type: lobby
+            emortal.dev/mc-metrics-enabled: "true"
         spec:
           serviceAccountName: default-gameserver
           automountServiceAccountToken: true
 
           containers:
             - name: lobby
-              image: ghcr.io/emortalmc/lobby:dev-44
-              command: [ "/bin/sh", "-c", "java -Xms512M -Xmx512M -jar /app/lobby.jar" ]
+              image: ghcr.io/emortalmc/lobby:dev-49
+              command: [ "/bin/sh", "-c", "java -Xms768M -Xmx768M -jar /app/lobby.jar" ]
 
               resources:
                 requests:
                   cpu: 502m
-                  memory: 896Mi
+                  memory: 1536Mi
                 limits:
                   cpu: 502m
-                  memory: 896Mi
+                  memory: 1536Mi
 
               ports:
-                - containerPort: 9090
+                - containerPort: 8081
                   name: metrics
                   protocol: TCP
 
@@ -76,6 +77,8 @@ spec:
                   valueFrom:
                     fieldRef:
                       fieldPath: metadata.namespace
+                - name: FLEET_NAME
+                  value: lobby
 ---
 apiVersion: autoscaling.agones.dev/v1
 kind: FleetAutoscaler
@@ -89,18 +92,5 @@ spec:
     type: Buffer
     buffer:
       minReplicas: 2
-      bufferSize: 1
-      maxReplicas: 50
----
-apiVersion: monitoring.coreos.com/v1
-kind: PodMonitor
-metadata:
-  name: gs-lobby
-  namespace: emortalmc
-spec:
-  selector:
-    matchLabels:
-      emortal.dev/gs-type: "lobby"
-  podMetricsEndpoints:
-    - port: metrics
-      path: /metrics
+      bufferSize: 2
+      maxReplicas: 15
