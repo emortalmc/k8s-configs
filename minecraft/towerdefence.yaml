@@ -30,13 +30,16 @@ spec:
         failureThreshold: 2
 
       template:
+        metadata:
+          labels:
+            emortal.dev/mc-metrics-enabled: "true"
         spec:
           serviceAccountName: default-gameserver
           automountServiceAccountToken: true
 
           containers:
             - name: towerdefence
-              image: ghcr.io/emortalmc/towerdefence:dev-10
+              image: ghcr.io/emortalmc/towerdefence:dev-13
               command: [ "/bin/sh", "-c", "java -XX:+UseZGC -Xms256M -Xmx256M -jar /app/tower_defence.jar" ]
 
               resources:
@@ -48,7 +51,7 @@ spec:
                   memory: 512Mi
 
               ports:
-                - containerPort: 9090
+                - containerPort: 8081
                   name: metrics
                   protocol: TCP
 
@@ -67,6 +70,8 @@ spec:
                   valueFrom:
                     fieldRef:
                       fieldPath: metadata.namespace
+                - name: FLEET_NAME
+                  value: towerdefence
 ---
 apiVersion: autoscaling.agones.dev/v1
 kind: FleetAutoscaler

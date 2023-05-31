@@ -38,7 +38,6 @@ spec:
       template:
         metadata:
           labels:
-            emortal.dev/gs-type: lobby
             emortal.dev/mc-metrics-enabled: "true"
         spec:
           serviceAccountName: default-gameserver
