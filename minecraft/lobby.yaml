@@ -45,7 +45,7 @@ spec:
 
           containers:
             - name: lobby
-              image: ghcr.io/emortalmc/lobby:dev-50
+              image: ghcr.io/emortalmc/lobby:dev-51
               command: [ "/bin/sh", "-c", "java -Xms768M -Xmx768M -jar /app/lobby.jar" ]
 
               resources:
