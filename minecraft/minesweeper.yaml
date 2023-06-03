@@ -2,7 +2,7 @@ apiVersion: agones.dev/v1
 kind: Fleet
 
 metadata:
-  name: parkourtag
+  name: minesweeper
   namespace: emortalmc
 
 spec:
@@ -30,17 +30,25 @@ spec:
         failureThreshold: 2
 
       template:
+        metadata:
+          labels:
+            emortal.dev/mc-metrics-enabled: "true"
         spec:
+          serviceAccountName: default-gameserver
+          automountServiceAccountToken: true
+
           containers:
-            - name: parkourtag
-              image: ghcr.io/emortalmc/parkourtag:357d4fefa633c95d6b5381d27100607377f8600e
+            - name: minesweeper
+              image: ghcr.io/emortalmc/minesweeper:1.0.3
+
               resources:
                 requests:
                   cpu: 500m
-                  memory: 512Mi
+                  memory: 768Mi
                 limits:
                   cpu: "1"
-                  memory: 512Mi
+                  memory: 768Mi
+
               env:
                 - name: minestom.velocity-forwarding-secret
                   valueFrom:
@@ -56,15 +64,17 @@ spec:
                   valueFrom:
                     fieldRef:
                       fieldPath: metadata.namespace
+                - name: FLEET_NAME
+                  value: minesweeper
 ---
 apiVersion: autoscaling.agones.dev/v1
 kind: FleetAutoscaler
 metadata:
-  name: parkourtag
+  name: minesweeper
   namespace: emortalmc
 
 spec:
-  fleetName: parkourtag
+  fleetName: minesweeper
   policy:
     type: Buffer
     buffer:

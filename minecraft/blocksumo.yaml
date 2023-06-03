@@ -52,6 +52,10 @@ spec:
                   value: default-kafka-bootstrap
                 - name: KAFKA_PORT
                   value: "9092"
+                - name: NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
 ---
 apiVersion: autoscaling.agones.dev/v1
 kind: FleetAutoscaler
