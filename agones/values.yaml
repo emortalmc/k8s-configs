@@ -1,0 +1,17 @@
+gameservers:
+  namespaces:
+    - emortalmc
+
+agones:
+  allocator:
+    service:
+      http:
+        enabled: false
+  metrics:
+    prometheusEnabled: true
+    prometheusServiceDiscovery: true
+    serviceMonitor:
+      interval: 10s
+  featureGates: PlayerTracking=true&PlayerAllocationFilter=true&FleetAllocationOverflow=true
+  controller:
+    allocationBatchWaitTime: 300ms

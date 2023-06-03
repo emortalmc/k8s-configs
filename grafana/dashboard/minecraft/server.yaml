@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: mc-server
-  namespace: emortalmc
+  namespace: monitoring
   labels:
     grafana_dashboard: "1"
 data:
@@ -33,7 +33,6 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 0,
-      "id": 42,
       "links": [],
       "liveNow": false,
       "panels": [
@@ -169,13 +168,13 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "minestom_entities{pod=\"$pod_name\"}",
+              "expr": "minestom_chunks{pod=\"$pod_name\"}",
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "MC Server Entities",
+          "title": "MC Server Chunks",
           "type": "stat"
         },
         {
@@ -918,10 +917,10 @@ data:
             "current": {
               "selected": true,
               "text": [
-                "towerdefence"
+                "lobby"
               ],
               "value": [
-                "towerdefence"
+                "lobby"
               ]
             },
             "datasource": {
@@ -946,9 +945,9 @@ data:
           },
           {
             "current": {
-              "selected": false,
-              "text": "towerdefence-snnb8-qd7v6",
-              "value": "towerdefence-snnb8-qd7v6"
+              "selected": true,
+              "text": "lobby-4hzjz-lr9pn",
+              "value": "lobby-4hzjz-lr9pn"
             },
             "datasource": {
               "type": "prometheus",
@@ -1055,6 +1054,6 @@ data:
       "timezone": "",
       "title": "MC / Server",
       "uid": "FHH4CyQVz",
-      "version": 11,
+      "version": 1,
       "weekStart": ""
     }

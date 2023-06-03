@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: relationship-manager
-          image: ghcr.io/emortalmc/relationship-manager-service:dev-2
+          image: ghcr.io/emortalmc/relationship-manager-service:dev-3
           ports:
             - name: grpc
               containerPort: 9010
@@ -34,6 +34,10 @@ spec:
               value: default-kafka-bootstrap
             - name: KAFKA_PORT
               value: "9092"
+            - name: PLAYERTRACKERSERVICE_HOST
+              value: "player-tracker"
+            - name: PLAYERTRACKERSERVICE_PORT
+              value: "9010"
             - name: MONGODB_URI
               valueFrom:
                 secretKeyRef:

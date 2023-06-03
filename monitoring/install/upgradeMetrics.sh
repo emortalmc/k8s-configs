@@ -1,0 +1,1 @@
+helm upgrade prom-stack prometheus-community/kube-prometheus-stack -f values.yaml -n monitoring --version 43.3.1

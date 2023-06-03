@@ -40,6 +40,11 @@ spec:
             - name: RELATIONSHIPSERVICE_PORT
               value: "9010"
 
+            - name: PLAYERTRACKERSERVICE_HOST
+              value: "player-tracker"
+            - name: PLAYERTRACKERSERVICE_PORT
+              value: "9010"
+
             - name: BADGESERVICE_HOST
               value: "badge-manager"
             - name: BADGESERVICE_PORT

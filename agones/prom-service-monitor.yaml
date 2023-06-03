@@ -1,0 +1,50 @@
+# Allocator
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: agones-allocator-monitor
+  namespace: agones-system
+  labels:
+    multicluster.agones.dev/role: allocator
+spec:
+  selector:
+    matchLabels:
+      multicluster.agones.dev/role: allocator
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 10s
+---
+# Controller
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: agones-controller-monitor
+  namespace: agones-system
+  labels:
+    agones.dev/role: controller
+spec:
+  selector:
+    matchLabels:
+      agones.dev/role: controller
+  podMetricsEndpoints:
+    - port: http
+      path: /metrics
+      interval: 10s
+---
+# Extensions
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: agones-extensions-monitor
+  namespace: agones-system
+  labels:
+    agones.dev/role: extensions
+spec:
+  selector:
+    matchLabels:
+      agones.dev/role: extensions
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 10s

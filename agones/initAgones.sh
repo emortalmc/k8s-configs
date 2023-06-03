@@ -8,7 +8,7 @@ helm install agones agones/agones --set "gameservers.namespaces={emortalmc}" \
   --set "agones.metrics.serviceMonitor.enabled=true" \
   --set "agones.allocator.serviceMetrics.http.portName=metrics" \
   --set "agones.featureGates=PlayerTracking=true&PlayerAllocationFilter=true&FleetAllocationOverflow=true" \
-  --set "agones.controller.allocationBatchWaitTime=200ms" \
+  --set "agones.controller.allocationBatchWaitTime=300ms" \
   -n agones-system --create-namespace
 
 FORWARDING_TOKEN=$(head -c 1000 /dev/urandom | tr -dc 'a-zA-Z0-9~!@#$%^&*_-' | fold -w 128 | head -n 1)

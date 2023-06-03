@@ -39,16 +39,16 @@ spec:
 
           containers:
             - name: towerdefence
-              image: ghcr.io/emortalmc/towerdefence:dev-13
-              command: [ "/bin/sh", "-c", "java -XX:+UseZGC -Xms256M -Xmx256M -jar /app/tower_defence.jar" ]
+              image: ghcr.io/emortalmc/towerdefence:dev-16
+              command: [ "/bin/sh", "-c", "java -XX:+UseZGC -Xms192M -Xmx192M -jar /app/tower_defence.jar" ]
 
               resources:
                 requests:
-                  cpu: 500m
-                  memory: 512Mi
+                  cpu: 300m
+                  memory: 384Mi
                 limits:
-                  cpu: "1"
-                  memory: 512Mi
+                  cpu: "600m"
+                  memory: 384Mi
 
               ports:
                 - containerPort: 8081
