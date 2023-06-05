@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: emortalmc
+  name: pyroscope
+
+data:
+  address: "http://pyroscope-io.pyroscope.svc:4040"

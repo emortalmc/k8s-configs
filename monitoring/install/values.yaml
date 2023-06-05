@@ -6,6 +6,10 @@ grafana:
     - name: grafana-cloudflare-auth
       optional: false
 
+  plugins:
+    - pyroscope-datasource
+    - pyroscope-panel
+
 prometheus-node-exporter:
   prometheusSpec:
     scrapeInterval: 10s
