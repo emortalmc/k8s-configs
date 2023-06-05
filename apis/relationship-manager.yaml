@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: relationship-manager
-          image: ghcr.io/emortalmc/relationship-manager-service:dev-3
+          image: ghcr.io/emortalmc/relationship-manager-service:dev-4
           ports:
             - name: grpc
               containerPort: 9010

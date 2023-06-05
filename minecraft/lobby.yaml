@@ -45,7 +45,7 @@ spec:
 
           containers:
             - name: lobby
-              image: ghcr.io/emortalmc/lobby:dev-51
+              image: ghcr.io/emortalmc/lobby:5a49c2e9336da6c28bf1b1de8b40e42d689826b9
               command: [ "/bin/sh", "-c", "java -Xms768M -Xmx768M -jar /app/lobby.jar" ]
 
               resources:
@@ -78,6 +78,11 @@ spec:
                       fieldPath: metadata.namespace
                 - name: FLEET_NAME
                   value: lobby
+                - name: PYROSCOPE_SERVER_ADDRESS
+                  valueFrom:
+                    configMapKeyRef:
+                      name: pyroscope
+                      key: address
 ---
 apiVersion: autoscaling.agones.dev/v1
 kind: FleetAutoscaler
