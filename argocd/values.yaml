@@ -1,0 +1,8 @@
+crds:
+  install: false
+
+global:
+  revisionHistoryLimit: 10
+
+  logging:
+    format: json

@@ -1,0 +1,1 @@
+curl -sfL https://get.k3s.io | K3S_TOKEN=todo sh -s - server --cluster-init --disable=traefik

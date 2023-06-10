@@ -1,14 +1,8 @@
 kubectl create namespace emortalmc
 helm repo add agones https://agones.dev/chart/stable
 helm repo update agones
-helm install agones agones/agones --set "gameservers.namespaces={emortalmc}" \
-  --set "agones.allocator.service.http.enabled=false" \
-  --set "agones.metrics.prometheusEnabled=true" \
-  --set "agones.metrics.prometheusServiceDiscovery=true" \
-  --set "agones.metrics.serviceMonitor.enabled=true" \
-  --set "agones.allocator.serviceMetrics.http.portName=metrics" \
-  --set "agones.featureGates=PlayerTracking=true&PlayerAllocationFilter=true&FleetAllocationOverflow=true" \
-  --set "agones.controller.allocationBatchWaitTime=300ms" \
+helm install agones agones/agones \
+  --values values.yaml --version 1.31.0 \
   -n agones-system --create-namespace
 
 FORWARDING_TOKEN=$(head -c 1000 /dev/urandom | tr -dc 'a-zA-Z0-9~!@#$%^&*_-' | fold -w 128 | head -n 1)

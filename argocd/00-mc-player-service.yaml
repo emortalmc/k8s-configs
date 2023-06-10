@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mc-player-service
+  namespace: argocd
+
+spec:
+  project: default
+  source:
+    chart: helm-mc-player-service
+    repoURL: https://github.com/emortalmc/mc-player-service.git
+    targetRevision: HEAD
+    path: k8s/application
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: emortalmc
