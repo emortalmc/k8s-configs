@@ -7,10 +7,9 @@ metadata:
 spec:
   project: default
   source:
-    chart: helm-mc-player-service
-    repoURL: https://github.com/emortalmc/mc-player-service.git
+    repoURL: https://github.com/emortalmc/k8s-configs.git
     targetRevision: HEAD
-    path: k8s/application
+    path: argocd/managed-apps/apis/mc-player.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: emortalmc
