@@ -6,3 +6,20 @@ global:
 
   logging:
     format: json
+
+configs:
+  cm:
+    url: "https://argo.emortal.dev"
+    admin.enabled: false
+    dex.config: |
+      connectors:
+        - type: github
+          id: github
+          name: GitHub
+          config:
+            clientID: f391cca20124fea2f77d
+            clientSecret: $dex.github.clientSecret
+            orgs:
+              - name: emortalmc
+  params:
+    server.insecure: true
