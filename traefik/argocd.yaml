@@ -1,0 +1,18 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argocd-ingress
+  namespace: argocd
+spec:
+  entryPoints:
+    - websecure
+
+  routes:
+    - match: Host(`argo.emortal.dev`) # Replace the domain you wish to use.
+      kind: Rule
+      services:
+        - name: argocd-server
+          port: 80
+
+  tls:
+    certResolver: cloudflare

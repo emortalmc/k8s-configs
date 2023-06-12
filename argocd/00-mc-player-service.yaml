@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/emortalmc/k8s-configs.git
     targetRevision: HEAD
-    path: argocd/managed-apps/apis/mc-player.yaml
+    path: argocd/managed-apps/apis/mc-player
   destination:
     server: https://kubernetes.default.svc
     namespace: emortalmc
