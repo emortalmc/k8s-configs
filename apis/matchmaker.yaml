@@ -49,8 +49,8 @@ spec:
             - name: MM_MONGODB_URI
               valueFrom:
                 secretKeyRef:
-                  name: mongo-connection-string
-                  key: connectionString.standard
+                  name: matchmaker-db-creds
+                  key: connection-string
             - name: MM_NAMESPACE
               value: "emortalmc"
             - name: MM_PORT

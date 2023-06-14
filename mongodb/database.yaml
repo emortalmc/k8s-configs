@@ -1,0 +1,84 @@
+apiVersion: mongodbcommunity.mongodb.com/v1
+kind: MongoDBCommunity
+
+metadata:
+  name: mongodb-main
+  namespace: emortalmc
+
+spec:
+  members: 1
+  type: ReplicaSet
+  version: "6.0.6"
+
+  security:
+    authentication:
+      modes: ["SCRAM"]
+
+  users:
+#    - name: mongodb
+#      db: admin
+#      passwordSecretRef:
+#        name: mongodb-master-password
+#      roles:
+#        - db: admin
+#          name: clusterAdmin
+#        - db: admin
+#          name: userAdminAnyDatabase
+#      scramCredentialsSecretName: mongodb
+
+    - name: permission-service
+      db: permission-service
+      passwordSecretRef:
+        name: permission-service-db-creds
+      roles:
+        - db: permission-service
+          name: readWrite
+      scramCredentialsSecretName: permission-service
+
+    - name: relationship-manager
+      db: relationship-manager
+      passwordSecretRef:
+        name: relationship-manager-db-creds
+      roles:
+        - db: relationship-manager
+          name: readWrite
+      scramCredentialsSecretName: relationship-manager
+
+    - name: mc-player-service
+      db: mc-player-service
+      passwordSecretRef:
+        name: mc-player-service-db-creds
+      roles:
+        - db: mc-player-service
+          name: readWrite
+      scramCredentialsSecretName: mc-player-service
+
+    - name: player-tracker
+      db: player-tracker
+      passwordSecretRef:
+        name: player-tracker-db-creds
+      roles:
+        - db: player-tracker
+          name: readWrite
+      scramCredentialsSecretName: player-tracker
+
+    - name: party-manager
+      db: party-manager
+      passwordSecretRef:
+        name: party-manager-db-creds
+      roles:
+        - db: party-manager
+          name: readWrite
+      scramCredentialsSecretName: party-manager
+
+    - name: matchmaker
+      db: matchmaker
+      passwordSecretRef:
+        name: matchmaker-db-creds
+      roles:
+        - db: matchmaker
+          name: readWrite
+      scramCredentialsSecretName: matchmaker
+
+  additionalMongodConfig:
+    storage.wiredTiger.engineConfig.journalCompressor: zlib

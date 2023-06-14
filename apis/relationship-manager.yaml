@@ -41,8 +41,8 @@ spec:
             - name: MONGODB_URI
               valueFrom:
                 secretKeyRef:
-                  name: mongo-connection-string
-                  key: connectionString.standard
+                  name: relationship-manager-db-creds
+                  key: connection-string
             - name: PORT
               value: "9010"
 ---
