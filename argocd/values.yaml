@@ -21,8 +21,10 @@ configs:
             clientSecret: $dex.github.clientSecret
             orgs:
               - name: emortalmc
+
   params:
     server.insecure: true
+
   rbac:
     policy.default: "role:readonly"
     policy.csv: |
@@ -40,3 +42,7 @@ configs:
       p, role:org-admin, logs, get, *, allow
       p, role:org-admin, exec, create, */*, allow
       g, emortalmc:big boys, role:org-admin
+
+  secret:
+    extra:
+      dex.github.clientSecret: "c6524113242635fd1dc0c6deb5fd6bc993a93496"

@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: player-tracker
+  namespace: argocd
+
+spec:
+  project: "emortalmc"
+  source:
+    repoURL: "git@github.com:emortalmc/player-tracker.git"
+    targetRevision: "deployment"
+    path: "."
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: "emortalmc"
+  syncPolicy:
+    automated: {}

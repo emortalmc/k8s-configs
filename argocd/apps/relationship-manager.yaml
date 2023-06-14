@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: relationship-manager
+  namespace: argocd
+
+spec:
+  project: "emortalmc"
+  source:
+    repoURL: "git@github.com:emortalmc/relationship-manager-service.git"
+    targetRevision: "deployment"
+    path: "."
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: "emortalmc"
+  syncPolicy:
+    automated: {}
