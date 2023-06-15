@@ -7,28 +7,11 @@ metadata:
 
 spec:
   entryPoints:
-    - websecure
+    - web
 
   routes:
     - kind: Rule
-      match: Host(`metrics.emortal.dev`)
+      match: Host(`metrics.emc`)
       services:
         - name: prom-stack-grafana
           port: 80
-      middlewares:
-        - name: kani-grafana
-
-  tls:
-    certResolver: letsencrypt
----
-#apiVersion: traefik.containo.us/v1alpha1
-#kind: Middleware
-#metadata:
-#  name: kani-grafana
-#  namespace: monitoring
-#spec:
-#  forwardAuth:
-#    address: http://kani.default.svc.cluster.local/<audienceId>
-#
-#    authResponseHeaders:
-#      - "X-Auth-User"

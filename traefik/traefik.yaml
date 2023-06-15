@@ -6,28 +6,11 @@ metadata:
 
 spec:
   entryPoints:
-    - websecure
+    - web
 
   routes:
-    - match: Host(`traefik.emortal.dev`) #&& (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+    - match: Host(`traefik.emc`) #&& (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
       kind: Rule
-      middlewares:
-        - name: kani-traefik
       services:
         - name: api@internal
           kind: TraefikService
-
-  tls:
-    certResolver: cloudflare
----
-#apiVersion: traefik.containo.us/v1alpha1
-#kind: Middleware
-#metadata:
-#  name: kani-traefik
-#  namespace: linkerd-viz
-#spec:
-#  forwardAuth:
-#    address: http://kani.default.svc.cluster.local/<audienceId>
-#
-#    authResponseHeaders:
-#      - "X-Auth-User"
