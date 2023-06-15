@@ -7,6 +7,10 @@ agones:
     service:
       http:
         enabled: false
+
+  ping:
+    install: false # If we enable this in the future we'll need to change the service type (that's a helm chart option)
+
   metrics:
     prometheusEnabled: true
     prometheusServiceDiscovery: true
