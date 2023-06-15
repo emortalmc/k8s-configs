@@ -33,4 +33,4 @@ spec:
     
     # Only run traefik on a single node
     nodeSelector:
-      kubernetes.io/hostname: emc-1
+      kubernetes.io/hostname: emc-01
