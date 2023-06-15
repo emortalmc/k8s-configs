@@ -24,6 +24,8 @@ spec:
 #          name: clusterAdmin
 #        - db: admin
 #          name: userAdminAnyDatabase
+#        - db: admin
+#          name: readWriteAnyDatabase
 #      scramCredentialsSecretName: mongodb
 
     - name: permission-service
