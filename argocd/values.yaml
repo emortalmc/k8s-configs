@@ -9,24 +9,14 @@ global:
 
 configs:
   cm:
-    url: "https://argo.emortal.dev"
     admin.enabled: false
-    dex.config: |
-      connectors:
-        - type: github
-          id: github
-          name: GitHub
-          config:
-            clientID: f391cca20124fea2f77d
-            clientSecret: $dex.github.clientSecret
-            orgs:
-              - name: emortalmc
+    users.anonymous.enabled: true
 
   params:
     server.insecure: true
 
   rbac:
-    policy.default: "role:readonly"
+    policy.default: "role:org-admin"
     policy.csv: |
       p, role:org-admin, applications, *, */*, allow
       p, role:org-admin, clusters, get, *, allow
@@ -40,9 +30,3 @@ configs:
       p, role:org-admin, projects, update, *, allow
       p, role:org-admin, projects, delete, *, allow
       p, role:org-admin, logs, get, *, allow
-      p, role:org-admin, exec, create, */*, allow
-      g, emortalmc:big boys, role:org-admin
-
-  secret:
-    extra:
-      dex.github.clientSecret: "c6524113242635fd1dc0c6deb5fd6bc993a93496"
