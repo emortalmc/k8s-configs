@@ -25,7 +25,7 @@ D("emc", REG_NONE, DnsProvider(DNS_POWERDNS),
 
 D("emc.staging", REG_NONE, DnsProvider(DNS_POWERDNS),
     // Root info
-    A("@", "100.113.150.36"),
+    A("@", "100.91.143.11"),
 
     CNAME("argo", "emc.staging."),
     CNAME("metrics", "emc.staging."),
