@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: ${name}
+  namespace: argocd
+
+spec:
+  project: "emortalmc"
+  source:
+    repoURL: "git@github.com:emortalmc/${repo-name}.git"
+    targetRevision: "deployment"
+    path: "."
+  destination:
+    namespace: "emortalmc"
+    server: "https://kubernetes.default.svc"
+%{ if production }
+%{ else }
+  syncPolicy:
+    automated: {}
+%{ endif }

@@ -1,0 +1,8 @@
+{
+  "powerdns": {
+    "TYPE": "POWERDNS",
+    "apiKey": "ZmfKw5J4BG964YjJDGeFLSzShMZ36cdJ",
+    "apiUrl": "http://100.64.209.7:8081",
+    "serverName": "localhost"
+  }
+}
