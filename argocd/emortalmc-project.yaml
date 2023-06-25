@@ -10,5 +10,6 @@ spec:
   sourceNamespaces: ["emortalmc"]
   sourceRepos: ["git@github.com:emortalmc/*"]
   destinations:
-    - namespace: "emortalmc"
+    - name: "Production"
+      namespace: "emortalmc"
       server: "https://kubernetes.default.svc"
