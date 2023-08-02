@@ -8,7 +8,7 @@ metadata:
 spec:
   description: "All the games and services that make up EmortalMC"
   sourceNamespaces: ["emortalmc"]
-  sourceRepos: ["git@github.com:emortalmc/*"]
+  sourceRepos: ["git@github.com:emortalmc/*", "https://github.com/ZakShearman/mc-tower-defence.git"]
   destinations:
     - name: "Production"
       namespace: "emortalmc"

@@ -1,7 +1,7 @@
 {
-  "id": "towerdefence",
+  "id": "tower-defence",
   "enabled": true,
-  "fleetName": "towerdefence",
+  "fleetName": "tower-defence",
 
   "priority": 125,
 

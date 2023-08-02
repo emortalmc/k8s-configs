@@ -33,6 +33,7 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 0,
+      "id": 66,
       "links": [],
       "liveNow": false,
       "panels": [
@@ -187,7 +188,7 @@ data:
             },
             "textMode": "auto"
           },
-          "pluginVersion": "9.3.1",
+          "pluginVersion": "9.5.2",
           "targets": [
             {
               "datasource": {
@@ -252,7 +253,7 @@ data:
             },
             "textMode": "auto"
           },
-          "pluginVersion": "9.3.1",
+          "pluginVersion": "9.5.2",
           "targets": [
             {
               "datasource": {
@@ -437,7 +438,7 @@ data:
             },
             "textMode": "auto"
           },
-          "pluginVersion": "9.3.1",
+          "pluginVersion": "9.5.2",
           "targets": [
             {
               "datasource": {
@@ -502,7 +503,7 @@ data:
             },
             "textMode": "auto"
           },
-          "pluginVersion": "9.3.1",
+          "pluginVersion": "9.5.2",
           "targets": [
             {
               "datasource": {
@@ -878,7 +879,7 @@ data:
                 "uid": "$datasource"
               },
               "editorMode": "code",
-              "expr": "sum(\n    kube_pod_container_resource_requests{job=\"kube-state-metrics\", pod=\"$pod_name\", resource=\"cpu\"}\n)\n",
+              "expr": "sum(\n    kube_pod_container_resource_requests{job=\"kube-state-metrics\", pod=\"$pod_name\", resource=\"cpu\"}\n) / $show_req_lims\n",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 2,
@@ -892,7 +893,7 @@ data:
                 "uid": "$datasource"
               },
               "editorMode": "code",
-              "expr": "sum(\n    kube_pod_container_resource_limits{job=\"kube-state-metrics\", pod=\"$pod_name\", resource=\"cpu\"}\n)\n",
+              "expr": "sum(\n    kube_pod_container_resource_limits{job=\"kube-state-metrics\", pod=\"$pod_name\", resource=\"cpu\"}\n) / $show_req_lims\n",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 2,
@@ -999,20 +1000,20 @@ data:
           "type": "timeseries"
         }
       ],
-      "refresh": false,
-      "schemaVersion": 37,
+      "refresh": "",
+      "schemaVersion": 38,
       "style": "dark",
       "tags": [],
       "templating": {
         "list": [
           {
             "current": {
-              "selected": true,
+              "selected": false,
               "text": [
-                "lobby"
+                "tower-defence"
               ],
               "value": [
-                "lobby"
+                "tower-defence"
               ]
             },
             "datasource": {
@@ -1037,9 +1038,9 @@ data:
           },
           {
             "current": {
-              "selected": true,
-              "text": "lobby-wldxd-6hs6j",
-              "value": "lobby-wldxd-6hs6j"
+              "selected": false,
+              "text": "tower-defence-x6trf-4z2km",
+              "value": "tower-defence-x6trf-4z2km"
             },
             "datasource": {
               "type": "prometheus",
@@ -1135,6 +1136,33 @@ data:
             "refresh": 2,
             "skipUrlSync": false,
             "type": "interval"
+          },
+          {
+            "current": {
+              "selected": false,
+              "text": "false",
+              "value": "0"
+            },
+            "hide": 0,
+            "includeAll": false,
+            "multi": false,
+            "name": "show_req_lims",
+            "options": [
+              {
+                "selected": true,
+                "text": "false",
+                "value": "0"
+              },
+              {
+                "selected": false,
+                "text": "true",
+                "value": "1"
+              }
+            ],
+            "query": "false : 0, true : 1 ",
+            "queryValue": "",
+            "skipUrlSync": false,
+            "type": "custom"
           }
         ]
       },
@@ -1146,6 +1174,6 @@ data:
       "timezone": "",
       "title": "MC / Server",
       "uid": "FHH4CyQVz",
-      "version": 2,
+      "version": 1,
       "weekStart": ""
     }
