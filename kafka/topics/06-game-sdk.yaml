@@ -1,0 +1,14 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: game-sdk
+  namespace: emortalmc
+  labels:
+    strimzi.io/cluster: default
+
+spec:
+  topicName: game-sdk
+  partitions: 1
+  replicas: 1
+  config:
+    retention.ms: 3600000 # 1 hour
