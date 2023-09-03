@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Secret
+
+metadata:
+  name: emortalmc-ssh
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repo-creds
+
+stringData:
+  type: "git"
+  url: "git@github.com:emortalmc"
+  sshPrivateKey: | # Copy SSH private key in PEM format to here

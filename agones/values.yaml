@@ -4,9 +4,7 @@ gameservers:
 
 agones:
   allocator:
-    service:
-      http:
-        enabled: false
+    install: false # We don't use the external allocator service
 
   ping:
     install: false # If we enable this in the future we'll need to change the service type (that's a helm chart option)
