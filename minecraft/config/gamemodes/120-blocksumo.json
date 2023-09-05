@@ -1,7 +1,7 @@
 {
-  "id": "block_sumo",
+  "id": "blocksumo",
   "enabled": true,
-  "fleetName": "block-sumo",
+  "fleetName": "blocksumo",
   "priority": 120,
   "friendlyName": "Block Sumo",
   "activityNoun": "playing",
