@@ -72,9 +72,11 @@ spec:
                       fieldPath: metadata.namespace
                 - name: FLEET_NAME
                   value: towerdefence
+
 ---
 apiVersion: autoscaling.agones.dev/v1
 kind: FleetAutoscaler
+
 metadata:
   name: towerdefence
   namespace: emortalmc

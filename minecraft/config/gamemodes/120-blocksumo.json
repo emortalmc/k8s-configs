@@ -2,11 +2,15 @@
   "id": "blocksumo",
   "enabled": true,
   "fleetName": "blocksumo",
+
   "priority": 120,
+
   "friendlyName": "Block Sumo",
   "activityNoun": "playing",
+
   "minPlayers": 2,
   "maxPlayers": 12,
+
   "displayItem": {
     "material": "minecraft:fire_charge",
     "slot": 22,
@@ -18,6 +22,7 @@
       "<gray>other players off the edge!"
     ]
   },
+
   "displayNpc": {
     "entityType": "PLAYER",
     "titles": [
@@ -28,10 +33,12 @@
       "signature": "prWY0EtGdAfqt/nc4Vv/sMBcVEb6WMvaRumTk72e/NKe3dUPxmzlDRm6rw/mEE332JND6+sEI9PmDQ4jj/W41cn/XR/uZIBS+1qLE+57slEQA+ds+/kffKt1358JEV5/qyqCnODLVjwsRwazXJstC3eKNByaTQEyZ2jv/mFeAIAOF+0eQqDaaMGgxdIMRvWR8Nj6uIiBFTdCPIw3OYZ5bxqxm8Epr5PppF+sj7ZK0UyQ5/f1UoO9B/YMUt0OW+UlF3NYcMDs5mrg1N8Ajxvqbe8l0X7eWHgSYd0S/FopSCiVVQOQdZHRyhicmzLv6rE+xW03SB8NRfoaEEvSh8+QiLGMcyETeriwdDzdf8H9Iin3vDkVbMyRTAJ5jL/xDkoFDFR5HtNkrwYBRJoVkiWbnWyoBFofAjmmMmGmT5SFABS7I0iWLEoP4EMzqy84zDbpwOOioQz9UFlZV8AqmyEDv8Hx6px20zdR/jPr7tRQgqRhcPyzNsElcNLhkBfHmhpKffkrEPOAaal49rtB+3Jq+nX8Z1VyEZSW4MYnuq91bFZ1ciMzopYulPwP4cZkrGaqV84lxsqStI5+STi105KP4Bws+XDpop1eyPdDuVL/axq3VVkKeRqSoMv+xRYONGZJQgZ1t0WRIsXk7DLsjtx8QgffxqOwjW5CmZR0liSPfYM="
     }
   },
+
   "partyRestrictions": {
     "minSize": 1,
     "maxSize": 12
   },
+
   "maps": {
     "blocksumo": {
       "id": "blocksumo",
@@ -89,6 +96,7 @@
       }
     }
   },
+
   "matchmakerInfo": {
     "matchMethod": "COUNTDOWN",
     "selectMethod": "AVAILABLE",

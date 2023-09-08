@@ -1,5 +1,6 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
+
 metadata:
   name: allocation-creator
   namespace: emortalmc
@@ -10,9 +11,9 @@ rules:
     verbs: ["create"]
 
 ---
-
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
+
 metadata:
   name: allocation-creator-access
   namespace: emortalmc

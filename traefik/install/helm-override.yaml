@@ -1,8 +1,10 @@
 apiVersion: helm.cattle.io/v1
 kind: HelmChartConfig
+
 metadata:
   name: traefik
   namespace: kube-system
+
 spec:
   valuesContent: |-
     certResolvers:
@@ -22,15 +24,15 @@ spec:
             - 8.8.8.8
         # It has to match the path with a persistent volume
         storage: /data/certs.json
-    
+
     persistence:
       enabled: true
       name: traefik
-    
+
     envFrom:
       - secretRef:
           name: cloudflare-api
-    
+
     # Only run traefik on a single node
     nodeSelector:
-      kubernetes.io/hostname: emc-01
+      kubernetes.io/hostname: {{node}}

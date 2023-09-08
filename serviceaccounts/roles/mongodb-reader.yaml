@@ -6,11 +6,11 @@ metadata:
   namespace: emortalmc
 
 rules:
-  - apiGroups: [ "" ]
-    resources: [ "secrets", "pods" ]
-    verbs: [ "get", "patch" ]
----
+  - apiGroups: [""]
+    resources: ["secrets", "pods"]
+    verbs: ["get", "patch"]
 
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 

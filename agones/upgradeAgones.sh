@@ -1,1 +1,0 @@
-helm upgrade -f values.yaml agones agones/agones -n agones-system --version 1.32.0

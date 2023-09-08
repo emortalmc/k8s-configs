@@ -1,8 +1,10 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
+
 metadata:
   name: reposilite-ingress
   namespace: reposilite
+
 spec:
   entryPoints:
     - websecure

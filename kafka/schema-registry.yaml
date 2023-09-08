@@ -1,23 +1,28 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
+
 metadata:
   name: registry-schemas
   namespace: emortalmc
   labels:
     strimzi.io/cluster: events
+
 spec:
   partitions: 1
   replicas: 1
   config:
     cleanup.policy: compact
+
 ---
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaUser
+
 metadata:
   name: confluent-schema-registry
   namespace: emortalmc
   labels:
     strimzi.io/cluster: events
+
 spec:
   authentication:
     type: tls
@@ -48,12 +53,15 @@ spec:
           patternType: literal
         operation: Describe
         type: allow
+
 ---
 apiVersion: roundtable.lsst.codes/v1beta1
 kind: StrimziSchemaRegistry
+
 metadata:
   name: confluent-schema-registry
   namespace: emortalmc
+
 spec:
   strimziVersion: v1beta2
   listener: tls

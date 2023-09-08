@@ -1,10 +1,12 @@
 apiVersion: v1
 kind: ConfigMap
+
 metadata:
   name: mc-server
   namespace: monitoring
   labels:
     grafana_dashboard: "1"
+
 data:
   dashboard-mc-server.json: |
     {

@@ -118,4 +118,4 @@ gradle-app.setting
 !gradle-wrapper.jar
 
 # Custom folders
-secrets/
+/secrets

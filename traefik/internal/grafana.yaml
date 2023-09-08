@@ -1,0 +1,17 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+
+metadata:
+  name: grafana-ingress
+  namespace: monitoring
+
+spec:
+  entryPoints:
+    - web
+
+  routes:
+    - kind: Rule
+      match: Host(`metrics.{{host}}`)
+      services:
+        - name: prom-stack-grafana
+          port: 80
