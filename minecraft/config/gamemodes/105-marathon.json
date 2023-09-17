@@ -1,6 +1,6 @@
 {
   "id": "marathon",
-  "enabled": false,
+  "enabled": true,
   "fleetName": "marathon",
 
   "priority": 105,
