@@ -1,6 +1,6 @@
 repos=(
   "battle" "blocksumo" "lazertag" "lobby" "kurushimi" "mc-player-service" "message-handler" "minesweeper"
-  "parkourtag" "party-manager" "permission-service-go" "relationship-manager-service" "velocity-core"
+  "parkourtag" "party-manager" "permission-service-go" "relationship-manager-service" "velocity-core" "marathon"
 )
 
 for name in "${repos[@]}"

@@ -1,10 +1,10 @@
 names=(
   "battle" "blocksumo" "lazertag" "lobby" "matchmaker" "mc-player-service" "message-handler" "minesweeper" "parkourtag"
-  "party-manager" "permission-service" "relationship-manager" "tower-defence" "velocity-core"
+  "party-manager" "permission-service" "relationship-manager" "tower-defence" "velocity-core" "marathon"
 )
 repos=(
   "battle" "blocksumo" "lazertag" "lobby" "kurushimi" "mc-player-service" "message-handler" "minesweeper" "parkourtag"
-  "party-manager" "permission-service-go" "relationship-manager-service" "tower-defence" "velocity-core"
+  "party-manager" "permission-service-go" "relationship-manager-service" "tower-defence" "velocity-core" "marathon"
 )
 staging=$1
 
