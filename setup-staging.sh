@@ -45,9 +45,9 @@ kubectl apply -f ./monitoring/pyroscope/grafana-datasource.yaml
 kubectl apply -f ./monitoring/pyroscope/config-maps.yaml
 
 # Install the service accounts, roles, and role bindings
-kubectl apply -f ./serviceaccounts
-kubectl apply -f ./serviceaccounts/agones
-kubectl apply -f ./serviceaccounts/roles
+kubectl apply -f ./00-serviceAccounts
+kubectl apply -f ./00-serviceAccounts/agones
+kubectl apply -f ./00-serviceAccounts/roles
 
 # Modify Traefik and install routes
 cloudflare_email=

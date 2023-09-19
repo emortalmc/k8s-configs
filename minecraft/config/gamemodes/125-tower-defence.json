@@ -11,7 +11,7 @@
   "minPlayers": 2,
   "maxPlayers": 12,
 
-  "displayItem": {
+  "$UNUSED_displayItem": {
     "material": "minecraft:totem_of_undying",
     "slot": 20,
     "name": "<gradient:#ffb70f:#ffcd17:#ffb70f><bold>TowerDefence</bold></gradient>",
@@ -23,7 +23,7 @@
     ]
   },
 
-  "displayNpc": {
+  "$UNUSED_displayNpc": {
     "entityType": "PLAYER",
     "titles": [
       "<gradient:#ffb70f:#ffcd17:#ffb70f><bold>TowerDefence</bold></gradient>"
