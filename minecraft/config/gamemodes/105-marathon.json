@@ -41,6 +41,6 @@
   "matchmakerInfo": {
     "matchMethod": "INSTANT",
     "selectMethod": "PLAYER_COUNT",
-    "rate": 500000000
+    "rate": 175000000
   }
 }

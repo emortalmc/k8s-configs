@@ -18,4 +18,4 @@ agones:
   featureGates: PlayerTracking=true&PlayerAllocationFilter=true&FleetAllocationOverflow=true
 
   controller:
-    allocationBatchWaitTime: 300ms
+    allocationBatchWaitTime: 175ms
