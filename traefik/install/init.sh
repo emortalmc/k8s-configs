@@ -1,20 +1,15 @@
-cloudflare_email=$1
-cloudflare_dns_api_token=$2
-staging=$3
-
 primary_node=""
-if [ $staging == "true" ]; then
+if [ $STAGING == "true" ]; then
   primary_node="emc-staging-01"
-elif [ $staging == "false" ]; then
+elif [ $STAGING == "false" ]; then
   primary_node="emc-01"
 else
-  echo "Invalid staging value: $staging"
+  echo "Invalid staging value: $STAGING"
   exit 1
 fi
 
-kubectl create secret generic cloudflare-api \
-  --from-literal=CLOUDFLARE_EMAIL="$cloudflare_email" \
-  --from-literal=CLOUDFLARE_DNS_API_TOKEN="$cloudflare_dns_api_token" \
-  -n kube-system
+# Requires SOPS and age installed and the private key setup properly to work
+sops --decrypt cloudflare-creds.enc.yaml | kubectl apply -f -
 
+# Override default Traefik Helm chart values
 cat helm-override.yaml | sed "s|{{node}}|$primary_node|g" | kubectl apply -f -

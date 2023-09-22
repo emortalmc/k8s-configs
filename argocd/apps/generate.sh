@@ -1,17 +1,17 @@
 names=(
-  "battle" "blocksumo" "lazertag" "lobby" "matchmaker" "mc-player-service" "message-handler" "minesweeper" "parkourtag"
-  "party-manager" "permission-service" "relationship-manager" "tower-defence" "velocity-core" "marathon"
+  "battle" "blocksumo" "lazertag" "lobby" "marathon" "minesweeper" "parkourtag" "tower-defence" "velocity-core" # Games
+  "matchmaker" "mc-player-service" "message-handler" "party-manager" "permission-service" "relationship-manager" # Services
 )
+# This is a sort of map. The repo name at index i corresponds to the name at index i.
 repos=(
-  "battle" "blocksumo" "lazertag" "lobby" "kurushimi" "mc-player-service" "message-handler" "minesweeper" "parkourtag"
-  "party-manager" "permission-service-go" "relationship-manager-service" "tower-defence" "velocity-core" "marathon"
+  "battle" "blocksumo" "lazertag" "lobby" "marathon" "minesweeper" "parkourtag" "tower-defence" "velocity-core" # Games
+  "kurushimi" "mc-player-service" "message-handler" "party-manager" "permission-service-go" "relationship-manager-service" # Services
 )
-staging=$1
 
 file=""
-if [ $staging == "true" ]; then
+if [ $STAGING == "true" ]; then
   file="template-staging.yaml"
-elif [ $staging == "false" ]; then
+elif [ $STAGING == "false" ]; then
   file="template-prod.yaml"
 else
   echo "staging must be true or false"

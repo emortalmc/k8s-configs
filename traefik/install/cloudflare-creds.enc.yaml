@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: cloudflare-api
+    namespace: kube-system
+stringData:
+    CLOUDFLARE_EMAIL: ENC[AES256_GCM,data:f/mevlHMM5Yv9TrpMNqgkb8OdeKmcPzAIA==,iv:zHkqLRFf9GbF4hLJKHrPY4znsZEGnp6IC5bjXoupLGg=,tag:l4NEM3mZh1CgF0pXBVVjSg==,type:str]
+    CLOUDFLARE_DNS_API_TOKEN: ENC[AES256_GCM,data:K+GrmgzAgZMKocxFybAraO4amGHfd05CqfI7GCYtzDRGySrcX+u7ww==,iv:/TBZYxaGQ23N3J8aytXRn5PsbUARLWodAZeyUkRDA4s=,tag:nJu55rjiOVrsgx4EtsXUFw==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1y87afu9m5j3p6f5adjarr5a64nzma09y353s5s3p00lla4gj69ssn8nyaw
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB0TUJJQUJ6M2dobmFka0I5
+            Vktkc3VYYnNEa01IY2RVV2JUQ2xlcyt3dWpFCmd4OXZCRzNmbDh3MGNjd1hEZ1hO
+            bnJYNVdxczdaMTcrSlR6cktVUHREOWMKLS0tIG9sdzlMOVBBK1h3MUpOeThSM2FD
+            NGd4Zmt2clVubnVKR3hlcTZ3aHBoRmcKqWr0xxkZBn2PN7KEyYmZB7DOmJ8cckEc
+            1L+thdk09X+BoNWoKYMb8BySKq+Ob5YfkuQKVbBQkpemZGWwS82YnA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-09-22T16:34:21Z"
+    mac: ENC[AES256_GCM,data:KpgT0AwG1IkE4r/MDy9RXzhFjYvbO0vcHhwP5qMQlLbadV6veUXtD7tYG+DqxPrxwqasdFx/1eiLJBNvA0y5VvLq+JzDhxJf3XoUJNjqKWqAvb43S5f0HH96kdWWMEXAwph0rGVbm9yY4rNWqYGtK6WFEJ2CtQ14f5Bv8OUj1RM=,iv:Z5h8sYG2H1YQuWfBx7IcSJJ9GqUXokC4iFRfkGhLJZM=,tag:ogQCgXr/lPeNLmCz//f3Gg==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.8.0

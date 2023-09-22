@@ -1,10 +1,9 @@
 routes=("argocd" "grafana" "linkerd" "traefik")
-staging=$1
 
 host=""
-if [ $staging == "true" ]; then
+if [ $STAGING == "true" ]; then
   host="emc.staging"
-elif [ $staging == "false" ]; then
+elif [ $STAGING == "false" ]; then
   host="emc"
 else
   echo "staging must be true or false"
@@ -13,5 +12,5 @@ fi
 
 for route in "${routes[@]}"
 do
-  echo "$(cat "$route.yaml" | sed "s|{{host}}|$host|g")"
+  cat "./$route.yaml" | sed "s|{{host}}|$host|g" | kubectl apply -f -
 done

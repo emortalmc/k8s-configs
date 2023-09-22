@@ -1,61 +1,34 @@
 #!/usr/bin/env bash
 
+source ./utils.sh
+export STAGING=false
+
 # Install Agones
-source ./agones/init.sh
+run_init_script agones
 
 # Install ArgoCD
-source ./argocd/init.sh
-kubectl apply -f ./argocd/emortalmc-project.yaml
-
-source ./argocd/repos/generate.sh
-source ./argocd/apps/generate.sh false
+run_init_script argocd
 
 # Install Kafka
-source install-operator.sh
-kubectl apply -f ./kafka/cluster-config.yaml
-kubectl apply -f ./kafka/topics
+run_init_script kafka
 
 # Install game mode configs
-source ./minecraft/config/update-gamemodes.sh
+run_init_script minecraft
 
 # Install MongoDB
-source ./mongodb/init.sh
-source ./mongodb/secrets/generate.sh
-kubectl apply -f ./mongodb/database.yaml
+run_init_script mongodb
 
-# Install Prometheus Stack & Monitoring stuff
-source ./monitoring/install/install-metrics.sh
+# Setup monitoring tools
+run_init_script monitoring
 
-kubectl apply -f ./grafana/dashboard/agones
-kubectl apply -f ./grafana/dashboard/loki
-kubectl apply -f ./grafana/dashboard/minecraft
-
-kubectl apply -f ./agones/prom-service-monitor.yaml
-kubectl apply -f ./minecraft/pod-monitor.yaml
-
-# Install Loki and Promtail
-source ./monitoring/loki/init.sh
-kubectl apply -f ./monitoring/loki/grafana-datasource.yaml
-
-source ./monitoring/promtail/init.sh
-
-# Install Pyroscope
-source ./monitoring/pyroscope/init.sh
-kubectl apply -f ./monitoring/pyroscope/grafana-datasource.yaml
-kubectl apply -f ./monitoring/pyroscope/config-maps.yaml
+# Install Redis - disabled for now
+#run_init_script redis
 
 # Reposilite
-source ./reposilite/init.sh
+run_init_script reposilite
 
 # Install the service accounts, roles, and role bindings
-kubectl apply -f ./00-serviceAccounts
-kubectl apply -f ./00-serviceAccounts/agones
-kubectl apply -f ./00-serviceAccounts/roles
+run_init_script 00-serviceAccounts
 
 # Modify Traefik and install routes
-cloudflare_email=
-cloudflare_dns_api_token=
-source ./traefik/install/init.sh $cloudflare_email $cloudflare_dns_api_token false
-
-source ./traefik/internal/generate.sh false
-kubectl apply -f ./traefik/external/reposilite.yaml
+run_init_script traefik
