@@ -4,7 +4,7 @@ helm repo add agones https://agones.dev/chart/stable
 helm repo update agones
 
 helm install agones agones/agones \
-  --values ./values.yaml --version 1.32.0 \
+  --values ./values.yaml --version 1.34.0 \
   -n agones-system --create-namespace
 
 # TODO we should figure out a proper way to do CRDs for Agones
