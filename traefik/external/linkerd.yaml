@@ -3,7 +3,7 @@ kind: IngressRoute
 
 metadata:
   name: linkerd-ingress
-  namespace: linkerd-viz
+  namespace: linkerd
 
 spec:
   entryPoints:
@@ -24,10 +24,10 @@ kind: Middleware
 
 metadata:
   name: l5d-header
-  namespace: linkerd-viz
+  namespace: linkerd
 
 spec:
   headers:
     customRequestHeaders:
-      Host: "web.linkerd-viz.svc.cluster.local:8084"
+      Host: "web.linkerd.svc.cluster.local:8084"
       Origin: ""

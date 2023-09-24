@@ -1,0 +1,35 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+
+metadata:
+  name: argocd-ingress
+  namespace: argocd
+
+spec:
+  entryPoints:
+    - websecure
+
+  routes:
+    - match: Host(`argo.{{host}}`)
+      kind: Rule
+      services:
+        - name: argocd-server
+          port: 80
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+
+metadata:
+  name: kani-argo-middleware
+  namespace: argocd
+
+spec:
+  forwardAuth:
+    # Replace <AUD> with your Cloudflare Access application audience.
+    # address: http://<service-name>.<namespace>.svc.cluster.local/<aud>
+    address: http://argocd-server.argocd.svc.cluster.local/d6a87f3e3f7d2a2d54b50a7faa177f4146690992110679decf4ed403b5e80009
+
+    # Optionally you can forward the authenticated user's email (or common name) to the backend.
+    authResponseHeaders:
+      - "X-Auth-User"

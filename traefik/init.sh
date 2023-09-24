@@ -2,9 +2,9 @@
 run_init_script install
 
 # Install internal routes
-run_script internal generate.sh
+run_script external generate.sh
 
 # Install external routes
-if [ $STAGING == "true" ]; then
+if [ "$STAGING" == "false" ]; then
   kubectl apply -f ./external/reposilite.yaml
 fi

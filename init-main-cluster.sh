@@ -14,12 +14,14 @@ fi
 
 hostnamectl set-hostname "$node_name"
 
+# All systems are installed with Ubuntu so setting resolv.conf is necessary
 curl -sfL https://get.k3s.io | K3S_TOKEN="$token" sh -s - server \
   --flannel-backend=wireguard-native \
   --advertise-address "$address" \
   --node-name "$node_name" \
   --node-ip "$address" \
-  --resolv-conf /run/systemd/resolve/resolv.conf # All systems are installed with Ubuntu so this is necessary
+  --resolv-conf /run/systemd/resolve/resolv.conf \
+  --disable traefik
 
 ./init-common.sh
 

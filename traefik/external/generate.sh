@@ -2,9 +2,9 @@ routes=("argocd" "grafana" "linkerd" "traefik")
 
 host=""
 if [ $STAGING == "true" ]; then
-  host="emc.staging"
+  host="staging.emortal.dev"
 elif [ $STAGING == "false" ]; then
-  host="emc"
+  host="emortal.dev"
 else
   echo "staging must be true or false"
   exit 1

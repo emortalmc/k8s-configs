@@ -11,5 +11,10 @@ fi
 # Requires SOPS and age installed and the private key setup properly to work
 sops --decrypt cloudflare-creds.enc.yaml | kubectl apply -f -
 
-# Override default Traefik Helm chart values
-cat helm-override.yaml | sed "s|{{node}}|$primary_node|g" | kubectl apply -f -
+helm repo add traefik https://traefik.github.io/charts
+helm repo update traefik
+
+helm install traefik traefik/traefik --version 24.0.0 \
+  -n traefik --create-namespace \
+  --values values.yaml \
+  --set "nodeSelector.kubernetes.io/hostname=$primary_node"
