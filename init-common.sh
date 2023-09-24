@@ -14,5 +14,5 @@ source ~/.bashrc
 
 mkdir -p ~/.ssh
 for file in ./sshKeys/*; do
-  cat "$file" >> ~/.ssh/authorized_keys
+  cat "$file"; echo >> ~/.ssh/authorized_keys
 done

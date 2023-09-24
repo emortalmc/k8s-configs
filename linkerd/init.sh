@@ -2,10 +2,13 @@
 
 # NOTE: This must be run on the system of the cluster
 
+source ~/.bashrc
+
 mkdir -p linkerdwork
 cd linkerdwork || exit
 
 helm repo add linkerd https://helm.linkerd.io/stable
+helm repo update linkerd
 
 helm install linkerd-crds linkerd/linkerd-crds \
   -n linkerd --create-namespace
