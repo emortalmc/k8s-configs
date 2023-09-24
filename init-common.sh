@@ -1,5 +1,7 @@
 # Set fs.inotify.max_user_instances (default is 128) to prevent "too many open files" error
-cat "fs.inotify.max_user_instances=1024" >> /etc/sysctl.conf
+echo "fs.inotify.max_user_instances=8192" >> /etc/sysctl.conf
+echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf
+sysctl -p # Update sysctl
 
 # Install Helm
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3

@@ -16,10 +16,14 @@ certResolvers:
     # It has to match the path with a persistent volume
     storage: /data/certs.json
 
+logs:
+  general:
+    level: DEBUG
+
 persistence:
   enabled: true
   name: traefik
 
 envFrom:
   - secretRef:
-    name: cloudflare-api
+      name: cloudflare-api

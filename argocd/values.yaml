@@ -2,7 +2,7 @@ crds:
   install: false
 
 global:
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 50
 
   logging:
     format: json

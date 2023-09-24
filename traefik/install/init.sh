@@ -17,4 +17,7 @@ helm repo update traefik
 helm install traefik traefik/traefik --version 24.0.0 \
   -n traefik --create-namespace \
   --values values.yaml \
-  --set "nodeSelector.kubernetes.io/hostname=$primary_node"
+  --set nodeSelector."kubernetes\.io/hostname=$primary_node"
+
+# Apply Kani
+kubectl apply -f kani.yaml

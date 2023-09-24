@@ -1,17 +1,37 @@
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 
 metadata:
   name: traefik-dashboard
-  namespace: kube-system
+  namespace: traefik
 
 spec:
   entryPoints:
-    - web
+    - websecure
 
   routes:
-    - match: Host(`traefik.{{host}}`) #&& (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+    - match: Host(`traefik.{{host}}`)
       kind: Rule
       services:
         - name: api@internal
           kind: TraefikService
+      middlewares:
+        - name: kani-traefik-middleware
+
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+
+metadata:
+  name: kani-traefik-middleware
+  namespace: traefik
+
+spec:
+  forwardAuth:
+    # Replace <AUD> with your Cloudflare Access application audience.
+    # address: http://<service-name>.<namespace>.svc.cluster.local/<aud>
+    address: http://kani.traefik.svc.cluster.local/5d66ba76fa7d60bc32c6edb6645f42306cc6070c2991d7b99dea00163cbc5bac
+
+    # Optionally you can forward the authenticated user's email (or common name) to the backend.
+    authResponseHeaders:
+      - "X-Auth-User"

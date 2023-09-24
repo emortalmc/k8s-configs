@@ -1,4 +1,4 @@
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 
 metadata:
@@ -7,7 +7,7 @@ metadata:
 
 spec:
   entryPoints:
-    - web
+    - websecure
 
   routes:
     - kind: Rule
@@ -15,3 +15,23 @@ spec:
       services:
         - name: prom-stack-grafana
           port: 80
+      middlewares:
+        - name: kani-grafana-middleware
+
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+
+metadata:
+  name: kani-grafana-middleware
+  namespace: monitoring
+
+spec:
+  forwardAuth:
+    # Replace <AUD> with your Cloudflare Access application audience.
+    # address: http://<service-name>.<namespace>.svc.cluster.local/<aud>
+    address: http://kani.traefik.svc.cluster.local/d8d23f5bede65e1937c30377d952744306f0e38ba90b844ff437e371fec6f7d3
+
+    # Optionally you can forward the authenticated user's email (or common name) to the backend.
+    authResponseHeaders:
+      - "X-Auth-User"

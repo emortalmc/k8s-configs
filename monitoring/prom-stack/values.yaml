@@ -3,7 +3,7 @@ grafana:
     enabled: true
 
   envFromConfigMaps:
-    - name: grafana-anonymous-auth
+    - name: grafana-cloudflare-auth
       optional: false
 
   plugins:
