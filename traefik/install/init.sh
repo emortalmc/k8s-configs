@@ -1,7 +1,7 @@
 primary_node=""
-if [ $STAGING == "true" ]; then
+if [ "$STAGING" == "true" ]; then
   primary_node="emc-staging-01"
-elif [ $STAGING == "false" ]; then
+elif [ "$STAGING" == "false" ]; then
   primary_node="emc-01"
 else
   echo "Invalid staging value: $STAGING"

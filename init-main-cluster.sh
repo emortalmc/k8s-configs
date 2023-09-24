@@ -9,3 +9,11 @@ curl -sfL https://get.k3s.io | K3S_TOKEN="$token" sh -s - server \
   --node-name "$node_name" \
   --node-ip "$address" \
   --resolv-conf /run/systemd/resolve/resolv.conf # All systems are installed with Ubuntu so this is necessary
+
+./init-common.sh
+
+# Install Linkerd as it must be run on the server
+
+source ./utils.sh
+
+run_init_script linkerd
