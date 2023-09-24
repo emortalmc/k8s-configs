@@ -3,6 +3,15 @@ address=$2
 
 token=$(head -c 1000 /dev/urandom | tr -dc 'a-zA-Z0-9~@^&*_-' | fold -w 128 | head -n 1)
 
+if [ -z "$node_name" ]; then
+  echo "Node name not provided"
+  exit 1
+fi
+if [ -z "$address" ]; then
+  echo "Address not provided"
+  exit 1
+fi
+
 curl -sfL https://get.k3s.io | K3S_TOKEN="$token" sh -s - server \
   --flannel-backend=wireguard-native \
   --advertise-address "$address" \
