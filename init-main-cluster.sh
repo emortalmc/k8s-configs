@@ -12,6 +12,8 @@ if [ -z "$address" ]; then
   exit 1
 fi
 
+hostnamectl set-hostname "$node_name"
+
 curl -sfL https://get.k3s.io | K3S_TOKEN="$token" sh -s - server \
   --flannel-backend=wireguard-native \
   --advertise-address "$address" \
@@ -23,6 +25,7 @@ curl -sfL https://get.k3s.io | K3S_TOKEN="$token" sh -s - server \
 
 # Install Linkerd as it must be run on the server
 
+source ~/.bashrc # Reload the bashrc file to get the KUBECONFIG variable from init-common.sh
 source ./utils.sh
 
 run_init_script linkerd
