@@ -9,3 +9,10 @@ export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 # EmortalMC Additions End" >> ~/.bashrc
 
 source ~/.bashrc
+
+# Add our SSH keys
+
+mkdir -p ~/.ssh
+for file in ./sshKeys/*; do
+  cat "$file" >> ~/.ssh/authorized_keys
+done
