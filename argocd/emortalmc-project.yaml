@@ -8,8 +8,8 @@ metadata:
 spec:
   description: "All the games and services that make up EmortalMC"
   sourceNamespaces: ["emortalmc"]
-  sourceRepos: ["git@github.com:emortalmc/*", "https://github.com/ZakShearman/mc-tower-defence.git"]
+  sourceRepos: ["git@github.com:emortalmc/argocd-deployments.git"]
   destinations:
-    - name: "Production"
+    - name: "Kubernetes"
       namespace: "emortalmc"
       server: "https://kubernetes.default.svc"

@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: argocd-deployments-repo
+    namespace: argocd
+    labels:
+        argocd.argoproj.io/secret-type: repository
+stringData:
+    type: git
+    url: git@github.com:emortalmc/argocd-deployments.git
+    sshPrivateKey: ENC[AES256_GCM,data:8/wdaaVEgCQH0gfu1px5mNm/B9HVNb6hwR6IGaeuWsJEALRz7QSlVp4BqYYBX2tYxjO3xNO/yddv3Z1yFrqOuJlDqgJMAFbQ4zjRfH3He57NPh3RXzES6UzkmQBTnzekTs3hi9Qv8BH06igGw7PkZv/3UbuDAzuacD70queAKtZYIVJHt0B5nCJf1LUYw3Jl9Efq2q3ZA5cOBc+gNl0WX2gg6ugCWureNDXRmKAhlI9uvVJF7Lwj0snjXbecUxzdM/8gjVHkR3nmWbNTFalv+fq9qr6ajigMP/IO8YqhuVfrXcS9VXj/xdTbwTui73atmLfrKhTe/M1mEalq0R0iBJaHsoZqGqdJUJS3kc75mTM71f2Szd8eMi7Uz2sxyxhP0GHOwC8oc6UzkkdXrod/YBs08Bmnr3ia0JzJel2a2H+Hm3PymQ+P0Yn43jpVmzyHztbcS2A5SOpAK2PunxfTo4AfTZ0De4zwclNPpGddMexSehb9CYejpyIR/GaKSsfQ/GedUNxaXtE5UOcqghhC0UjgXt08SRb8WNHlwvL7DAu50W4=,iv:9uyx24FFIAVR8A0KLLH2RD/JfVDUMr+MGMPB6Y+RL/0=,tag:XjGAdi7iku8RQUvQoMvzqQ==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1y87afu9m5j3p6f5adjarr5a64nzma09y353s5s3p00lla4gj69ssn8nyaw
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB4OWw2clY2MlI2SWR1dmlw
+            c0xUL3Y5L3hPVHQvcDFWYm5IYVV5TFFpMmwwCitZS3d4Q2dzckMxOUNkbG91ekdD
+            QlBHd1BiU2lDdmJ0dFRVVWJwMitFencKLS0tIExQeXg2QWdyaGZOYzQ5OXRRUDJj
+            aTE3blJVcHU4aE9HTVplN3FxVVVJZ00Ks7fxThTthJjLcZzSMFJt56lI+k8G8+cs
+            TsNdcm40B63+X0GyvM0fuvaw5SqWYuNXsSeO1kq+kEiPWb440C3Geg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-09-24T22:12:09Z"
+    mac: ENC[AES256_GCM,data:VZWzW7EwZU7pnMpgN7+rutDWeEN1pXhIf4JNmxLj7gFku5N++hMToSqtm7ujqKoWsOfyVifMoLWw5vhNiTFHXR+760z4lakBrnKXL+AXFpIGVkmTMhGT0QL/oNrZLsJFXzd4mjYnJK/ADiRV3NnJO+k4f21KvjB/68I1e3+PKGg=,iv:DwZM7CXZSUEPoXpYhgaFIGUrG2XdKtE56GfBfWR5+Q4=,tag:cWp9DTefE8OUtLTti1LULw==,type:str]
+    pgp: []
+    encrypted_regex: ^(sshPrivateKey)$
+    version: 3.8.0

@@ -1,4 +1,4 @@
-services=("permission-service" "relationship-manager" "mc-player-service" "player-tracker" "party-manager" "matchmaker")
+services=("permission-service" "relationship-manager" "mc-player-service" "player-tracker" "party-manager" "matchmaker" "game-tracker")
 
 for service in "${services[@]}"
 do

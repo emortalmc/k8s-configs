@@ -10,8 +10,7 @@ helm install argocd argo/argo-cd \
 kubectl apply -f ./emortalmc-project.yaml
 
 # Requires SOPS and age installed and the private key setup properly to work
-sops --decrypt ./emortalmc-ssh-access.enc.yaml | kubectl apply -f -
+sops --decrypt ./emortalmc-deployments-repo.enc.yaml | kubectl apply -f -
 
 # Run generators
-run_script repos generate.sh
 run_script apps generate.sh
