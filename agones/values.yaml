@@ -19,3 +19,10 @@ agones:
 
   controller:
     allocationBatchWaitTime: 175ms
+
+  image:
+    sdk:
+      cpuRequest: 20m
+      cpuLimit: 30m
+      memoryRequest: 16Mi
+      memoryLimit: 32Mi

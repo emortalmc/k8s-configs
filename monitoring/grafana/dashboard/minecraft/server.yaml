@@ -76,9 +76,72 @@ data:
             "overrides": []
           },
           "gridPos": {
+            "h": 10,
+            "w": 2,
+            "x": 0,
+            "y": 1
+          },
+          "id": 33,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^node$/",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "10.1.2",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "editorMode": "code",
+              "expr": "kube_pod_info{pod=\"$pod_name\"}",
+              "format": "table",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Node",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "#c124ef",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "s"
+            },
+            "overrides": []
+          },
+          "gridPos": {
             "h": 5,
             "w": 4,
-            "x": 0,
+            "x": 2,
             "y": 1
           },
           "id": 29,
@@ -128,6 +191,73 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
+                    "color": "#c124ef",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 1
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 2,
+            "x": 6,
+            "y": 1
+          },
+          "id": 36,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "10.1.2",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "editorMode": "code",
+              "expr": "kube_pod_container_status_restarts_total{pod=\"$pod_name\"}",
+              "format": "table",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Pod Restarts",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
                     "color": "#2b7db8",
                     "value": null
                   }
@@ -139,7 +269,7 @@ data:
           "gridPos": {
             "h": 5,
             "w": 4,
-            "x": 4,
+            "x": 8,
             "y": 1
           },
           "id": 4,
@@ -200,7 +330,7 @@ data:
           "gridPos": {
             "h": 5,
             "w": 4,
-            "x": 8,
+            "x": 12,
             "y": 1
           },
           "id": 7,
@@ -261,7 +391,7 @@ data:
           "gridPos": {
             "h": 5,
             "w": 4,
-            "x": 12,
+            "x": 16,
             "y": 1
           },
           "id": 6,
@@ -322,7 +452,7 @@ data:
           "gridPos": {
             "h": 5,
             "w": 4,
-            "x": 16,
+            "x": 20,
             "y": 1
           },
           "id": 8,
@@ -372,6 +502,133 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
+                    "color": "#c124ef",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "bytes"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 2,
+            "x": 2,
+            "y": 6
+          },
+          "id": 34,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "10.1.2",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "editorMode": "code",
+              "expr": "kube_pod_container_resource_limits{pod=\"$pod_name\",resource=\"memory\"}",
+              "format": "table",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Pod Mem Limit",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "noValue": "NaN",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "#c124ef",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "Cores"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 2,
+            "x": 4,
+            "y": 6
+          },
+          "id": 35,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "10.1.2",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "editorMode": "code",
+              "expr": "kube_pod_container_resource_limits{pod=\"$pod_name\",resource=\"cpu\"}",
+              "format": "table",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Pod CPU Limit",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
                     "color": "#58b29b",
                     "value": null
                   }
@@ -383,7 +640,7 @@ data:
           "gridPos": {
             "h": 5,
             "w": 3,
-            "x": 0,
+            "x": 8,
             "y": 6
           },
           "id": 26,
@@ -445,7 +702,7 @@ data:
           "gridPos": {
             "h": 5,
             "w": 3,
-            "x": 3,
+            "x": 11,
             "y": 6
           },
           "id": 27,
@@ -507,7 +764,7 @@ data:
           "gridPos": {
             "h": 5,
             "w": 3,
-            "x": 6,
+            "x": 14,
             "y": 6
           },
           "id": 28,
@@ -568,8 +825,8 @@ data:
           },
           "gridPos": {
             "h": 5,
-            "w": 6,
-            "x": 9,
+            "w": 7,
+            "x": 17,
             "y": 6
           },
           "id": 30,
@@ -1315,7 +1572,7 @@ data:
           "type": "timeseries"
         }
       ],
-      "refresh": "",
+      "refresh": false,
       "schemaVersion": 38,
       "style": "dark",
       "tags": [],
@@ -1323,7 +1580,7 @@ data:
         "list": [
           {
             "current": {
-              "selected": false,
+              "selected": true,
               "text": [
                 "lobby"
               ],
@@ -1353,9 +1610,9 @@ data:
           },
           {
             "current": {
-              "selected": false,
-              "text": "lobby-jnlml-l284f",
-              "value": "lobby-jnlml-l284f"
+              "selected": true,
+              "text": "lobby-fw7nb-69hcn",
+              "value": "lobby-fw7nb-69hcn"
             },
             "datasource": {
               "type": "prometheus",
@@ -1383,7 +1640,7 @@ data:
             "auto_count": 30,
             "auto_min": "10s",
             "current": {
-              "selected": true,
+              "selected": false,
               "text": "1m",
               "value": "1m"
             },
@@ -1489,6 +1746,6 @@ data:
       "timezone": "",
       "title": "MC / Server",
       "uid": "FHH4CyQVz",
-      "version": 2,
+      "version": 1,
       "weekStart": ""
     }
