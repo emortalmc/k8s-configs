@@ -6,7 +6,7 @@ metadata:
   namespace: argocd
 
 spec:
-  project: "=emortalmc"
+  project: "emortalmc"
   source:
     repoURL: "git@github.com:emortalmc/argocd-deployments.git"
     path: "{{path}}"
