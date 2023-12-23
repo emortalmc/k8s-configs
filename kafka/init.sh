@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Install Strimzi Kafka operator
 source ./install-operator.sh
 

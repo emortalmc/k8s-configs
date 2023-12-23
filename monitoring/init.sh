@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Install Prometheus Stack & Monitoring stuff
 run_script prom-stack install-metrics.sh
 

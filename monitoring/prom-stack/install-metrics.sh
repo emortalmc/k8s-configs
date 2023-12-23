@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 kubectl create namespace monitoring
 
 kubectl apply -f ./cloudflare-auth.yaml

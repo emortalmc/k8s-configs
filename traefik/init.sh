@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Modify Traefik Helm chart values
 run_init_script install
 

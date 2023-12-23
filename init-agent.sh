@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 control_server_ip=$1
 token=$2
 

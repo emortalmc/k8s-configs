@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # We might also want to do some more complex things that we'll figure out later.
 
 # NOTE: This must be run on the system of the cluster

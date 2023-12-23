@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 kubectl create namespace emortalmc
 
 helm repo add agones https://agones.dev/chart/stable

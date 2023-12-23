@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 routes_prod=("argocd" "grafana" "linkerd" "traefik")
 auds_prod=(
   "d6a87f3e3f7d2a2d54b50a7faa177f4146690992110679decf4ed403b5e80009"
@@ -33,5 +35,5 @@ for (( i=0; i<"${#routes[@]}"; i++ ))
 do
   route="${routes[i]}"
   aud="${auds[i]}"
-  cat "./$route.yaml" | sed "s|{{host}}|$host|g" | sed "s|{{aud}}|$aud|g" | kubectl apply -f -
+  sed "s|{{host}}|$host|g" "./$route.yaml" | sed "s|{{aud}}|$aud|g" | kubectl apply -f -
 done

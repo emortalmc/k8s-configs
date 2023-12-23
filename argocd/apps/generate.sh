@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 servers=("battle" "blocksumo" "lazertag" "lobby" "marathon" "minesweeper" "parkourtag" "tower-defence")
 services=("matchmaker" "mc-player-service" "message-handler" "party-manager" "permission-service" "relationship-manager" "game-tracker")
 
@@ -11,17 +13,21 @@ else
   exit 1
 fi
 
+generate() {
+  sed "s|{{name}}|$2|g" "$1" | sed "s|{{path}}|$3|g" | sed "s|{{values_path}}|$4|g" | kubectl apply -f -
+}
+
 for (( i=0; i<"${#servers[@]}"; i++ ))
 do
   server="${servers[i]}"
-  cat $file | sed "s|{{name}}|$server|g" | sed "s|{{path}}|server|g" | sed "s|{{values_path}}|values/$server.yaml|g" | kubectl apply -f -
+  generate "$file" "$server" "server" "values/$server.yaml"
 done
 
 for (( i=0; i<"${#services[@]}"; i++ ))
 do
   service="${services[i]}"
-  cat $file | sed "s|{{name}}|$service|g" | sed "s|{{path}}|service|g" | sed "s|{{values_path}}|values/$service.yaml|g" | kubectl apply -f -
+  generate "$file" "$service" "service" "values/$service.yaml"
 done
 
 # Velocity has its own Helm chart
-cat $file | sed "s|{{name}}|velocity-core|g" | sed "s|{{path}}|velocity|g" | sed "s|{{values_path}}|values.yaml|g" | kubectl apply -f -
+generate "$file" "velocity-core" "velocity" "values.yaml"

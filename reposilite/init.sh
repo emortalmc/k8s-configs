@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 helm repo add reposilite https://helm.reposilite.com/
 helm repo update reposilite
 

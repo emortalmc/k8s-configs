@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 primary_node="emc-01"
 helm upgrade traefik traefik/traefik --version 24.0.0 \
   -n traefik \

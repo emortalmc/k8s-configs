@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 kubectl create namespace mongodb
 
 helm repo add mongodb https://mongodb.github.io/helm-charts

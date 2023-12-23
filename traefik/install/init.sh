@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 primary_node=""
 if [ "$STAGING" == "true" ]; then
   primary_node="emc-staging-01"

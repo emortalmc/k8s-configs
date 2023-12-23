@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 node_name=$1
 address=$2
 

@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 helm repo add strimzi https://strimzi.io/charts/
 helm repo update strimzi
 

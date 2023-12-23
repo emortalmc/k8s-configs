@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 helm repo add pyroscope-io https://pyroscope-io.github.io/helm-chart
 helm repo update pyroscope-io
 
