@@ -37,7 +37,7 @@ curl -sfL https://get.k3s.io | K3S_TOKEN="$token" sh -s - server \
 
 # Install Linkerd as it must be run on the server
 
-if [[ "$staging" == "true" ]]; then
+if [[ "$staging" == "false" ]]; then
   source ~/.bashrc # Reload the bashrc file to get the KUBECONFIG variable from init-common.sh
   ./linkerd-setup.sh
 fi
