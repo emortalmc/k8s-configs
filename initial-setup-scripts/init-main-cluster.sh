@@ -2,15 +2,23 @@
 
 node_name=$1
 address=$2
+staging=$3
 
 token=$(head -c 1000 /dev/urandom | tr -dc 'a-zA-Z0-9~@^&*_-' | fold -w 128 | head -n 1)
 
-if [ -z "$node_name" ]; then
-  echo "Node name not provided"
-  exit 1
-fi
-if [ -z "$address" ]; then
-  echo "Address not provided"
+verify_variable_provided() {
+  if [ -z "$1" ]; then
+    echo "$2 not provided"
+    exit 1
+  fi
+}
+
+verify_variable_provided "$node_name" "Node name"
+verify_variable_provided "$address" "Address"
+verify_variable_provided "$staging" "Staging"
+
+if [[ "$staging" != "true" ]] && [[ "$staging" != "false" ]]; then
+  echo "Staging must be 'true' or 'false'"
   exit 1
 fi
 
@@ -29,6 +37,7 @@ curl -sfL https://get.k3s.io | K3S_TOKEN="$token" sh -s - server \
 
 # Install Linkerd as it must be run on the server
 
-source ~/.bashrc # Reload the bashrc file to get the KUBECONFIG variable from init-common.sh
-
-./linkerd-setup.sh
+if [[ "$staging" == "true" ]]; then
+  source ~/.bashrc # Reload the bashrc file to get the KUBECONFIG variable from init-common.sh
+  ./linkerd-setup.sh
+fi
