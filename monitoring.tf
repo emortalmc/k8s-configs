@@ -8,22 +8,24 @@ resource "kubernetes_namespace" "monitoring" {
 
 // Prometheus stack - Prometheus, Grafana, etc.
 
-resource "kubernetes_config_map" "grafana-anonymous-auth" {
+resource "kubernetes_config_map" "grafana-cloudflare-auth" {
   depends_on = [kubernetes_namespace.monitoring]
 
   metadata {
-    name      = "grafana-anonymous-auth"
+    name = "grafana-cloudflare-auth"
     namespace = "monitoring"
   }
 
   data = {
-    GF_AUTH_ANONYMOUS_ENABLED     = "true"
+    GF_AUTH_PROXY_ENABLED = "true"
+    GF_AUTH_PROXY_HEADER_NAME = "X-Auth-User"
+    GF_AUTH_PROXY_AUTO_SIGN_UP = "true"
     GF_USERS_AUTO_ASSIGN_ORG_ROLE = "Admin"
   }
 }
 
 resource "helm_release" "prom-stack" {
-  depends_on = [kubernetes_namespace.monitoring, kubernetes_config_map.grafana-anonymous-auth]
+  depends_on = [kubernetes_namespace.monitoring, kubernetes_config_map.grafana-cloudflare-auth]
 
   name      = "prom-stack"
   namespace = "monitoring"
@@ -40,7 +42,7 @@ grafana:
     enabled: true
 
   envFromConfigMaps:
-    - name: grafana-anonymous-auth
+    - name: grafana-cloudflare-auth
       optional: false
 
   plugins:
@@ -64,6 +66,126 @@ prometheus:
   ]
 }
 
+// Monitors
+
+resource "kubernetes_manifest" "agones-allocator-monitor" {
+  depends_on = [helm_release.agones]
+
+  manifest = {
+    apiVersion = "monitoring.coreos.com/v1"
+    kind       = "ServiceMonitor"
+    metadata   = {
+      name      = "agones-allocator-monitor"
+      namespace = "agones-system"
+      labels    = {
+        "multicluster.agones.dev/role" = "allocator"
+      }
+    }
+    spec = {
+      selector = {
+        matchLabels = {
+          "multicluster.agones.dev/role" = "allocator"
+        }
+      }
+      endpoints = [
+        {
+          port     = "http"
+          path     = "/metrics"
+          interval = "10s"
+        }
+      ]
+    }
+  }
+}
+
+resource "kubernetes_manifest" "agones-controller-monitor" {
+  depends_on = [helm_release.agones]
+
+  manifest = {
+    apiVersion = "monitoring.coreos.com/v1"
+    kind       = "ServiceMonitor"
+    metadata   = {
+      name      = "agones-controller-monitor"
+      namespace = "agones-system"
+      labels    = {
+        "multicluster.agones.dev/role" = "controller"
+      }
+    }
+    spec = {
+      selector = {
+        matchLabels = {
+          "multicluster.agones.dev/role" = "controller"
+        }
+      }
+      endpoints = [
+        {
+          port     = "http"
+          path     = "/metrics"
+          interval = "10s"
+        }
+      ]
+    }
+  }
+}
+
+resource "kubernetes_manifest" "agones-extensions-monitor" {
+  depends_on = [helm_release.agones]
+
+  manifest = {
+    apiVersion = "monitoring.coreos.com/v1"
+    kind       = "ServiceMonitor"
+    metadata   = {
+      name      = "agones-extensions-monitor"
+      namespace = "agones-system"
+      labels    = {
+        "multicluster.agones.dev/role" = "extensions"
+      }
+    }
+    spec = {
+      selector = {
+        matchLabels = {
+          "multicluster.agones.dev/role" = "extensions"
+        }
+      }
+      endpoints = [
+        {
+          port     = "http"
+          path     = "/metrics"
+          interval = "10s"
+        }
+      ]
+    }
+  }
+}
+
+resource "kubernetes_manifest" "mc-metrics-monitor" {
+  depends_on = [kubernetes_namespace.emortalmc]
+
+  manifest = {
+    apiVersion = "monitoring.coreos.com/v1"
+    kind       = "PodMonitor"
+
+    metadata = {
+      name      = "mc-metrics-monitor"
+      namespace = "emortalmc"
+    }
+
+    spec = {
+      selector = {
+        matchLabels = {
+          "emortal.dev/mc-metrics-enabled" = "true"
+        }
+      }
+      podMetricsEndpoints = [
+        {
+          port = "metrics"
+          path = "/metrics"
+        }
+      ]
+    }
+  }
+}
+
 // Loki
 
 resource "helm_release" "loki" {
@@ -79,14 +201,17 @@ resource "helm_release" "loki" {
     name  = "loki.commonConfig.replication_factor"
     value = "1"
   }
+
   set {
     name  = "loki.storage.type"
     value = "filesystem"
   }
+
   set {
     name  = "loki.auth_enabled"
     value = "false"
   }
+
   set {
     name  = "loki.monitoring.selfMonitoring.grafanaAgent.installOperator"
     value = "false"
@@ -221,32 +346,21 @@ resource "kubernetes_config_map" "pyroscope-emortalmc" {
 
 resource "kubernetes_manifest" "grafana-dashboard-agones" {
   depends_on = [kubernetes_namespace.monitoring]
-  for_each = toset([
-    "allocations",
-    "allocator-usage",
-    "apiserver-requests",
-    "autoscalers",
-    "controller-usage",
-    "gameservers",
-    "goclient-caches",
-    "goclient-requests",
-    "goclient-workqueues",
-    "status"
-  ])
+  for_each = fileset(path.module, "grafana/dashboard/agones/*.yaml")
 
-  manifest = yamldecode(file("${path.module}/grafana/dashboard/agones/${each.key}.yaml"))
+  manifest = yamldecode(file(each.value))
 }
 
 resource "kubernetes_manifest" "grafana-dashboard-loki" {
   depends_on = [kubernetes_namespace.monitoring]
-  for_each = toset(["canary"])
+  for_each = fileset(path.module, "grafana/dashboard/loki/*.yaml")
 
-  manifest = yamldecode(file("${path.module}/grafana/dashboard/loki/${each.key}.yaml"))
+  manifest = yamldecode(file(each.value))
 }
 
 resource "kubernetes_manifest" "grafana-dashboard-minecraft" {
   depends_on = [kubernetes_namespace.monitoring]
-  for_each = toset(["server"])
+  for_each = fileset(path.module, "grafana/dashboard/minecraft/*.yaml")
 
-  manifest = yamldecode(file("${path.module}/grafana/dashboard/minecraft/${each.key}.yaml"))
+  manifest = yamldecode(file(each.value))
 }

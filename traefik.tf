@@ -1,35 +1,71 @@
 locals {
   reposilite_url = "repo.emortal.dev"
-  argocd_url = var.production ? "argo.emc" : "argo.emc.staging"
-  grafana_url = var.production ? "metrics.emc" : "metrics.emc.staging"
-  traefik_url = var.production ? "traefik.emc" : "traefik.emc.staging"
-  linkerd_url = var.production ? "linkerd.emc" : "linkerd.emc.staging"
+  // TODO: Decide if we are actually going to use any of the subdomained ones or just unify them all
+  argocd_url = var.production ? "argo.emortal.dev" : "argo.staging.emortal.dev"
+  grafana_url = var.production ? "metrics.emortal.dev" : "metrics.staging.emortal.dev"
+  traefik_url = var.production ? "traefik.emortal.dev" : "traefik.staging.emortal.dev"
+  linkerd_url = var.production ? "linkerd.emortal.dev" : "linkerd.staging.emortal.dev"
 }
 
-resource "kubernetes_manifest" "traefik-helm-override" {
-  manifest = {
-    apiVersion = "helm.cattle.io/v1"
-    kind       = "HelmChartConfig"
+resource "helm_release" "traefik" {
+  name = "traefik"
+  namespace = "traefik"
 
-    metadata = {
-      name      = "traefik"
-      namespace = "kube-system"
-    }
+  repository = "https://traefik.github.io/charts"
+  chart = "traefik"
 
-    spec = {
-      valuesContent = templatefile("${path.module}/templates/traefik-helm-override.tftpl", { production = var.production })
-    }
+  create_namespace = true
+  version = "24.0.0"
+
+  set {
+    name  = "certResolvers.cloudflare.email"
+    value = "certs@emortal.dev"
+  }
+  set {
+    name  = "certResolvers.cloudflare.dnsChallenge.provider"
+    value = "cloudflare"
+  }
+  set {
+    name  = "certResolvers.cloudflare.dnsChallenge.delayBeforeCheck"
+    value = "30"
+  }
+  set_list {
+    name  = "certResolvers.cloudflare.dnsChallenge.resolvers"
+    value = ["1.1.1.1", "8.8.8.8"]
+  }
+  set {
+    name  = "certResolvers.cloudflare.storage"
+    value = "/data/certs.json"
+  }
+
+  set {
+    name  = "logs.general.level"
+    value = "DEBUG"
+  }
+
+  set {
+    name  = "persistence.enabled"
+    value = "true"
+  }
+  set {
+    name  = "persistence.name"
+    value = "traefik"
+  }
+
+  set {
+    name  = "envFrom[0].secretRef.name"
+    value = "cloudflare-api"
   }
 }
 
-// External Ingress routes
+// Ingress routes
 
 resource "kubernetes_manifest" "reposilite-ingress" {
   depends_on = [helm_release.reposilite]
   count = var.production ? 1 : 0
 
   manifest = {
-    apiVersion = "traefik.containo.us/v1alpha1"
+    apiVersion = "traefik.io/v1alpha1"
     kind       = "IngressRoute"
 
     metadata = {
@@ -55,13 +91,11 @@ resource "kubernetes_manifest" "reposilite-ingress" {
   }
 }
 
-// Internal Ingress routes
-
 resource "kubernetes_manifest" "argocd-ingress" {
-  depends_on = [helm_release.argocd]
+  depends_on = [helm_release.argocd, kubernetes_manifest.kani-middleware]
 
   manifest = {
-    apiVersion = "traefik.containo.us/v1alpha1"
+    apiVersion = "traefik.io/v1alpha1"
     kind       = "IngressRoute"
 
     metadata = {
@@ -88,10 +122,10 @@ resource "kubernetes_manifest" "argocd-ingress" {
 }
 
 resource "kubernetes_manifest" "grafana-ingress" {
-  depends_on = [helm_release.prom-stack]
+  depends_on = [helm_release.prom-stack, kubernetes_manifest.kani-middleware]
 
   manifest = {
-    apiVersion = "traefik.containo.us/v1alpha1"
+    apiVersion = "traefik.io/v1alpha1"
     kind       = "IngressRoute"
 
     metadata = {
@@ -118,6 +152,8 @@ resource "kubernetes_manifest" "grafana-ingress" {
 }
 
 resource "kubernetes_manifest" "traefik-ingress" {
+  depends_on = [helm_release.traefik, kubernetes_manifest.kani-middleware]
+
   manifest = {
     apiVersion = "traefik.containo.us/v1alpha1"
     kind       = "IngressRoute"

@@ -17,6 +17,7 @@ resource "helm_release" "reposilite" {
     name  = "resources.limits.memory"
     value = "256Mi"
   }
+
   set {
     name  = "persistence.size"
     value = "50Gi"

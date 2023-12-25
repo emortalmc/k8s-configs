@@ -1,18 +1,9 @@
-provider "vault" {
-  address = "https://emc-01.tail27704.ts.net:8200"
-  skip_tls_verify = true // Doesn't matter as we're accessing it over the VPN
-}
+provider "sops" {}
 
-// Secrets from Vault
+// Secrets from SOPS
 
-data "vault_kv_secret_v2" "cloudflare" {
-  mount = "terraform"
-  name  = "cloudflare"
-}
-
-data "vault_kv_secret_v2" "argo" {
-  mount = "terraform"
-  name  = "argo"
+data "sops_file" "secrets" {
+  source_file = "secrets.enc.yaml"
 }
 
 // Traefik Cloudflare API secrets
@@ -24,8 +15,8 @@ resource "kubernetes_secret" "cloudflare-api" {
   }
 
   data = {
-    CLOUDFLARE_EMAIL         = data.vault_kv_secret_v2.cloudflare.data["email"]
-    CLOUDFLARE_DNS_API_TOKEN = data.vault_kv_secret_v2.cloudflare.data["api-token"]
+    CLOUDFLARE_EMAIL         = data.sops_file.secrets.data["cloudflare.email"]
+    CLOUDFLARE_DNS_API_TOKEN = data.sops_file.secrets.data["cloudflare.api-token"]
   }
 }
 

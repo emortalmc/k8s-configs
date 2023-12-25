@@ -8,9 +8,10 @@ metadata:
 spec:
   project: "emortalmc"
   source:
-    repoURL: "git@github.com:emortalmc/${repo-name}.git"
-    targetRevision: "deployment"
-    path: "."
+    repoURL: "git@github.com:emortalmc/argocd-deployments.git"
+    path: "${path}"
+    helm:
+      valueFiles: ["${values_path}"]
   destination:
     namespace: "emortalmc"
     server: "https://kubernetes.default.svc"

@@ -15,11 +15,13 @@
 # configs map used by grafana
 apiVersion: v1
 kind: ConfigMap
+
 metadata:
   name: agones-allocator-usage
   namespace: monitoring
   labels:
     grafana_dashboard: "1"
+
 data:
   dashboard-agones-allocator-usage.json: |
     {

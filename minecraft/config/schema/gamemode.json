@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "gamemode",
+  "type": "object",
+  "required": [
+    "id",
+    "enabled",
+    "fleetName",
+    "friendlyName",
+    "activityNoun",
+    "minPlayers",
+    "maxPlayers",
+    "partyRestrictions",
+    "matchmakerInfo"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The game mode ID. Must be unique, otherwise updates may break.",
+      "pattern": "^[a-z-]+$"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "fleetName": {
+      "type": "string",
+      "description": "The Agones Fleet name to use for game server allocations."
+    },
+    "priority": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 4294967296,
+      "default": 0
+    },
+    "friendlyName": {
+      "type": "string",
+      "description": "The name shown to the user in user interfaces."
+    },
+    "activityNoun": {
+      "type": "string",
+      "description": "The noun used to describe the activity in user interfaces. Used in the sentence 'BomBardyGamer <activityNoun> <friendlyName>.'"
+    },
+    "minPlayers": {
+      "type": "number",
+      "description": "The minimum number of players required to start a game.",
+      "minimum": 1
+    },
+    "maxPlayers": {
+      "type": "number",
+      "description": "The maximum number of players allowed in a game.",
+      "minimum": 1
+    },
+    "displayItem": {
+      "type": "object",
+      "default": null,
+      "$ref": "#/$defs/item"
+    },
+    "displayNpc": {
+      "type": "object",
+      "default": null,
+      "$ref": "#/$defs/npc"
+    },
+    "partyRestrictions": {
+      "type": "object",
+      "required": [
+        "minSize"
+      ],
+      "properties": {
+        "minSize": {
+          "type": "number",
+          "minimum": 1
+        },
+        "maxSize": {
+          "type": "number",
+          "minimum": 1
+        }
+      }
+    },
+    "maps": {
+      "type": "object",
+      "default": null,
+      "additionalProperties": {
+        "$ref": "#/$defs/map"
+      }
+    },
+    "matchmakerInfo": {
+      "type": "object",
+      "required": [
+        "matchMethod",
+        "selectMethod",
+        "rate"
+      ],
+      "properties": {
+        "matchMethod": {
+          "type": "string",
+          "enum": [
+            "INSTANT",
+            "COUNTDOWN"
+          ]
+        },
+        "selectMethod": {
+          "type": "string",
+          "enum": [
+            "PLAYER_COUNT",
+            "AVAILABLE"
+          ]
+        },
+        "rate": {
+          "type": "number",
+          "minimum": 0
+        },
+        "backfill": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    }
+  },
+  "$defs": {
+    "item": {
+      "type": "object",
+      "required": [
+        "material",
+        "slot",
+        "name"
+      ],
+      "properties": {
+        "material": {
+          "type": "string",
+          "description": "The material namespaced ID of the item to display.",
+          "$comment": "This pattern is from Adventure.",
+          "pattern": "(?:([a-z0-9_\\-.]+:)?|:)[a-z0-9_\\-./]+"
+        },
+        "slot": {
+          "type": "number",
+          "description": "The inventory slot to place the item in",
+          "minimum": 0
+        },
+        "name": {
+          "type": "string",
+          "description": "The name to display, in MiniMessage format."
+        },
+        "lore": {
+          "type": "array",
+          "description": "The lore lines to display, in MiniMessage format.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "map": {
+      "type": "object",
+      "required": [
+        "id",
+        "enabled",
+        "friendlyName",
+        "priority",
+        "displayItem"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z]+$"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "friendlyName": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "number",
+          "minimum": 0
+        },
+        "displayItem": {
+          "$ref": "#/$defs/item"
+        }
+      }
+    },
+    "npc": {
+      "type": "object",
+      "required": [
+        "entityType",
+        "titles",
+        "skin"
+      ],
+      "properties": {
+        "entityType": {
+          "type": "string"
+        },
+        "titles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "skin": {
+          "$ref": "#/$defs/skin"
+        }
+      }
+    },
+    "skin": {
+      "type": "object",
+      "required": [
+        "texture",
+        "signature"
+      ],
+      "properties": {
+        "texture": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

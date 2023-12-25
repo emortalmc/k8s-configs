@@ -1,7 +1,7 @@
 {
-  "id": "towerdefence",
+  "id": "tower-defence",
   "enabled": true,
-  "fleetName": "towerdefence",
+  "fleetName": "tower-defence",
 
   "priority": 125,
 
@@ -11,19 +11,19 @@
   "minPlayers": 2,
   "maxPlayers": 12,
 
-  "displayItem": {
+  "$UNUSED_displayItem": {
     "material": "minecraft:totem_of_undying",
     "slot": 20,
     "name": "<gradient:#ffb70f:#ffcd17:#ffb70f><bold>TowerDefence</bold></gradient>",
     "lore": [
       "<gray>Towerdefence is a fast-paced PvP game where</gray>",
       "<gray>quick reflexes and strategic tower building</gray>",
-      "<gray>are essentialto fend off enemy mobs and stay</gray>",
+      "<gray>are essential to fend off enemy mobs and stay</gray>",
       "<gray>ahead of the competition.</gray>"
     ]
   },
 
-  "displayNpc": {
+  "$UNUSED_displayNpc": {
     "entityType": "PLAYER",
     "titles": [
       "<gradient:#ffb70f:#ffcd17:#ffb70f><bold>TowerDefence</bold></gradient>"
@@ -58,6 +58,6 @@
   "matchmakerInfo": {
     "matchMethod": "COUNTDOWN",
     "selectMethod": "AVAILABLE",
-    "rate": 750000000
+    "rate": 250000000
   }
 }

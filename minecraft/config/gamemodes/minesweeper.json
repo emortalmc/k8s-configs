@@ -1,31 +1,31 @@
 {
-  "id": "marathon",
-  "enabled": false,
-  "fleetName": "marathon",
+  "id": "minesweeper",
+  "enabled": true,
+  "fleetName": "minesweeper",
 
-  "priority": 105,
+  "priority": 110,
 
-  "friendlyName": "Marathon",
-  "activityNoun": "playing",
+  "friendlyName": "Minesweeper",
+  "activityNoun": "solving",
 
   "minPlayers": 1,
-  "maxPlayers": 100,
+  "maxPlayers": 10,
 
   "displayItem": {
-    "material": "minecraft:grass_block",
-    "slot": 13,
-    "name": "<red><bold>Marathon</bold></red>",
+    "material": "minecraft:tnt",
+    "slot": 34,
+    "name": "<green><bold>Minesweeper</bold></green>",
     "lore": [
-      "<gray>An infinitely generating,",
-      "<gray>endless parkour gamemode.",
-      "<gray>See how far you can go!"
+      "<gray>Try not to anger your friends",
+      "<gray>while sabotaging 90% of your games,",
+      "<gray>while also trying to clear the minefield"
     ]
   },
 
   "displayNpc": {
     "entityType": "PLAYER",
     "titles": [
-      "<red><bold>Marathon</bold></red>"
+      "<green><bold>Minesweeper</bold></green>"
     ],
     "skin": {
       "texture": "ewogICJ0aW1lc3RhbXAiIDogMTY0Mjk3NzYxNjg4NCwKICAicHJvZmlsZUlkIiA6ICIwYTUzMDU0MTM4YWI0YjIyOTVhMGNlZmJiMGU4MmFkYiIsCiAgInByb2ZpbGVOYW1lIiA6ICJQX0hpc2lybyIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS84NzhjODZlYTMyYmFiZTAxOGY3MzFlNTNjMDE4MmQ0YzVlNWU3Y2MwOWQ5MzMxOTJkYmY1ZWE1YWRlZTNlZDAiLAogICAgICAibWV0YWRhdGEiIDogewogICAgICAgICJtb2RlbCIgOiAic2xpbSIKICAgICAgfQogICAgfQogIH0KfQ==",
@@ -40,7 +40,7 @@
 
   "matchmakerInfo": {
     "matchMethod": "INSTANT",
-    "selectMethod": "PLAYER_COUNT",
-    "rate": 500000000
+    "selectMethod": "AVAILABLE",
+    "rate": 175000000
   }
 }

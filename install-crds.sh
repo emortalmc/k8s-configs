@@ -8,7 +8,7 @@ kubectl create -f "https://github.com/strimzi/strimzi-kafka-operator/releases/do
 kubectl create -k "https://github.com/mongodb/mongodb-kubernetes-operator/config/crd?ref=v0.8.0"
 
 # Prom Stack CRDs
-function install_prom_stack_crds {
+install_prom_stack_crds() {
   base_url="https://raw.githubusercontent.com/prometheus-community/helm-charts/kube-prometheus-stack-47.0.0/charts/kube-prometheus-stack/crds"
   kubectl create -f "$base_url/crd-alertmanagerconfigs.yaml"
   kubectl create -f "$base_url/crd-alertmanagers.yaml"

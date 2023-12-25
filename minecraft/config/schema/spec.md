@@ -9,6 +9,7 @@ id: string
 enabled: bool
 fleetName: string
 
+# Optional
 priority: int32 # Lower is higher priority
 
 friendlyName: string
@@ -25,7 +26,7 @@ displayNpc: NPC
 partyRestrictions:
   minSize: int32
   maxSize: int32 # Optional
-
+  
 # Optional
 maps: [string]Map # A map of map IDs to Map objects
 
@@ -33,7 +34,7 @@ matchmakerInfo:
   matchMethod: string # enum: INSTANT, COUNTDOWN
   selectMethod: string # enum: PLAYER_COUNT, AVAILABLE
   rate: Duration # duration: nanoseconds
-
+  
   backfill: bool # default: false
 ```
 

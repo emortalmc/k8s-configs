@@ -15,11 +15,13 @@
 # configs map used by grafana
 apiVersion: v1
 kind: ConfigMap
+
 metadata:
   name: agones-autoscalers
   namespace: monitoring
   labels:
-     grafana_dashboard: "1"
+    grafana_dashboard: "1"
+
 data:
   dashboard-agones-autoscalers.json: |
     {

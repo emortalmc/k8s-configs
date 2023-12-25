@@ -179,6 +179,20 @@ resource "kubernetes_manifest" "mongodb-main" {
           ]
           scramCredentialsSecretName = "matchmaker"
         },
+        {
+          name = "game-tracker"
+          db = "game-tracker"
+          passwordSecretRef = {
+            name = "game-tracker-db-creds"
+          }
+          roles = [
+            {
+              db = "game-tracker"
+              name = "readWrite"
+            }
+          ]
+          scramCredentialsSecretName = "game-tracker"
+        }
       ]
 
       additionalMongodConfig = {

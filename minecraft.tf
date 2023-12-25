@@ -9,42 +9,14 @@ resource "kubernetes_config_map" "gamemodes" {
   // There may be a way to do this better, but dynamic blocks don't seem to work, and I'm not wasting time looking for
   // it for not really that much gain.
   data = {
-    "marathon.json"      = file("${path.module}/minecraft/config/marathon.json")
-    "lazertag.json"      = file("${path.module}/minecraft/config/lazertag.json")
-    "minesweeper.json"   = file("${path.module}/minecraft/config/minesweeper.json")
-    "parkourtag.json"    = file("${path.module}/minecraft/config/parkourtag.json")
-    "blocksumo.json"     = file("${path.module}/minecraft/config/blocksumo.json")
-    "tower-defence.json" = file("${path.module}/minecraft/config/tower-defence.json")
-    "battle.json"        = file("${path.module}/minecraft/config/battle.json")
-    "lobby.json"         = file("${path.module}/minecraft/config/lobby.json")
-  }
-}
-
-resource "kubernetes_manifest" "mc-metrics-monitor" {
-  depends_on = [kubernetes_namespace.emortalmc]
-
-  manifest = {
-    apiVersion = "monitoring.coreos.com/v1"
-    kind       = "PodMonitor"
-
-    metadata = {
-      name      = "mc-metrics-monitor"
-      namespace = "emortalmc"
-    }
-
-    spec = {
-      selector = {
-        matchLabels = {
-          "emortal.dev/mc-metrics-enabled" = "true"
-        }
-      }
-      podMetricsEndpoints = [
-        {
-          port = "metrics"
-          path = "/metrics"
-        }
-      ]
-    }
+    "battle.json"        = file("${path.module}/minecraft/config/gamemodes/battle.json")
+    "blocksumo.json"     = file("${path.module}/minecraft/config/gamemodes/blocksumo.json")
+    "lazertag.json"      = file("${path.module}/minecraft/config/gamemodes/lazertag.json")
+    "lobby.json"         = file("${path.module}/minecraft/config/gamemodes/lobby.json")
+    "marathon.json"      = file("${path.module}/minecraft/config/gamemodes/marathon.json")
+    "minesweeper.json"   = file("${path.module}/minecraft/config/gamemodes/minesweeper.json")
+    "parkourtag.json"    = file("${path.module}/minecraft/config/gamemodes/parkourtag.json")
+    "tower-defence.json" = file("${path.module}/minecraft/config/gamemodes/tower-defence.json")
   }
 }
 

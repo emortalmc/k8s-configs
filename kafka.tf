@@ -18,7 +18,17 @@ resource "helm_release" "strimzi-kafka" {
 }
 
 locals {
-  topics = toset(["party-manager", "mc-connections", "matchmaker", "message-handler", "mc-messages", "permissions"])
+  // 3600000 = 1 hour, 86400000 = 24 hours
+  topics = {
+    "party-manager" = 3600000,
+    "mc-connections" = 86400000,
+    "matchmaker" = 3600000,
+    "message-handler" = 86400000,
+    "mc-messages" = 86400000,
+    "permissions" = 86400000,
+    "game-sdk" = 3600000,
+    "game-tracker" = 3600000
+  }
 }
 
 resource "kubernetes_manifest" "kafka" {
@@ -107,7 +117,7 @@ resource "kubernetes_manifest" "topic" {
       partitions = 1
       replicas = 1
       config = {
-        "retention.ms" = 3600000 # 1 hour
+        "retention.ms" = each.value
       }
     }
   }

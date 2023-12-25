@@ -8,13 +8,19 @@ resource "helm_release" "agones" {
   chart      = "agones"
 
   create_namespace = true
-  version          = "1.32.0"
+  version          = "1.34.0"
 
   set {
     name  = "gameservers.namespaces[0]"
     value = "emortalmc"
   }
 
+  set {
+    // We don't need or use the external allocator service at the moment, and the load balancer for it stays in pending
+    // forever, so there's no point in enabling it.
+    name  = "agones.allocator.install"
+    value = "false"
+  }
   set {
     name  = "agones.allocator.service.http.enabled"
     value = "false"
@@ -23,13 +29,6 @@ resource "helm_release" "agones" {
   set {
     name  = "agones.ping.install"
     // If we enable this in the future we'll need to change the service type (that's a helm chart option)
-    value = "false"
-  }
-
-  set {
-    // We don't need or use the external allocator service at the moment, and the load balancer for it stays in pending
-    // forever, so there's no point in enabling it.
-    name  = "agones.allocator.install"
     value = "false"
   }
 
@@ -55,96 +54,21 @@ resource "helm_release" "agones" {
     name  = "agones.controller.allocationBatchWaitTime"
     value = "300ms"
   }
-}
 
-// Service monitors
-
-resource "kubernetes_manifest" "agones-allocator-monitor" {
-  depends_on = [helm_release.agones]
-
-  manifest = {
-    apiVersion = "monitoring.coreos.com/v1"
-    kind       = "ServiceMonitor"
-    metadata   = {
-      name      = "agones-allocator-monitor"
-      namespace = "agones-system"
-      labels    = {
-        "multicluster.agones.dev/role" = "allocator"
-      }
-    }
-    spec = {
-      selector = {
-        matchLabels = {
-          "multicluster.agones.dev/role" = "allocator"
-        }
-      }
-      endpoints = [
-        {
-          port     = "http"
-          path     = "/metrics"
-          interval = "10s"
-        }
-      ]
-    }
+  set {
+    name  = "agones.image.sdk.cpuRequest"
+    value = "20m"
   }
-}
-
-resource "kubernetes_manifest" "agones-controller-monitor" {
-  depends_on = [helm_release.agones]
-
-  manifest = {
-    apiVersion = "monitoring.coreos.com/v1"
-    kind       = "ServiceMonitor"
-    metadata   = {
-      name      = "agones-controller-monitor"
-      namespace = "agones-system"
-      labels    = {
-        "multicluster.agones.dev/role" = "controller"
-      }
-    }
-    spec = {
-      selector = {
-        matchLabels = {
-          "multicluster.agones.dev/role" = "controller"
-        }
-      }
-      endpoints = [
-        {
-          port     = "http"
-          path     = "/metrics"
-          interval = "10s"
-        }
-      ]
-    }
+  set {
+    name  = "agones.image.sdk.cpuLimit"
+    value = "30m"
   }
-}
-
-resource "kubernetes_manifest" "agones-extensions-monitor" {
-  depends_on = [helm_release.agones]
-
-  manifest = {
-    apiVersion = "monitoring.coreos.com/v1"
-    kind       = "ServiceMonitor"
-    metadata   = {
-      name      = "agones-extensions-monitor"
-      namespace = "agones-system"
-      labels    = {
-        "multicluster.agones.dev/role" = "extensions"
-      }
-    }
-    spec = {
-      selector = {
-        matchLabels = {
-          "multicluster.agones.dev/role" = "extensions"
-        }
-      }
-      endpoints = [
-        {
-          port     = "http"
-          path     = "/metrics"
-          interval = "10s"
-        }
-      ]
-    }
+  set {
+    name  = "agones.image.sdk.memoryRequest"
+    value = "16Mi"
+  }
+  set {
+    name  = "agones.image.sdk.memoryLimit"
+    value = "32Mi"
   }
 }
