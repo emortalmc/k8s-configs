@@ -10,6 +10,9 @@ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scrip
 chmod 700 get_helm.sh
 ./get_helm.sh
 
+# Remove get_helm install script after running it
+rm -f get_helm.sh
+
 echo "
 # EmortalMC Additions Start
 export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
