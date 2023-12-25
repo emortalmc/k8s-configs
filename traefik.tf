@@ -155,7 +155,7 @@ resource "kubernetes_manifest" "traefik-ingress" {
   depends_on = [helm_release.traefik, kubernetes_manifest.kani-middleware]
 
   manifest = {
-    apiVersion = "traefik.containo.us/v1alpha1"
+    apiVersion = "traefik.io/v1alpha1"
     kind       = "IngressRoute"
 
     metadata = {
@@ -185,7 +185,7 @@ resource "kubernetes_manifest" "traefik-ingress" {
 
 #resource "kubernetes_manifest" "linkerd-ingress" {
 #  manifest = {
-#    apiVersion = "traefik.containo.us/v1alpha1"
+#    apiVersion = "traefik.io/v1alpha1"
 #    kind       = "IngressRoute"
 #
 #    metadata = {
@@ -218,7 +218,7 @@ resource "kubernetes_manifest" "traefik-ingress" {
 #
 #resource "kubernetes_manifest" "linkerd-header-middleware" {
 #  manifest = {
-#    apiVersion = "traefik.containo.us/v1alpha1"
+#    apiVersion = "traefik.io/v1alpha1"
 #    kind       = "Middleware"
 #
 #    metadata = {

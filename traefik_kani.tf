@@ -13,6 +13,8 @@ locals {
 }
 
 resource "kubernetes_deployment" "kani" {
+  depends_on = [helm_release.traefik]
+
   metadata {
     name = "kani"
     namespace = "traefik"
@@ -91,6 +93,8 @@ resource "kubernetes_deployment" "kani" {
 }
 
 resource "kubernetes_service" "kani" {
+  depends_on = [helm_release.traefik]
+
   metadata {
     name = "kani"
     namespace = "traefik"

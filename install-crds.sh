@@ -22,3 +22,6 @@ install_prom_stack_crds() {
   kubectl create -f "$base_url/crd-thanosrulers.yaml"
 }
 install_prom_stack_crds
+
+# Traefik CRDs
+kubectl create -f "https://raw.githubusercontent.com/traefik/traefik/master/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml"
