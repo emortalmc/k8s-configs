@@ -21,6 +21,8 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: default-gameserver
+  - kind: ServiceAccount
+    name: emortalbot
 
 roleRef:
   apiGroup: rbac.authorization.k8s.io

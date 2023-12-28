@@ -20,12 +20,6 @@ metadata:
 
 subjects:
   - kind: ServiceAccount
-    name: friend-manager
-  - kind: ServiceAccount
-    name: private-message
-  - kind: ServiceAccount
-    name: player-transporter
-  - kind: ServiceAccount
     name: gameserver
   - kind: ServiceAccount
     name: matchmaker
