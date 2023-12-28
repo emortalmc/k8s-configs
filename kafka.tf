@@ -1,22 +1,3 @@
-resource "helm_release" "strimzi-kafka" {
-  name      = "strimzi-kafka"
-  namespace = "strimzi-system"
-
-  repository = "https://strimzi.io/charts/"
-  chart      = "strimzi-kafka-operator"
-
-  create_namespace = true
-
-  set {
-    name  = "watchAnyNamespace"
-    value = "true"
-  }
-  set {
-    name  = "replicas"
-    value = "2"
-  }
-}
-
 locals {
   // 3600000 = 1 hour, 86400000 = 24 hours
   topics = {
@@ -28,6 +9,26 @@ locals {
     "permissions" = 86400000,
     "game-sdk" = 3600000,
     "game-tracker" = 3600000
+  }
+}
+
+resource "helm_release" "strimzi-kafka" {
+  name      = "strimzi-kafka"
+  namespace = "strimzi-system"
+
+  repository = "https://strimzi.io/charts/"
+  chart      = "strimzi-kafka-operator"
+
+  create_namespace = true
+  version = "0.39.0"
+
+  set {
+    name  = "watchAnyNamespace"
+    value = "true"
+  }
+  set {
+    name  = "replicas"
+    value = "2"
   }
 }
 
@@ -45,7 +46,7 @@ resource "kubernetes_manifest" "kafka" {
 
     spec = {
       kafka = {
-        version  = "3.4.0"
+        version  = "3.6.1"
         replicas = 3
 
         listeners = [

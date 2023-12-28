@@ -27,56 +27,56 @@ resource "kubernetes_service_account" "mongodb-database" {
 
 // Pod reader role & binding
 
-resource "kubernetes_role" "pod-reader" {
-  depends_on = [kubernetes_namespace.emortalmc]
-
-  metadata {
-    name      = "pod-reader"
-    namespace = "emortalmc"
-  }
-
-  rule {
-    api_groups = [""]
-    resources  = ["pods"]
-    verbs      = ["get", "watch"]
-  }
-}
-
-resource "kubernetes_role_binding" "pod-reader-access" {
-  depends_on = [kubernetes_namespace.emortalmc]
-
-  metadata {
-    name      = "pod-reader-access"
-    namespace = "emortalmc"
-  }
-
-  subject {
-    kind = "ServiceAccount"
-    name = "friend-manager"
-  }
-  subject {
-    kind = "ServiceAccount"
-    name = "private-message"
-  }
-  subject {
-    kind = "ServiceAccount"
-    name = "player-transporter"
-  }
-  subject {
-    kind = "ServiceAccount"
-    name = "gameserver"
-  }
-  subject {
-    kind = "ServiceAccount"
-    name = "matchmaker"
-  }
-
-  role_ref {
-    api_group = "rbac.authorization.k8s.io"
-    kind      = "Role"
-    name      = "pod-reader"
-  }
-}
+#resource "kubernetes_role" "pod-reader" {
+#  depends_on = [kubernetes_namespace.emortalmc]
+#
+#  metadata {
+#    name      = "pod-reader"
+#    namespace = "emortalmc"
+#  }
+#
+#  rule {
+#    api_groups = [""]
+#    resources  = ["pods"]
+#    verbs      = ["get", "watch"]
+#  }
+#}
+#
+#resource "kubernetes_role_binding" "pod-reader-access" {
+#  depends_on = [kubernetes_namespace.emortalmc]
+#
+#  metadata {
+#    name      = "pod-reader-access"
+#    namespace = "emortalmc"
+#  }
+#
+#  subject {
+#    kind = "ServiceAccount"
+#    name = "friend-manager"
+#  }
+#  subject {
+#    kind = "ServiceAccount"
+#    name = "private-message"
+#  }
+#  subject {
+#    kind = "ServiceAccount"
+#    name = "player-transporter"
+#  }
+#  subject {
+#    kind = "ServiceAccount"
+#    name = "gameserver"
+#  }
+#  subject {
+#    kind = "ServiceAccount"
+#    name = "matchmaker"
+#  }
+#
+#  role_ref {
+#    api_group = "rbac.authorization.k8s.io"
+#    kind      = "Role"
+#    name      = "pod-reader"
+#  }
+#}
 
 // Agones allocation creator role & binding
 
@@ -106,10 +106,12 @@ resource "kubernetes_role_binding" "allocation-creator-access" {
   subject {
     kind = "ServiceAccount"
     name = "server-discovery"
+    namespace = "emortalmc"
   }
   subject {
     kind = "ServiceAccount"
     name = "matchmaker"
+    namespace = "emortalmc"
   }
 
   role_ref {
@@ -132,6 +134,7 @@ resource "kubernetes_role_binding" "additional-agones-sdk-access" {
   subject {
     kind = "ServiceAccount"
     name = "default-gameserver"
+    namespace = "emortalmc"
   }
 
   role_ref {
@@ -169,6 +172,7 @@ resource "kubernetes_role_binding" "config-map-reader-access" {
   subject {
     kind = "ServiceAccount"
     name = "default-gameserver"
+    namespace = "emortalmc"
   }
 
   role_ref {

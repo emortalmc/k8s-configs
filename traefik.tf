@@ -8,53 +8,21 @@ locals {
 }
 
 resource "helm_release" "traefik" {
+  depends_on = [kubernetes_namespace.traefik, kubernetes_secret.cloudflare-api]
+
   name = "traefik"
   namespace = "traefik"
 
   repository = "https://traefik.github.io/charts"
   chart = "traefik"
 
-  create_namespace = true
   version = "24.0.0"
 
-  set {
-    name  = "certResolvers.cloudflare.email"
-    value = "certs@emortal.dev"
-  }
-  set {
-    name  = "certResolvers.cloudflare.dnsChallenge.provider"
-    value = "cloudflare"
-  }
-  set {
-    name  = "certResolvers.cloudflare.dnsChallenge.delayBeforeCheck"
-    value = "30"
-  }
-  set_list {
-    name  = "certResolvers.cloudflare.dnsChallenge.resolvers"
-    value = ["1.1.1.1", "8.8.8.8"]
-  }
-  set {
-    name  = "certResolvers.cloudflare.storage"
-    value = "/data/certs.json"
-  }
+  values = [file("${path.module}/values/traefik.yaml")]
 
   set {
-    name  = "logs.general.level"
-    value = "DEBUG"
-  }
-
-  set {
-    name  = "persistence.enabled"
-    value = "true"
-  }
-  set {
-    name  = "persistence.name"
-    value = "traefik"
-  }
-
-  set {
-    name  = "envFrom[0].secretRef.name"
-    value = "cloudflare-api"
+    name  = "nodeSelector.kubernetes\\.io/hostname"
+    value = local.primary_node
   }
 }
 

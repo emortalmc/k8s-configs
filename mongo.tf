@@ -19,7 +19,7 @@ resource "helm_release" "mongodb-operator" {
 }
 
 locals {
-  mongo_apps = toset(["permission-service", "relationship-manager", "mc-player-service", "player-tracker", "party-manager", "matchmaker"])
+  mongo_apps = toset(["permission-service", "relationship-manager", "mc-player-service", "player-tracker", "party-manager", "matchmaker", "game-tracker"])
 }
 
 // MongoDB credentials

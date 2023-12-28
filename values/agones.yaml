@@ -1,0 +1,28 @@
+gameservers:
+  namespaces:
+    - emortalmc
+
+agones:
+  allocator:
+    install: false # We don't use the external allocator service
+
+  ping:
+    install: false # If we enable this in the future we'll need to change the service type (that's a helm chart option)
+
+  metrics:
+    prometheusEnabled: true
+    prometheusServiceDiscovery: true
+    serviceMonitor:
+      interval: 10s
+
+  featureGates: PlayerTracking=true&PlayerAllocationFilter=true&FleetAllocationOverflow=true
+
+  controller:
+    allocationBatchWaitTime: 175ms
+
+  image:
+    sdk:
+      cpuRequest: 20m
+      cpuLimit: 30m
+      memoryRequest: 16Mi
+      memoryLimit: 32Mi

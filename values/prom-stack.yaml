@@ -1,0 +1,25 @@
+grafana:
+  persistence:
+    enabled: true
+
+  envFromConfigMaps:
+    - name: grafana-cloudflare-auth
+      optional: false
+
+  plugins:
+    - pyroscope-datasource
+    - pyroscope-panel
+
+prometheus-node-exporter:
+  prometheusSpec:
+    scrapeInterval: 10s
+
+# Allow PodMonitors and ServiceMonitors to be created in any namespace.
+prometheus:
+  prometheusSpec:
+    podMonitorNamespaceSelector:
+      matchLabels: {}
+    podMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorNamespaceSelector:
+      matchLabels: {}
+    serviceMonitorSelectorNilUsesHelmValues: false

@@ -34,36 +34,7 @@ resource "helm_release" "prom-stack" {
   chart      = "kube-prometheus-stack"
   version    = "46.6.0"
 
-  // We use values rather than set here because of the empty maps in the `prometheus` section
-  values = [
-    <<EOF
-grafana:
-  persistence:
-    enabled: true
-
-  envFromConfigMaps:
-    - name: grafana-cloudflare-auth
-      optional: false
-
-  plugins:
-    - pyroscope-datasource
-    - pyroscope-panel
-
-prometheus-node-exporter:
-  prometheusSpec:
-    scrapeInterval: 10s
-
-# Allow PodMonitors and ServiceMonitors to be created in any namespace.
-prometheus:
-  prometheusSpec:
-    podMonitorNamespaceSelector:
-      matchLabels: {}
-    podMonitorSelectorNilUsesHelmValues: false
-    serviceMonitorNamespaceSelector:
-      matchLabels: {}
-    serviceMonitorSelectorNilUsesHelmValues: false
-    EOF
-  ]
+  values = [file("${path.module}/values/prom-stack.yaml")]
 }
 
 // Monitors
@@ -263,23 +234,7 @@ resource "helm_release" "promtail" {
   repository = "https://grafana.github.io/helm-charts"
   chart      = "promtail"
 
-  // We use values rather than set here because of the empty maps in the `config` section
-  values = [
-    <<EOF
-loki:
-  serviceName: loki
-
-config:
-  snippets:
-    pipelineStages:
-      - cri: {}
-      - multiline:
-          firstline: '^\[\d{2}:\d{2}:?\d{2}\s\S+\]:? \[.*]'
-          max_wait_time: 3s
-          max_lines: 128
-      - pack: {}
-    EOF
-  ]
+  values = [file("${path.module}/values/promtail.yaml")]
 }
 
 // Pyroscope

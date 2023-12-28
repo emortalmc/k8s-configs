@@ -1,17 +1,23 @@
-provider "sops" {}
-
 // Secrets from SOPS
 
 data "sops_file" "secrets" {
   source_file = "secrets.enc.yaml"
 }
 
+resource "kubernetes_namespace" "traefik" {
+  metadata {
+    name = "traefik"
+  }
+}
+
 // Traefik Cloudflare API secrets
 
 resource "kubernetes_secret" "cloudflare-api" {
+  depends_on = [kubernetes_namespace.traefik]
+
   metadata {
     name      = "cloudflare-api"
-    namespace = "kube-system"
+    namespace = "traefik"
   }
 
   data = {

@@ -15,21 +15,6 @@ locals {
     "permission-service" = { path = "service", values_path = null },
     "relationship-manager" = { path = "service", values_path = null }
   }
-#  argo_apps = [
-#    { name = "battle", path = "server" },
-#    { name = "blocksumo", path = "server" },
-#    { name = "lazertag", path = "server" },
-#    { name = "lobby", path = "server" },
-#    { name = "minesweeper", path = "server" },
-#    { name = "parkourtag", path = "server" },
-#    { name = "velocity-core", path = "velocity", values_path = "values.yaml" },
-#    { name = "matchmaker", path = "service" },
-#    { name = "mc-player-service", path = "service" },
-#    { name = "message-handler", path = "service" },
-#    { name = "party-manager", path = "service" },
-#    { name = "permission-service", path = "service" },
-#    { name = "relationship-manager", path = "service" }
-#  ]
 }
 
 resource "helm_release" "argocd" {
@@ -42,58 +27,7 @@ resource "helm_release" "argocd" {
   create_namespace = true
   version          = "5.36.5"
 
-  set {
-    name  = "crds.install"
-    value = "false"
-  }
-  set {
-    name  = "crds.keep"
-    value = "true"
-  }
-
-  set {
-    name  = "global.revisionHistoryLimit"
-    value = "10"
-  }
-  set {
-    name  = "global.logging.format"
-    value = "json"
-  }
-
-  set {
-    name  = "configs.cm.admin\\.enabled"
-    value = "false"
-  }
-  set {
-    name  = "configs.cm.users\\.anonymous\\.enabled"
-    value = "true"
-  }
-  set {
-    name  = "configs.params.server\\.insecure"
-    value = "true"
-  }
-
-  set {
-    name  = "configs.rbac.policy\\.default"
-    value = "role:org-admin"
-  }
-  set {
-    name  = "configs.rbac.policy\\.csv"
-    value = <<EOF
-p, role:org-admin, applications, *, */*, allow
-p, role:org-admin, clusters, get, *, allow
-p, role:org-admin, clusters, update, *, allow
-p, role:org-admin, repositories, get, *, allow
-p, role:org-admin, repositories, create, *, allow
-p, role:org-admin, repositories, update, *, allow
-p, role:org-admin, repositories, delete, *, allow
-p, role:org-admin, projects, get, *, allow
-p, role:org-admin, projects, create, *, allow
-p, role:org-admin, projects, update, *, allow
-p, role:org-admin, projects, delete, *, allow
-p, role:org-admin, logs, get, *, allow
-    EOF
-  }
+  values = [file("${path.module}/values/argo.yaml")]
 }
 
 resource "kubernetes_manifest" "emortalmc-project" {
