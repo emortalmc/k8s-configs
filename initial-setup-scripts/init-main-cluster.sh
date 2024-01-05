@@ -2,7 +2,6 @@
 
 node_name=$1
 address=$2
-staging=$3
 
 token=$(head -c 1000 /dev/urandom | tr -dc 'a-zA-Z0-9~@^&*_-' | fold -w 128 | head -n 1)
 
@@ -15,12 +14,6 @@ verify_variable_provided() {
 
 verify_variable_provided "$node_name" "Node name"
 verify_variable_provided "$address" "Address"
-verify_variable_provided "$staging" "Staging"
-
-if [[ "$staging" != "true" ]] && [[ "$staging" != "false" ]]; then
-  echo "Staging must be 'true' or 'false'"
-  exit 1
-fi
 
 hostnamectl set-hostname "$node_name"
 
