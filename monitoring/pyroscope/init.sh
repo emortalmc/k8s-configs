@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-helm repo add pyroscope-io https://pyroscope-io.github.io/helm-chart
-helm repo update pyroscope-io
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update grafana
 
-helm install pyroscope-io pyroscope-io/pyroscope \
-  --values ./values.yaml \
-  -n pyroscope --create-namespace
+helm install pyroscope grafana/pyroscope \
+  --namespace monitoring \
+  --values ./values.yaml
 
 kubectl apply -f ./grafana-datasource.yaml
 kubectl apply -f ./config-maps.yaml

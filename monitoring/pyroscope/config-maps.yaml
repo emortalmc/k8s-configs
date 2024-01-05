@@ -6,4 +6,4 @@ metadata:
   name: pyroscope
 
 data:
-  address: "http://pyroscope-io.pyroscope.svc:4040"
+  address: "http://pyroscope-distributor.monitoring.svc.cluster.local:4040"

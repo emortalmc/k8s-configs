@@ -15,6 +15,6 @@ data:
         type: pyroscope-datasource
         access: proxy
         jsonData:
-          path: http://pyroscope-io.pyroscope.svc:4040
+          path: http://pyroscope.monitoring.svc.cluster.local:4040
         version: 1
         editable: false
