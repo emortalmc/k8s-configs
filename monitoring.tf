@@ -32,7 +32,7 @@ resource "helm_release" "prom-stack" {
 
   repository = "https://prometheus-community.github.io/helm-charts"
   chart      = "kube-prometheus-stack"
-  version    = "46.6.0"
+  version    = "55.5.2"
 
   values = [file("${path.module}/values/prom-stack.yaml")]
 }
@@ -240,22 +240,15 @@ resource "helm_release" "promtail" {
 // Pyroscope
 
 resource "helm_release" "pyroscope" {
-  name      = "pyroscope"
-  namespace = "pyroscope"
+  depends_on = [kubernetes_namespace.monitoring]
 
-  repository = "https://pyroscope-io.github.io/helm-chart"
+  name      = "pyroscope"
+  namespace = "monitoring"
+
+  repository = "https://grafana.github.io/helm-charts"
   chart      = "pyroscope"
 
-  create_namespace = true
-
-  set {
-    name  = "persistence.enabled"
-    value = "true"
-  }
-  set {
-    name  = "persistence.size"
-    value = "25Gi"
-  }
+  values = [file("${path.module}/values/pyroscope.yaml")]
 }
 
 resource "kubernetes_config_map" "pyroscope-grafana-datasource" {
@@ -273,13 +266,11 @@ resource "kubernetes_config_map" "pyroscope-grafana-datasource" {
     "datasource.yaml" = <<EOF
 apiVersion: 1
 datasources:
-  - name: Pyroscope
-    type: pyroscope-datasource
+  - name: "Pyroscope"
+    type: grafana-pyroscope-datasource
     access: proxy
-    jsonData:
-      path: http://pyroscope.pyroscope.svc:4040
+    url: http://pyroscope-query-frontend.monitoring.svc.cluster.local:4040
     version: 1
-    editable: false
     EOF
   }
 }
@@ -293,7 +284,7 @@ resource "kubernetes_config_map" "pyroscope-emortalmc" {
   }
 
   data = {
-    address = "http://pyroscope.pyroscope.svc:4040"
+    address = "http://pyroscope-distributor.monitoring.svc.cluster.local:4040"
   }
 }
 

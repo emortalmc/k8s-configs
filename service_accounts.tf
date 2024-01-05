@@ -25,6 +25,15 @@ resource "kubernetes_service_account" "mongodb-database" {
   }
 }
 
+resource "kubernetes_service_account" "emortalbot" {
+  depends_on = [kubernetes_namespace.emortalmc]
+
+  metadata {
+    name      = "emortalbot"
+    namespace = "emortalmc"
+  }
+}
+
 // Pod reader role & binding
 
 #resource "kubernetes_role" "pod-reader" {
@@ -50,18 +59,6 @@ resource "kubernetes_service_account" "mongodb-database" {
 #    namespace = "emortalmc"
 #  }
 #
-#  subject {
-#    kind = "ServiceAccount"
-#    name = "friend-manager"
-#  }
-#  subject {
-#    kind = "ServiceAccount"
-#    name = "private-message"
-#  }
-#  subject {
-#    kind = "ServiceAccount"
-#    name = "player-transporter"
-#  }
 #  subject {
 #    kind = "ServiceAccount"
 #    name = "gameserver"
@@ -172,6 +169,11 @@ resource "kubernetes_role_binding" "config-map-reader-access" {
   subject {
     kind = "ServiceAccount"
     name = "default-gameserver"
+    namespace = "emortalmc"
+  }
+  subject {
+    kind = "ServiceAccount"
+    name = "emortalbot"
     namespace = "emortalmc"
   }
 

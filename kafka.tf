@@ -55,6 +55,12 @@ resource "kubernetes_manifest" "kafka" {
             port = 9092
             type = "internal"
             tls  = false
+          },
+          {
+            name = "tls"
+            port = 9093
+            type = "internal"
+            tls  = true
           }
         ]
 
