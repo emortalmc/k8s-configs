@@ -11,10 +11,8 @@ data:
   datasource.yaml: |-
     apiVersion: 1
     datasources:
-      - name: Pyroscope
-        type: pyroscope-datasource
+      - name: "Pyroscope"
+        type: grafana-pyroscope-datasource
         access: proxy
-        jsonData:
-          path: http://pyroscope.monitoring.svc.cluster.local:4040
+        url: http://pyroscope-query-frontend.monitoring.svc.cluster.local:4040
         version: 1
-        editable: false
