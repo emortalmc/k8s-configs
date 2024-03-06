@@ -1,6 +1,6 @@
 {
   "id": "lazertag",
-  "enabled": true,
+  "enabled": false,
   "fleetName": "lazertag",
 
   "priority": 110,

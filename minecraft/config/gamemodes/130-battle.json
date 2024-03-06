@@ -1,6 +1,6 @@
 {
   "id": "battle",
-  "enabled": true,
+  "enabled": false,
   "fleetName": "battle",
 
   "priority": 130,
