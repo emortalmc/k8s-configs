@@ -94,6 +94,17 @@
         "material": "minecraft:mossy_cobblestone",
         "name": "<green><bold>Ruins</bold></green>"
       }
+    },
+    "deepdark": {
+      "id": "deepdark",
+      "enabled": true,
+      "friendlyName": "Deep Dark",
+      "priority": 100,
+      "displayItem": {
+        "slot": 5,
+        "material": "minecraft:sculk_sensor",
+        "name": "<blue><bold>Sculk Sensor</bold></blue>"
+      }
     }
   },
 
