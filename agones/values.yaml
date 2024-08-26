@@ -15,8 +15,6 @@ agones:
     serviceMonitor:
       interval: 10s
 
-  featureGates: PlayerTracking=true&PlayerAllocationFilter=true&FleetAllocationOverflow=true
-
   controller:
     allocationBatchWaitTime: 175ms
 

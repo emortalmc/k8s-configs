@@ -21,7 +21,7 @@ run_init_script mongodb
 # Setup monitoring tools
 run_init_script monitoring
 
-# Install Redis - disabled for now
+# Install Redis - disabled for now as nothing uses Redis
 #run_init_script redis
 
 # Reposilite
