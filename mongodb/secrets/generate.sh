@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-services=("permission-service" "relationship-manager" "mc-player-service" "player-tracker" "party-manager" "matchmaker" "game-tracker")
+services=("permission-service" "relationship-manager" "mc-player-service" "player-tracker" "party-manager" "matchmaker" "game-tracker" "game-player-data")
 
 for service in "${services[@]}"
 do

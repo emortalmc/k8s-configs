@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 servers=("battle" "blocksumo" "lazertag" "lobby" "marathon" "minesweeper" "parkourtag" "tower-defence")
-services=("matchmaker" "mc-player-service" "message-handler" "party-manager" "permission-service" "relationship-manager" "game-tracker")
+services=("matchmaker" "mc-player-service" "message-handler" "party-manager" "permission-service" "relationship-manager" "game-tracker" "game-player-data")
 
 file=""
 if [ "$STAGING" == "true" ]; then

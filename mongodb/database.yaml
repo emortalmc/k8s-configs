@@ -91,5 +91,14 @@ spec:
           name: readWrite
       scramCredentialsSecretName: game-tracker
 
+    - name: game-player-data
+      db: game-player-data
+      passwordSecretRef:
+        name: game-player-data-db-creds
+      roles:
+        - db: game-player-data
+          name: readWrite
+      scramCredentialsSecretName: game-player-data
+
   additionalMongodConfig:
     storage.wiredTiger.engineConfig.journalCompressor: zlib
