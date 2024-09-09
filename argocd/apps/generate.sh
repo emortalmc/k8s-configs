@@ -31,3 +31,6 @@ done
 
 # Velocity has its own Helm chart
 generate "$file" "velocity-core" "velocity" "values.yaml"
+
+# Edge has its own Helm chart
+generate "$file" "minestom-edge" "edge" "values.yaml"
