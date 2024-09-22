@@ -32,3 +32,6 @@ run_init_script 00-serviceAccounts
 
 # Modify Traefik and install routes
 run_init_script traefik
+
+# Install Tailscale
+run_init_script tailscale
