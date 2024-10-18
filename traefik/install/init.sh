@@ -16,7 +16,7 @@ sops --decrypt cloudflare-creds.enc.yaml | kubectl apply -f -
 helm repo add traefik https://traefik.github.io/charts
 helm repo update traefik
 
-helm install traefik traefik/traefik --version 24.0.0 \
+helm install traefik traefik/traefik --version 32.1.1 \
   -n traefik --create-namespace \
   --values values.yaml \
   --set nodeSelector."kubernetes\.io/hostname=$primary_node"

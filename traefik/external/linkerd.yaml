@@ -31,7 +31,7 @@ spec:
   forwardAuth:
     # Replace <AUD> with your Cloudflare Access application audience.
     # address: http://<service-name>.<namespace>.svc.cluster.local/<aud>
-    address: http://kani.traefik.svc.cluster.local/{{aud}}
+    address: http://kani.traefik.svc.cluster.local/{{audience}}
 
     # Optionally you can forward the authenticated user's email (or common name) to the backend.
     authResponseHeaders:

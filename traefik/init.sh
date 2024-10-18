@@ -8,5 +8,5 @@ run_script external generate.sh
 
 # Install external routes
 if [ "$STAGING" == "false" ]; then
-  kubectl apply -f ./external/reposilite.yaml
+  sed "s|{{host}}|emortal.dev|g" "./external/reposilite.yaml" | kubectl apply -f -
 fi
