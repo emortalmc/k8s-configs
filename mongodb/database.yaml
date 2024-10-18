@@ -8,25 +8,35 @@ metadata:
 spec:
   members: 1
   type: ReplicaSet
-  version: "6.0.6"
+  version: "8.0.1"
 
   security:
     authentication:
       modes: ["SCRAM"]
 
+  statefulSet:
+    spec:
+      volumeClaimTemplates:
+        - metadata:
+            name: data-volume
+          spec:
+            resources:
+              requests:
+                storage: 50Gi
+
   users:
-#    - name: mongodb
-#      db: admin
-#      passwordSecretRef:
-#        name: mongodb-master-password
-#      roles:
-#        - db: admin
-#          name: clusterAdmin
-#        - db: admin
-#          name: userAdminAnyDatabase
-#        - db: admin
-#          name: readWriteAnyDatabase
-#      scramCredentialsSecretName: mongodb
+    - name: mongodb
+      db: admin
+      passwordSecretRef:
+        name: mongodb-master-password
+      roles:
+        - db: admin
+          name: clusterAdmin
+        - db: admin
+          name: userAdminAnyDatabase
+        - db: admin
+          name: readWriteAnyDatabase
+      scramCredentialsSecretName: mongodb
 
     - name: permission-service
       db: permission-service

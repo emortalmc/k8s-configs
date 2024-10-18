@@ -3,6 +3,7 @@
 # Set fs.inotify.max_user_instances (default is 128) to prevent "too many open files" error
 echo "fs.inotify.max_user_instances=8192" >> /etc/sysctl.conf
 echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf
+echo "vm.max_map_count=1677720" >> /etc/sysctl.conf # Recommended by MongoDB
 sysctl -p # Update sysctl
 
 # Install Helm

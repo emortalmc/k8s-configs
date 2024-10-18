@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 helm upgrade mongodb-operator mongodb/community-operator \
-  --version 0.8.0 \
+  --version 0.11.0 \
   --values values.yaml \
   -n mongodb
 

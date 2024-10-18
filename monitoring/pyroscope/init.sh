@@ -5,6 +5,7 @@ helm repo update grafana
 
 helm install pyroscope grafana/pyroscope \
   --namespace monitoring \
+  --version 1.9.1 \
   --values ./values.yaml
 
 kubectl apply -f ./grafana-datasource.yaml
