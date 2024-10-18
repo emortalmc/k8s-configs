@@ -3,10 +3,10 @@
 helm repo add argo https://argoproj.github.io/argo-helm
 helm repo update argo
 
-kubectl apply -k "https://github.com/argoproj/argo-cd/manifests/crds?ref=v2.7.4"
+kubectl apply -k "https://github.com/argoproj/argo-cd/manifests/crds?ref=v2.12.5"
 
 helm install argocd argo/argo-cd \
-  --values ./values.yaml --version 5.36.1 \
+  --values ./values.yaml --version 7.6.11 \
   -n argocd --create-namespace
 
 kubectl apply -f ./emortalmc-project.yaml
