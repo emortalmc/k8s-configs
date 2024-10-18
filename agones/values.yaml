@@ -20,7 +20,7 @@ agones:
 
   image:
     sdk:
-      cpuRequest: 20m
+      cpuRequest: 10m
       cpuLimit: 30m
-      memoryRequest: 16Mi
+      memoryRequest: 12Mi
       memoryLimit: 32Mi
