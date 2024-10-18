@@ -13,7 +13,7 @@ pyroscope:
           memory: 1Gi
         requests:
           memory: 256Mi
-          cpu: 1
+          cpu: 200m
     query-frontend:
       kind: Deployment
       replicaCount: 2
@@ -22,7 +22,7 @@ pyroscope:
           memory: 1Gi
         requests:
           memory: 256Mi
-          cpu: 100m
+          cpu: 50m
     query-scheduler:
       kind: Deployment
       replicaCount: 2
@@ -31,7 +31,7 @@ pyroscope:
           memory: 1Gi
         requests:
           memory: 256Mi
-          cpu: 100m
+          cpu: 50m
     distributor:
       kind: Deployment
       replicaCount: 2
@@ -40,17 +40,17 @@ pyroscope:
           memory: 1Gi
         requests:
           memory: 256Mi
-          cpu: 500m
+          cpu: 200m
     ingester:
       kind: StatefulSet
       replicaCount: 1
       terminationGracePeriodSeconds: 600
       resources:
         limits:
-          memory: 6Gi
+          memory: 4Gi
         requests:
-          memory: 2Gi
-          cpu: 1
+          memory: 1Gi
+          cpu: 200m
     compactor:
       kind: StatefulSet
       replicaCount: 1
@@ -58,10 +58,10 @@ pyroscope:
         enabled: false
       resources:
         limits:
-          memory: 8Gi
-        requests:
           memory: 4Gi
-          cpu: 1
+        requests:
+          memory: 2Gi
+          cpu: 100m
     store-gateway:
       kind: StatefulSet
       replicaCount: 1
@@ -71,10 +71,10 @@ pyroscope:
         enabled: false
       resources:
         limits:
-          memory: 8Gi
-        requests:
           memory: 4Gi
-          cpu: 1
+        requests:
+          memory: 2Gi
+          cpu: 100m
       readinessProbe:
         # The store gateway can be configured to wait on startup for ring stability to be reached before it becomes
         # ready. See the `store-gateway.sharding-ring.wait-stability-min-duration` server argument for more information.
@@ -90,7 +90,7 @@ pyroscope:
           memory: 1Gi
         requests:
           memory: 256Mi
-          cpu: 1
+          cpu: 50m
 
 minio:
   enabled: true
