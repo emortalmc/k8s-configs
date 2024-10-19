@@ -12,7 +12,7 @@ function run_init_script {
 
 function run_script_in_line {
   cd "$1" || exit
-  source . "$2"
+  . "$2"
   cd ..
 }
 
