@@ -10,6 +10,9 @@ else
   exit 1
 fi
 
+# Create namespace before helm chart so we can install the Cloudflare credentials
+kubectl create namespace traefik
+
 # Requires SOPS and age installed and the private key setup properly to work
 sops --decrypt cloudflare-creds.enc.yaml | kubectl apply -f -
 
@@ -17,7 +20,7 @@ helm repo add traefik https://traefik.github.io/charts
 helm repo update traefik
 
 helm install traefik traefik/traefik --version 32.1.1 \
-  -n traefik --create-namespace \
+  -n traefik \
   --values values.yaml \
   --set nodeSelector."kubernetes\.io/hostname=$primary_node"
 
