@@ -32,4 +32,4 @@ curl -sfL https://get.k3s.io | K3S_TOKEN="$token" sh -s - server \
 source ~/.bashrc # Reload the bashrc file to get the KUBECONFIG variable from init-common.sh
 source ./utils.sh
 
-run_init_script linkerd
+run_init_script_in_line linkerd
