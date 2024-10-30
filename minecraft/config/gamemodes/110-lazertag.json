@@ -13,7 +13,7 @@
 
   "displayItem": {
     "material": "minecraft:netherite_hoe",
-    "slot": 11,
+    "slot": 21,
     "name": "<gradient:gold:yellow><bold>LazerTag</bold></gradient>",
     "lore": [
       "<gray>Battle it out with weird and wacky guns.",

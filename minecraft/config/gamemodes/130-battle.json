@@ -13,7 +13,7 @@
 
   "displayItem": {
     "material": "minecraft:iron_sword",
-    "slot": 24,
+    "slot": 19,
     "name": "<gradient:#ffc34d:#ffaa00><bold>Battle</bold></gradient>",
     "lore": [
       "<gray>The console survival games experience.</gray>",
