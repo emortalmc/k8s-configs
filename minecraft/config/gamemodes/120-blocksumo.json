@@ -13,7 +13,7 @@
 
   "displayItem": {
     "material": "minecraft:fire_charge",
-    "slot": 22,
+    "slot": 10,
     "name": "<gradient:blue:aqua><bold>Block Sumo</bold></gradient>",
     "lore": [
       "<gray>Fight other players",

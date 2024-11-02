@@ -13,7 +13,7 @@
 
   "displayItem": {
     "material": "minecraft:grass_block",
-    "slot": 13,
+    "slot": 16,
     "name": "<red><bold>Marathon</bold></red>",
     "lore": [
       "<gray>An infinitely generating,",

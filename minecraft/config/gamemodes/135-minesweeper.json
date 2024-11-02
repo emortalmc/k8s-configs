@@ -13,7 +13,7 @@
 
   "displayItem": {
     "material": "minecraft:tnt",
-    "slot": 34,
+    "slot": 14,
     "name": "<green><bold>Minesweeper</bold></green>",
     "lore": [
       "<gray>Try not to anger your friends",

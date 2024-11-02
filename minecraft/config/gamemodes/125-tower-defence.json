@@ -13,10 +13,10 @@
 
   "$UNUSED_displayItem": {
     "material": "minecraft:totem_of_undying",
-    "slot": 20,
+    "slot": 23,
     "name": "<gradient:#ffb70f:#ffcd17:#ffb70f><bold>TowerDefence</bold></gradient>",
     "lore": [
-      "<gray>Towerdefence is a fast-paced PvP game where</gray>",
+      "<gray>Tower Defence is a fast-paced PvP game where</gray>",
       "<gray>quick reflexes and strategic tower building</gray>",
       "<gray>are essential to fend off enemy mobs and stay</gray>",
       "<gray>ahead of the competition.</gray>"
