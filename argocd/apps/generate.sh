@@ -34,3 +34,6 @@ generate "$file" "velocity-core" "velocity" "values.yaml"
 
 # Edge has its own Helm chart
 generate "$file" "minestom-edge" "edge" "values.yaml"
+
+# Previously configured in k8s-configs, now moved to Argo deployment
+generate "$file" "gamemode-config" "gamemode-config" "values.yaml"

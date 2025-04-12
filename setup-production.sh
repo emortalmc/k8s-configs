@@ -12,9 +12,6 @@ run_init_script argocd
 # Install Kafka
 run_init_script kafka
 
-# Install game mode configs
-run_init_script minecraft
-
 # Install MongoDB
 run_init_script mongodb
 

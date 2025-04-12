@@ -15,6 +15,7 @@ echo "
 # EmortalMC Additions Start
 export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 # EmortalMC Additions End" >> ~/.bashrc
+KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 
 source ~/.bashrc
 
