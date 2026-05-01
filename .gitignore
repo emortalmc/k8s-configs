@@ -119,3 +119,6 @@ gradle-app.setting
 
 # Custom folders
 /secrets
+kubeconfig
+.envrc
+_v2/.terraform
