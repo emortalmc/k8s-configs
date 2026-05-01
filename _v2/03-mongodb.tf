@@ -1,16 +1,3 @@
-locals {
-  services = [
-    "permission-service",
-    "relationship-manager",
-    "mc-player-service",
-    "player-tracker",
-    "party-manager",
-    "matchmaker",
-    "game-tracker",
-    "game-player-data",
-  ]
-}
-
 resource "kubernetes_namespace" "mongodb" {
   metadata {
     name = "mongodb"
@@ -45,13 +32,13 @@ resource "helm_release" "mongodb" {
 # Service passwords
 
 resource "random_password" "service_db" {
-  for_each = toset(local.services)
+  for_each = toset(local.db_services)
   length   = 64
   special  = false
 }
 
 resource "kubernetes_secret" "service_db_creds" {
-  for_each = toset(local.services)
+  for_each = toset(local.db_services)
 
   metadata {
     name      = "${each.key}-db-creds"
@@ -146,7 +133,7 @@ resource "kubernetes_manifest" "mongodb_main" {
           }
         ],
         [
-          for service in local.services : {
+          for service in local.db_services : {
             name = service
             db   = service
             passwordSecretRef = {

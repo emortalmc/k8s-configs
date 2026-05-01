@@ -4,7 +4,7 @@ Migration progress:
 - [x] 00-humanAccounts (DELETED)
 - [x] 00-serviceAccounts
 - [x] agones folder
-- [ ] argocd folder
+- [x] argocd folder
 - [ ] kafka folder
 - [ ] linkerd folder
 - [x] mongodb folder
