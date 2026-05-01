@@ -5,7 +5,7 @@ Migration progress:
 - [x] 00-serviceAccounts
 - [x] agones folder
 - [x] argocd folder
-- [ ] kafka folder
+- [x] kafka folder
 - [ ] linkerd folder
 - [x] mongodb folder
 - [ ] monitoring folder
