@@ -1,0 +1,14 @@
+Migration progress:
+- [x] agones folder
+- [ ] argocd folder
+- [ ] kafka folder
+- [ ] linkerd folder
+- [x] mongodb folder
+- [ ] monitoring folder
+- [ ] nats folder
+- [ ] redis folder
+- [ ] reposilite folder
+- [ ] sshKeys folder
+- [ ] tailscale folder
+- [ ] traefik folder
+- [ ] other misc items in init-agent/comon/main-cluster

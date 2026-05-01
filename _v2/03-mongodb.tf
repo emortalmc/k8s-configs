@@ -17,28 +17,30 @@ resource "kubernetes_namespace" "mongodb" {
   }
 }
 
-# resource "helm_release" "mongodb" {
-#   name       = "mongodb-operator"
-#   repository = "https://mongodb.github.io/helm-charts"
-#   chart      = "community-operator"
-#   namespace  = kubernetes_namespace.mongodb.metadata[0].name
-#   version    = "0.11.0"
-#
-#   # We create it manually above
-#   create_namespace = false
-#
-#   values = [
-#     yamlencode({
-#       operator = {
-#         watchNamespace = "emortalmc"
-#       }
-#     })
-#   ]
-#
-#   wait    = true
-#   atomic  = true
-#   timeout = 120 # 2 minutes
-# }
+resource "helm_release" "mongodb" {
+  name       = "mongodb-operator"
+  repository = "https://mongodb.github.io/helm-charts"
+  chart      = "community-operator"
+  namespace  = kubernetes_namespace.mongodb.metadata[0].name
+  version    = "0.11.0"
+
+  # We create it manually above
+  create_namespace = false
+
+  values = [
+    yamlencode({
+      operator = {
+        watchNamespace = "emortalmc"
+      }
+    })
+  ]
+
+  wait    = true
+  atomic  = true
+  timeout = 120 # 2 minutes
+
+  depends_on = [kubernetes_namespace.emortalmc]
+}
 
 # Service passwords
 
@@ -165,6 +167,7 @@ resource "kubernetes_manifest" "mongodb_main" {
   }
 
   depends_on = [
+    helm_release.mongodb,
     kubernetes_secret.mongodb_master_password,
     kubernetes_secret.service_db_creds,
   ]
