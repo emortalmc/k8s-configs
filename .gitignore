@@ -121,5 +121,5 @@ gradle-app.setting
 /secrets
 kubeconfig
 .envrc
-_v2/.terraform
+_v2/02-terraform/.terraform
 *secrets.yaml
