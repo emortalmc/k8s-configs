@@ -170,7 +170,7 @@ resource "kubernetes_manifest" "kani_linkerd_middleware" {
 
     metadata = {
       name      = "kani-linkerd-middleware"
-      namespace = "linkerd"
+      namespace = "linkerd-viz"
     }
 
     spec = {
@@ -194,13 +194,13 @@ resource "kubernetes_manifest" "l5d_header_middleware" {
 
     metadata = {
       name      = "l5d-header"
-      namespace = "linkerd"
+      namespace = "linkerd-viz"
     }
 
     spec = {
       headers = {
         customRequestHeaders = {
-          Host   = "web.linkerd.svc.cluster.local:8084"
+          Host   = "web.linkerd-viz.svc.cluster.local:8084"
           Origin = ""
         }
       }
@@ -220,7 +220,7 @@ resource "kubernetes_manifest" "l5d_ingress_route" {
 
     metadata = {
       name      = "l5d-ingress"
-      namespace = "linkerd"
+      namespace = "linkerd-viz"
     }
 
     spec = {

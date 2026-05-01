@@ -10,7 +10,6 @@ Migration progress:
 - [x] mongodb folder
 - [ ] monitoring folder
 - [x] reposilite folder
-- [ ] sshKeys folder
 - [x] tailscale folder
 - [x] traefik folder
 - [ ] other misc items in init-agent/common/main-cluster
