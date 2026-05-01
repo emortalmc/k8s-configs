@@ -11,6 +11,6 @@ Migration progress:
 - [ ] monitoring folder
 - [x] reposilite folder
 - [ ] sshKeys folder
-- [ ] tailscale folder
-- [ ] traefik folder
-- [ ] other misc items in init-agent/comon/main-cluster
+- [x] tailscale folder
+- [x] traefik folder
+- [ ] other misc items in init-agent/common/main-cluster

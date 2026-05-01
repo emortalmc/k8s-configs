@@ -8,6 +8,12 @@ variable "kubeconfig_context" {
   type = string
 }
 
+variable "base_domain" {
+  description = "Base domain"
+  type        = string
+  default     = "emortal.dev"
+}
+
 # End-applications (Services/Servers/Extras)
 
 variable "services" {
