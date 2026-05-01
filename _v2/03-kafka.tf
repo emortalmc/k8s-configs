@@ -9,7 +9,7 @@ resource "helm_release" "strimzi" {
   repository = "https://strimzi.io/charts/"
   chart      = "strimzi-kafka-operator"
   namespace  = kubernetes_namespace.strimzi.metadata[0].name
-  version    = "0.51.0" # TODO update to 1.0.0, requires many CRD conversions
+  version    = "0.51.0" # TODO update to 1.0.0, requires many CRD conversions (have added v1 CRDs to the cluster)
 
   create_namespace = false
 
