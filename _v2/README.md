@@ -1,13 +1,15 @@
+
+
 Migration progress:
+- [x] 00-humanAccounts (DELETED)
+- [x] 00-serviceAccounts
 - [x] agones folder
 - [ ] argocd folder
 - [ ] kafka folder
 - [ ] linkerd folder
 - [x] mongodb folder
 - [ ] monitoring folder
-- [ ] nats folder
-- [ ] redis folder
-- [ ] reposilite folder
+- [x] reposilite folder
 - [ ] sshKeys folder
 - [ ] tailscale folder
 - [ ] traefik folder
